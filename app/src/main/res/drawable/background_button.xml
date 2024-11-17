@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/design_default_color_primary_dark"> <!-- Warna ripple bisa disesuaikan -->
+    <item>
+        <shape>
+            <solid android:color="#AEBEB0"/>
+            <corners android:radius="1000dp"/>
+        </shape>
+    </item>
+</ripple>

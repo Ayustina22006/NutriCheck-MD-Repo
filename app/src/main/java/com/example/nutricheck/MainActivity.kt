@@ -1,11 +1,13 @@
 package com.example.nutricheck
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.nutricheck.databinding.ActivityMainBinding
+import com.example.nutricheck.ui.scan.CameraActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -57,8 +59,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        // Pindah ke CameraActivity ketika tombol scan ditekan
         binding.scanButton.setOnClickListener {
-            navController.navigate(R.id.navigation_scan)
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
         }
     }
 
