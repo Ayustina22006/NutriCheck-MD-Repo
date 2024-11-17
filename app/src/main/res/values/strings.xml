@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NutriCheck</string>
+    <string name="tittle_pedia">NutriPedia</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile\n</string>
+    <string name="title_camera">Scan</string>
+    <string name="title_history">History\n</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_pedia">NutriPedia</string>
+    <string name="title_scan">Scan</string>
+</resources>
