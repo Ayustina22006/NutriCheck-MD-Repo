@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#1A4720" />
+                </shape>
+            </item>
+            <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+                <shape android:shape="oval">
+                    <solid android:color="#FFFFFF" /> <!-- Warna putih -->
+                </shape>
+            </item>
+            <item android:top="13dp" android:bottom="13dp" android:left="13dp" android:right="13dp">
+                <shape android:shape="oval">
+                    <solid android:color="#1A4720" /> <!-- Warna hijau lebih gelap -->
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#376A3E" /> <!-- Warna hijau -->
+                </shape>
+            </item>
+
+            <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+                <shape android:shape="oval">
+                    <solid android:color="#FFFFFF" /> <!-- Warna putih -->
+                </shape>
+            </item>
+
+            <!-- Lapisan lingkaran hijau di tengah -->
+            <item android:top="13dp" android:bottom="13dp" android:left="13dp" android:right="13dp">
+                <shape android:shape="oval">
+                    <solid android:color="#376A3E" /> <!-- Warna hijau -->
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

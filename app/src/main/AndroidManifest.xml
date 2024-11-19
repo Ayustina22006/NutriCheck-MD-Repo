@@ -19,6 +19,15 @@
         android:theme="@style/Theme.NutriCheck"
         tools:targetApi="31">
         <activity
+            android:name=".auth.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.scan.CameraActivity"
             android:exported="false" />
         <activity

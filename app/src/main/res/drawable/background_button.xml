@@ -3,7 +3,7 @@
     android:color="@color/design_default_color_primary_dark"> <!-- Warna ripple bisa disesuaikan -->
     <item>
         <shape>
-            <solid android:color="#AEBEB0"/>
+            <solid android:color="#376A3E"/>
             <corners android:radius="1000dp"/>
         </shape>
     </item>

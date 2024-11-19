@@ -9,5 +9,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_pedia">NutriPedia</string>
     <string name="title_scan">Scan</string>
-    <string name="kamera">Kamera</string>
+    <string name="Camera">Camera</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up.</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="enter_your_password">Enter your password...</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="username">Username</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

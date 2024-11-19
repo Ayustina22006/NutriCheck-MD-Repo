@@ -1,20 +1,18 @@
 package com.example.nutricheck.ui.scan
 
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.annotation.OptIn
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.example.nutricheck.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -22,25 +20,67 @@ class CameraActivity : AppCompatActivity() {
 
     private lateinit var previewView: PreviewView
     private lateinit var cameraExecutor: ExecutorService
-    private lateinit var imageAnalyzer: ImageAnalysis
+    private val cameraViewModel: CameraViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        // Inisialisasi komponen UI
         previewView = findViewById(R.id.previewView)
         val btnCapture = findViewById<ImageButton>(R.id.Capture)
 
-        // Inisialisasi Executor untuk CameraX
+        // Executor CameraX
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        // Mulai kamera
-        startCamera()
+        // Observasi LiveData dari ViewModel
+        observeViewModel()
 
-        // Tombol Capture untuk testing (optional)
+        // Cek dan minta izin kamera
+        checkCameraPermission()
+
         btnCapture.setOnClickListener {
             Toast.makeText(this, "Scanning in progress", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun observeViewModel() {
+        // Observasi hasil OCR
+        cameraViewModel.ocrResult.observe(this, Observer { text ->
+            Toast.makeText(this, "Recognized Text: $text", Toast.LENGTH_LONG).show()
+        })
+
+        // Observasi pesan error
+        cameraViewModel.errorMessage.observe(this, Observer { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.CAMERA),
+                101
+            )
+        } else {
+            startCamera()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 101) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCamera()
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -50,61 +90,29 @@ class CameraActivity : AppCompatActivity() {
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
 
-            // Preview use case
             val preview = Preview.Builder().build().also {
-                it.setSurfaceProvider(previewView.surfaceProvider)
+                it.surfaceProvider = previewView.surfaceProvider
             }
 
-            // Image Analysis use case
-            imageAnalyzer = ImageAnalysis.Builder()
+            val imageAnalyzer = ImageAnalysis.Builder()
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build().also {
-                    it.setAnalyzer(cameraExecutor, { imageProxy ->
-                        processImageProxy(imageProxy)
+                .build().also { analysis ->
+                    analysis.setAnalyzer(cameraExecutor, { imageProxy ->
+                        cameraViewModel.processImage(imageProxy) // Panggil ViewModel
                     })
                 }
 
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
             try {
-                // Unbind semua use case sebelum rebinding
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
-                    this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageAnalyzer
+                    this, cameraSelector, preview, imageAnalyzer
                 )
             } catch (e: Exception) {
-                Log.e("CameraX", "Failed to bind use cases", e)
+                e.printStackTrace()
             }
         }, ContextCompat.getMainExecutor(this))
-    }
-
-    @OptIn(ExperimentalGetImage::class)
-    private fun processImageProxy(imageProxy: ImageProxy) {
-        try {
-            val mediaImage = imageProxy.image
-            if (mediaImage != null) {
-                val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-
-                // OCR menggunakan ML Kit Text Recognition
-                val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-                recognizer.process(image)
-                    .addOnSuccessListener { visionText ->
-                        // Sukses: Proses teks yang dikenali
-                        Log.d("CameraX-Scan", "Recognized text: ${visionText.text}")
-                    }
-                    .addOnFailureListener { e ->
-                        // Gagal
-                        Log.e("CameraX-Scan", "Text recognition failed", e)
-                    }
-                    .addOnCompleteListener {
-                        // Tutup image untuk memungkinkan frame berikutnya dianalisis
-                        imageProxy.close()
-                    }
-            } else {
-                imageProxy.close()
-            }
-        } catch (e: Exception) {
-            Log.e("CameraX-Scan", "Error processing image", e)
-            imageProxy.close()
-        }
     }
 
     override fun onDestroy() {
