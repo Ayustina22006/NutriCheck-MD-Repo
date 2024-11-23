@@ -31,7 +31,7 @@
         android:layout_gravity="bottom"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="10dp"
-        android:background="@drawable/rounded_bottom_bar">
+        android:background="@color/bottom_nav_background">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
@@ -49,9 +49,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/camera__1_"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/_2_fullscreen"
         app:backgroundTint="#376A3E"
+        app:tint="@android:color/white"
         android:elevation="8dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

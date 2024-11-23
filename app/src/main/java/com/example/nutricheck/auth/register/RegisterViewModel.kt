@@ -11,25 +11,23 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterViewModel : ViewModel() {
-    private val _registerResult = MutableLiveData<String>() // Untuk menyimpan hasil registrasi
+    private val _registerResult = MutableLiveData<String>()
     val registerResult: LiveData<String> = _registerResult
 
     fun registerUser(username: String, email: String, password: String, confirmPassword: String) {
-        // Validasi konfirmasi password
         if (password != confirmPassword) {
             _registerResult.postValue("Password and Confirm Password do not match.")
             return
         }
 
-        // Lakukan panggilan API untuk registrasi
         val apiService = ApiConfig.getApiService()
         val userRequest = UserRequest(username, email, password)
 
         apiService.registerUser(userRequest).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                if (response.isSuccessful) {
-                    val message = response.body()?.message ?: "Registration successful!"
-                    _registerResult.postValue(message) // Mengirimkan hasil ke LiveData
+                if (response.isSuccessful && response.body()?.status == 201) { // Sesuaikan dengan respons API
+                    val message = response.body()?.message ?: "Register Succesfully"
+                    _registerResult.postValue(message)
                 } else {
                     _registerResult.postValue("Registration failed: ${response.message()}")
                 }
@@ -41,3 +39,4 @@ class RegisterViewModel : ViewModel() {
         })
     }
 }
+

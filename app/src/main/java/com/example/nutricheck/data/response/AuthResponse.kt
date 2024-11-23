@@ -11,6 +11,5 @@ data class DataItem(
 	val id: String? = null,
 	val email: String? = null,
 	val username: String? = null,
-	val useername: String? = null
 )
 

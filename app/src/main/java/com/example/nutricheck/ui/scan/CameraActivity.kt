@@ -1,5 +1,6 @@
 package com.example.nutricheck.ui.scan
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ImageButton
@@ -13,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.nutricheck.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -22,6 +24,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private val cameraViewModel: CameraViewModel by viewModels()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
@@ -41,6 +44,7 @@ class CameraActivity : AppCompatActivity() {
         btnCapture.setOnClickListener {
             Toast.makeText(this, "Scanning in progress", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun observeViewModel() {

@@ -1,9 +1,11 @@
 package com.example.nutricheck.data.retrofit
 
+import com.example.nutricheck.data.response.ArticleResponse
 import com.example.nutricheck.data.response.RegisterResponse
 import com.example.nutricheck.data.response.UserRequest
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -11,4 +13,8 @@ interface ApiService {
     fun registerUser(
         @Body userRequest: UserRequest
     ): Call<RegisterResponse>
+
+    @GET("news")
+    fun getNews(): Call<ArticleResponse>
+
 }

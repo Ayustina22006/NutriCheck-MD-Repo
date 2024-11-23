@@ -5,4 +5,7 @@
     <color name="fab_color">#FF6200EE</color>
     <color name="transparant_black">#a1000000</color>"
     <color name="prymary_color">#376A3E</color>
+    <color name="bottom_nav_background">#D4E8D0</color>
+    <color name="pastel_green_dark1">#7BB893</color>
+
 </resources>

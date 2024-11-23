@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/welcomeFragment1">
+
+    <fragment
+        android:id="@+id/welcomeFragment1"
+        android:name="com.example.nutricheck.ui.onboarding.welcomefragment.WelcomeFragment1"
+        android:label="WelcomeFragment1"
+        tools:layout="@layout/fragment_welcome1">
+        <action
+            android:id="@+id/action_welcomeFragment1_to_welcomeFragment2"
+            app:destination="@id/welcomeFragment2" />
+        <action
+            android:id="@+id/action_welcomeFragment1_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomeFragment2"
+        android:name="com.example.nutricheck.ui.onboarding.welcomefragment.WelcomeFragment2"
+        android:label="WelcomeFragment2"
+        tools:layout="@layout/fragment_welcome2">
+        <action
+            android:id="@+id/action_welcomeFragment2_to_welcomeFragment3"
+            app:destination="@id/welcomeFragment3" />
+        <action
+            android:id="@+id/action_welcomeFragment2_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcomeFragment3"
+        android:name="com.example.nutricheck.ui.onboarding.welcomefragment.WelcomeFragment3"
+        android:label="WelcomeFragment3"
+        tools:layout="@layout/fragment_welcome3">
+        <action
+            android:id="@+id/action_welcomeFragment3_to_welcomeFragment4"
+            app:destination="@id/welcomeFragment4" />
+        <action
+            android:id="@+id/action_welcomeFragment3_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+
+    <!-- Welcome Fragment 4 -->
+    <fragment
+        android:id="@+id/welcomeFragment4"
+        android:name="com.example.nutricheck.ui.onboarding.welcomefragment.WelcomeFragment4"
+        android:label="WelcomeFragment4"
+        tools:layout="@layout/fragment_welcome4">
+        <action
+            android:id="@+id/action_welcomeFragment4_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+
+    <!-- Login Activity -->
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.nutricheck.auth.login.LoginActivity"
+        tools:layout="@layout/activity_login" />
+</navigation>

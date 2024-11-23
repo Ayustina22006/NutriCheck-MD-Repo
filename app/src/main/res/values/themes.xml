@@ -1,8 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.NutriCheck" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="colorPrimary">@color/bottom_nav_background</item>-->
+<!--        <item name="colorPrimaryContainer">@color/bottom_nav_background</item>-->
+<!--        <item name="colorSecondary">@color/bottom_nav_background</item>-->
+        <item name="colorSecondaryContainer">@color/bottom_nav_background</item>
+        <item name="android:colorAccent">@color/bottom_nav_background</item>
+<!--        <item name="android:colorBackground">@color/bottom_nav_background</item>-->
+
+<!--        &lt;!&ndash; Warna teks dan elemen lainnya &ndash;&gt;-->
+<!--        <item name="android:textColorPrimary">#333333</item>-->
+<!--        <item name="android:textColorSecondary">#666666</item>-->
+        <item name="android:statusBarColor">@color/bottom_nav_background</item>
+        <item name="android:navigationBarColor">@color/pastel_green_dark1</item>
     </style>
 
     <style name="Theme.NutriCheck" parent="Base.Theme.NutriCheck" />

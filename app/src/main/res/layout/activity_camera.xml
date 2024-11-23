@@ -19,7 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@drawable/transparent"
         android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -31,7 +34,7 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/background_button"
             android:scaleType="centerInside"
-            android:src="@drawable/file"
+            android:src="@drawable/_1_image"
             app:tint="@color/white" />
 
         <!-- Tombol Capture -->
@@ -50,9 +53,9 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/background_button"
+            android:background="@drawable/transparent"
             android:scaleType="centerInside"
-            android:src="@drawable/book_open"
+            android:src="@drawable/_1_image"
             app:tint="@color/white" />
     </LinearLayout>
 
