@@ -10,6 +10,8 @@ import com.example.nutricheck.auth.register.RegisterViewModel
 import com.example.nutricheck.data.Injection
 import com.example.nutricheck.data.UserRepository
 import com.example.nutricheck.ui.home.HomeViewModel
+import com.example.nutricheck.ui.onboarding.OnBoardingViewModel
+import com.example.nutricheck.ui.profil.ProfilViewModel
 
 class ViewModelFactory(private val repository: UserRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -32,6 +34,12 @@ class ViewModelFactory(private val repository: UserRepository) :
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(OnBoardingViewModel::class.java) -> {
+                OnBoardingViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProfilViewModel::class.java) -> {
+                ProfilViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

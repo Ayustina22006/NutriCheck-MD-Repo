@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nutricheck.MainActivity
 import com.example.nutricheck.ViewModelFactory
+import com.example.nutricheck.auth.register.RegisterActivity
 import com.example.nutricheck.data.Result
 import com.example.nutricheck.databinding.ActivityLoginBinding
 
@@ -46,6 +47,11 @@ class LoginActivity : AppCompatActivity() {
 
             hideKeyboard()
             loginUser(email, password)
+        }
+
+        binding.btnSignUp.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
