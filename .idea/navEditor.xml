@@ -205,27 +205,6 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="MainActivity">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="851" />
-                            <option name="y" value="419" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="loginActivity_to_MainActivity">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="loginActivity">
                     <value>
                       <LayoutPositions>
@@ -235,15 +214,6 @@
                             <option name="y" value="88" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="loginActivity_to_MainActivity">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -252,8 +222,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="140" />
+                            <option name="x" value="-144" />
+                            <option name="y" value="-5" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -278,13 +248,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="97" />
+                            <option name="x" value="176" />
+                            <option name="y" value="195" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_welcomeFragment2_to_loginActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_welcomeFragment2_to_welcomeFragment1">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -315,6 +290,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_welcomeFragment3_to_welcomeFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_welcomeFragment3_to_welcomeFragment4">
                               <value>
                                 <LayoutPositions />
@@ -337,6 +317,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_welcomeFragment4_to_loginActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_welcomeFragment4_to_welcomeFragment3">
                               <value>
                                 <LayoutPositions />
                               </value>

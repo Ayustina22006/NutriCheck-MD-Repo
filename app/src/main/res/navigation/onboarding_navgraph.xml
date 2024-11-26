@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_welcomeFragment2_to_loginActivity"
             app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_welcomeFragment2_to_welcomeFragment1"
+            app:destination="@id/welcomeFragment1" />
     </fragment>
 
     <fragment
@@ -41,6 +44,9 @@
         <action
             android:id="@+id/action_welcomeFragment3_to_loginActivity"
             app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_welcomeFragment3_to_welcomeFragment2"
+            app:destination="@id/welcomeFragment2" />
     </fragment>
 
     <!-- Welcome Fragment 4 -->
@@ -52,6 +58,9 @@
         <action
             android:id="@+id/action_welcomeFragment4_to_loginActivity"
             app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_welcomeFragment4_to_welcomeFragment3"
+            app:destination="@id/welcomeFragment3" />
     </fragment>
 
     <!-- Login Activity -->

@@ -30,4 +30,5 @@
     <string name="moderate_activity">Aktivitas sedang</string>
     <string name="high_activity">Aktivitas tinggi</string>
     <string name="very_high_activity">Aktivitas sangat tinggi</string>
+    <string name="logout">logout</string>
 </resources>

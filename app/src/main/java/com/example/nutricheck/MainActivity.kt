@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel by viewModels<MainViewModel> {
-        ViewModelFactory.getInstance(this) // Gunakan ViewModelFactory untuk mendapatkan instance ViewModel
+        ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +26,16 @@ class MainActivity : AppCompatActivity() {
         // Cek status login menggunakan ViewModel
         mainViewModel.getSession().observe(this) { user ->
             if (user.token.isEmpty()) { // Jika token kosong, pengguna belum login
-                navigateToLogin()
+                navigateToOnboarding()
                 return@observe
+            } else {
+                // Lanjutkan ke setup jika pengguna memiliki token
+                setupUI()
             }
         }
+    }
 
+    private fun setupUI() {
         // Inflate layout binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -80,14 +85,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateToOnboarding() {
+        val intent = Intent(this, OnboardingActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
-
-    private fun navigateToLogin() {
-        startActivity(Intent(this, OnboardingActivity::class.java))
-        finish() // Menghentikan aktivitas MainActivity agar tidak ada backstack
-    }
 }
+

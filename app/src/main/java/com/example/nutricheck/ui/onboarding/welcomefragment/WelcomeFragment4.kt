@@ -1,5 +1,6 @@
 package com.example.nutricheck.ui.onboarding.welcomefragment
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,12 +31,18 @@ class WelcomeFragment4 : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_welcomeFragment4_to_welcomeFragment3)
         }
 
         binding.btnSkip.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment4_to_loginActivity)
         }
+
+        playAnimation()
+    }
+    private fun playAnimation() {
+        val progressBar = ObjectAnimator.ofFloat(binding.progressBar, View.ALPHA, 1f).setDuration(500)
+        progressBar.start()
     }
 
     override fun onDestroyView() {
