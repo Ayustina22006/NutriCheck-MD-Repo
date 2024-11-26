@@ -38,7 +38,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
     override fun getItemCount(): Int = articleList.size
 
-    // ViewHolder with binding
     class ArticleViewHolder(private val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: ArticleDataItem?) {
             binding.tvArticleTitle.text = article?.title

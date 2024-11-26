@@ -1,24 +1,26 @@
 package com.example.nutricheck.auth.register.form
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.nutricheck.R
+import com.example.nutricheck.ViewModelFactory
+import com.example.nutricheck.auth.login.LoginActivity
 import com.example.nutricheck.auth.register.AssessmentViewModel
 import com.example.nutricheck.auth.register.RegisterViewModel
-import com.example.nutricheck.ViewModelFactory
+import com.example.nutricheck.databinding.FragmentRegisterBinding
 import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
@@ -27,44 +29,51 @@ class RegisterFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        val binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
+        // Observasi data assessment
         assessmentViewModel.assessmentResult.observe(viewLifecycleOwner) { result ->
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
         }
-        val binding = inflater.inflate(R.layout.fragment_register, container, false)
 
+        // Inisialisasi ViewModel untuk register
         val factory = ViewModelFactory.getInstance(requireContext())
         registerViewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
 
-        val passwordField = binding.findViewById<EditText>(R.id.etPassword)
-        val togglePassword = binding.findViewById<ImageView>(R.id.btnTogglePassword)
+        // Mengambil referensi EditText dan ImageView
+        val passwordField = binding.etPassword
+        val togglePassword = binding.btnTogglePassword
         setupPasswordToggle(passwordField, togglePassword)
 
-        val confirmPasswordField = binding.findViewById<EditText>(R.id.etConfirmPassword)
-        val toggleConfirmPassword = binding.findViewById<ImageView>(R.id.btnToggleConfirmPassword)
+        val confirmPasswordField = binding.etConfirmPassword
+        val toggleConfirmPassword = binding.btnToggleConfirmPassword
         setupPasswordToggle(confirmPasswordField, toggleConfirmPassword)
 
+        // Mengamati hasil registrasi
         registerViewModel.registerResult.observe(viewLifecycleOwner) { result ->
-            if (result == "Register Succesfully") {
+            if (result == "Register Successfully") {
                 findNavController().navigate(R.id.action_Register_to_Asessment1)
-
             } else {
                 Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Mengirim userId ke assessmentViewModel
         registerViewModel.userId.observe(viewLifecycleOwner) { userId ->
             userId?.let {
                 assessmentViewModel.setUserId(it)
             }
         }
-        binding.findViewById<Button>(R.id.btnSignIn).setOnClickListener {
-            val username = binding.findViewById<EditText>(R.id.etUsername).text.toString().trim()
-            val email = binding.findViewById<EditText>(R.id.etEmailAddress).text.toString().trim()
+
+        // Proses login button
+        binding.btnSignIn.setOnClickListener {
+            val username = binding.etUsername.text.toString().trim()
+            val email = binding.etEmailAddress.text.toString().trim()
             val password = passwordField.text.toString()
             val confirmPassword = confirmPasswordField.text.toString()
 
@@ -80,7 +89,15 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(context, "All fields must be filled.", Toast.LENGTH_SHORT).show()
             }
         }
-        return binding
+
+        // Proses pindah ke LoginActivity
+        binding.btnSign.setOnClickListener {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        return binding.root
     }
 
     private fun setupPasswordToggle(passwordField: EditText, toggleButton: ImageView) {
@@ -98,3 +115,4 @@ class RegisterFragment : Fragment() {
         }
     }
 }
+
