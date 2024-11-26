@@ -22,7 +22,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
         notifyDataSetChanged()
     }
 
-    // Create view holder with binding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val binding = ItemArticleBinding.inflate(
             LayoutInflater.from(parent.context),

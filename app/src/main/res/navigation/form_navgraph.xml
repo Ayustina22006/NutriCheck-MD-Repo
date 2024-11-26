@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/Register">
+
+    <fragment
+        android:id="@+id/Register"
+        android:name="com.example.nutricheck.auth.register.form.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_Register_to_Asessment1"
+            app:destination="@id/Assesment1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Assesment1"
+        android:name="com.example.nutricheck.auth.register.form.AsessmentFragment1"
+        android:label="AsessmentFragment1"
+        tools:layout="@layout/fragment_asessment1">
+        <action
+            android:id="@+id/action_Asessment1_to_Asessment2"
+            app:destination="@id/Assesment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Assesment2"
+        android:name="com.example.nutricheck.auth.register.form.AsessmentFragment2"
+        android:label="AsessmentFragment2"
+        tools:layout="@layout/fragment_asessment2">
+        <action
+            android:id="@+id/action_Asessment2_to_Asessment3"
+            app:destination="@id/Assesment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/Assesment3"
+        android:name="com.example.nutricheck.auth.register.form.AsessmentFragment3"
+        android:label="AsessmentFragment3"
+        tools:layout="@layout/fragment_asessment3">
+        <action
+            android:id="@+id/action_Asessment3_to_Asessment4"
+            app:destination="@id/Assesment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/Assesment4"
+        android:name="com.example.nutricheck.auth.register.form.AsessmentFragment4"
+        android:label="AsessmentFragment4"
+        tools:layout="@layout/fragment_asessment4"/>
+</navigation>

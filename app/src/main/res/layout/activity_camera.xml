@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,9 +10,9 @@
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/controlLayout" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <!-- Tombol Kontrol -->
     <LinearLayout
@@ -35,7 +36,8 @@
             android:background="@drawable/background_button"
             android:scaleType="centerInside"
             android:src="@drawable/_1_image"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
 
         <!-- Tombol Capture -->
         <ImageButton
@@ -45,18 +47,17 @@
             android:layout_marginHorizontal="24dp"
             android:background="@drawable/button_capture"
             android:scaleType="centerInside"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
 
         <!-- Tombol Info -->
-        <ImageButton
+        <TextView
             android:id="@+id/btnInfo"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/_1_image"
-            app:tint="@color/white" />
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

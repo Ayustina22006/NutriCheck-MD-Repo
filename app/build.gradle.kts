@@ -74,6 +74,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.picasso)
     implementation(libs.androidx.recyclerview)
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
 
     val camerax_version = "1.5.0-alpha03"
     implementation("androidx.camera:camera-camera2:${camerax_version}")

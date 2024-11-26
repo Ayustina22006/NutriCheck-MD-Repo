@@ -1,42 +1,54 @@
 package com.example.nutricheck.auth.register
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.nutricheck.auth.pref.UserModel
+import com.example.nutricheck.data.UserRepository
+import com.example.nutricheck.data.response.RegisterRequest
 import com.example.nutricheck.data.response.RegisterResponse
-import com.example.nutricheck.data.response.UserRequest
 import com.example.nutricheck.data.retrofit.ApiConfig
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _registerResult = MutableLiveData<String>()
-    val registerResult: LiveData<String> = _registerResult
+    val registerResult: LiveData<String> get() = _registerResult
+
+    private val _userId = MutableLiveData<String>()
+    val userId: LiveData<String> get() = _userId
 
     fun registerUser(username: String, email: String, password: String, confirmPassword: String) {
-        if (password != confirmPassword) {
-            _registerResult.postValue("Password and Confirm Password do not match.")
-            return
-        }
+        val registerRequest = RegisterRequest(username, email, password)
+        val call = ApiConfig.getApiService("").registerUser(registerRequest) // Token kosong untuk registrasi
 
-        val apiService = ApiConfig.getApiService()
-        val userRequest = UserRequest(username, email, password)
-
-        apiService.registerUser(userRequest).enqueue(object : Callback<RegisterResponse> {
+        call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                if (response.isSuccessful && response.body()?.status == 201) { // Sesuaikan dengan respons API
-                    val message = response.body()?.message ?: "Register Succesfully"
-                    _registerResult.postValue(message)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    responseBody?.data?.let { userData ->
+                        _registerResult.value = responseBody.message
+                        _userId.value = userData.userId
+                        viewModelScope.launch {
+                            userRepository.saveSession(UserModel(email, userData.token, true))
+                        }
+                    }
                 } else {
-                    _registerResult.postValue("Registration failed: ${response.message()}")
+                    _registerResult.value = "Registration failed: ${response.message()}"
                 }
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                _registerResult.postValue("Registration failed: ${t.message}")
+                _registerResult.value = "Error: ${t.message}"
             }
         })
     }
 }
+
+
+
 

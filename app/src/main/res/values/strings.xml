@@ -22,4 +22,12 @@
     <string name="nutripedia">NutriPedia</string>
     <string name="skip">Skip</string>
     <string name="category">category</string>
+    <string name="tittle_article">HEADLINE</string>
+    <string name="male">I am Male</string>
+    <string name="female">I am Female</string>
+    <string name="inactive">Tidak aktif (sedentari)</string>
+    <string name="light_activity">Aktivitas ringan</string>
+    <string name="moderate_activity">Aktivitas sedang</string>
+    <string name="high_activity">Aktivitas tinggi</string>
+    <string name="very_high_activity">Aktivitas sangat tinggi</string>
 </resources>

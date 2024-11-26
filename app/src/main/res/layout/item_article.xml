@@ -21,8 +21,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_vertical"
-            android:scaleType="centerCrop"
-            android:background="#D3D3D3" />
+            android:scaleType="centerCrop" />
 
         <!-- Konten Teks -->
         <LinearLayout
@@ -38,7 +37,7 @@
                 android:id="@+id/tvArticleTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HEADLINE"
+                android:text="@string/tittle_article"
                 android:textColor="#000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -48,7 +47,7 @@
                 android:id="@+id/tvArticleDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="deskripsi singkat berita nutrisi tentang nutrisi..."
+                android:text="@string/description"
                 android:textColor="#757575"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"

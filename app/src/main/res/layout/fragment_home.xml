@@ -20,6 +20,7 @@
             android:padding="16dp">
 
             <!-- Kalori Progress -->
+            <!-- Kalori Progress -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,26 +30,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:background="@color/prymary_color"
                     android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tvDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Friday, 11 December 2024"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp" />
+                    <!-- SemiCircularProgressBar di sebelah kiri -->
+                    <com.example.nutricheck.ui.home.SemiCircularProgressBar
+                        android:id="@+id/semiCircularProgressBar"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginEnd="16dp"/>
 
-                    <TextView
-                        android:id="@+id/tvCaloriesStatus"
-                        android:layout_width="wrap_content"
+                    <!-- TextView di sebelah kanan -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="773/2578 kalori terpenuhi"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvCaloriesStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/plus_jakarta_sans_bold"
+                            android:text="773/2578 kalori terpenuhi"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:gravity="start"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In"
-            android:fontFamily="@font/plus_jakarta_sans"
+            android:fontFamily="@font/plus_jakarta_sans_extra_bold"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/email_address"
-            android:fontFamily="@font/plus_jakarta_sans"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
             android:textStyle="bold"
             android:layout_marginBottom="6dp" />
 
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/password"
-            android:fontFamily="@font/plus_jakarta_sans"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
             android:textStyle="bold"
             android:layout_marginBottom="6dp" />
 
@@ -136,43 +136,52 @@
         <!-- Social Media Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:orientation="horizontal"
+            android:background="@drawable/bg_text"
             android:gravity="center"
             android:layout_marginBottom="16dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_google"
+                android:layout_marginEnd="3dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign In With Google"
+                android:textColor="@color/prymary_color"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
         </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/plus_jakarta_sans"
-            android:text="@string/don_t_have_an_account_sign_up"
-            android:textColor="@color/black"
             android:layout_marginTop="30dp"
-            android:gravity="center" />
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:gravity="center"
+            android:text="@string/don_t_have_an_account_sign_up"
+            android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tvForgotPassword"
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/plus_jakarta_sans"
-            android:text="@string/forgot_your_password"
-            android:textColor="@color/prymary_color"
-            android:gravity="center" />
+            android:visibility="gone"
+            android:layout_gravity="center" />
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>

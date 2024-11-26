@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.NutriCheck" parent="Theme.Material3.DayNight.NoActionBar">
-<!--        <item name="colorPrimary">@color/bottom_nav_background</item>-->
+        <item name="colorPrimary">@color/white</item>
 <!--        <item name="colorPrimaryContainer">@color/bottom_nav_background</item>-->
 <!--        <item name="colorSecondary">@color/bottom_nav_background</item>-->
         <item name="colorSecondaryContainer">@color/bottom_nav_background</item>

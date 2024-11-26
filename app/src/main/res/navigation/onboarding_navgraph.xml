@@ -58,5 +58,6 @@
     <activity
         android:id="@+id/loginActivity"
         android:name="com.example.nutricheck.auth.login.LoginActivity"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/activity_login"/>
+
 </navigation>
