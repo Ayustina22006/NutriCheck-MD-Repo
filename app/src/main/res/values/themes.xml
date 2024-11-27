@@ -12,7 +12,7 @@
 <!--        <item name="android:textColorPrimary">#333333</item>-->
 <!--        <item name="android:textColorSecondary">#666666</item>-->
         <item name="android:statusBarColor">@color/bottom_nav_background</item>
-        <item name="android:navigationBarColor">@color/pastel_green_dark1</item>
+        <item name="android:navigationBarColor">@color/prymary_color</item>
     </style>
 
     <style name="Theme.NutriCheck" parent="Base.Theme.NutriCheck" />

@@ -2,12 +2,16 @@ package com.example.nutricheck.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nutricheck.MainActivity
+import com.example.nutricheck.R
 import com.example.nutricheck.ViewModelFactory
 import com.example.nutricheck.auth.register.RegisterActivity
 import com.example.nutricheck.data.Result
@@ -30,6 +34,10 @@ class LoginActivity : AppCompatActivity() {
                 startMainActivity()
             }
         }
+
+        val passwordField = binding.etPassword
+        val togglePassword = binding.btnTogglePassword
+        setupPasswordToggle(passwordField, togglePassword)
 
         binding.btnSignIn.setOnClickListener {
             val email = binding.etEmailAddress.text.toString()
@@ -79,6 +87,21 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish() // Menutup LoginActivity agar tidak bisa kembali dengan tombol Back
+    }
+
+    private fun setupPasswordToggle(passwordField: EditText, toggleButton: ImageView) {
+        var isPasswordVisible = false
+        toggleButton.setOnClickListener {
+            if (isPasswordVisible) {
+                passwordField.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                toggleButton.setImageResource(R.drawable.solid_eye)
+            } else {
+                passwordField.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                toggleButton.setImageResource(R.drawable._4_eye)
+            }
+            passwordField.setSelection(passwordField.text.length)
+            isPasswordVisible = !isPasswordVisible
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
