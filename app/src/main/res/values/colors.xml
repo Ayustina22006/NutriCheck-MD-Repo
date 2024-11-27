@@ -11,6 +11,7 @@
     <color name="gray_600">#666666</color>
     <color name="selected_color">#9BB168</color>
     <color name="tranparan">#00000000</color>
+    <color name="default_navbar">#484C52</color>
 
 
 </resources>
