@@ -5,9 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_margin="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#E0E0E0"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,22 +41,26 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tittle_article"
                 android:textColor="#000"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <!-- Deskripsi -->
+
+            <!-- Tombol -->
+
             <TextView
                 android:id="@+id/tvArticleDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textColor="#757575"
-                android:textSize="14sp"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
-                android:maxLines="2" />
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:maxLines="2"
+                android:text="@string/description"
+                android:textColor="#757575"
+                android:textSize="14sp" />
 
-            <!-- Tombol -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,25 +69,33 @@
 
                 <TextView
                     android:id="@+id/tvArticleCategory1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
-                    android:layout_gravity="center_vertical"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="4dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#FFC107"
-                    android:text="@string/category"
-                    tools:ignore="SmallSp" />
+                    android:background="@drawable/background_control_layout"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:text="Healthy" />
 
                 <TextView
                     android:id="@+id/tvArticleCategory2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
-                    android:layout_gravity="center_vertical"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="4dp"
                     android:layout_marginEnd="8dp"
-                    android:background="#FFC107"
-                    android:text="@string/category"
-                    tools:ignore="SmallSp" />
+                    android:background="@drawable/background_control_layout"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:text="Food" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/rounded_bottom_bar"
+    android:layout_gravity="center">
+
+    <!-- Avatar atau Icon -->
+    <ImageView
+        android:id="@+id/iv_alert_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_bg_2"
+        android:padding="16dp" />
+
+    <!-- Pesan -->
+    <TextView
+        android:id="@+id/tv_alert_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/plus_jakarta_sans"
+        android:text="@string/this_is_an_alert_message"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="#000" />
+
+    <!-- Link atau Detail -->
+    <TextView
+        android:id="@+id/tv_alert_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/see_details"
+        android:textSize="14sp"
+        android:fontFamily="@font/plus_jakarta_sans"
+        android:textColor="@color/gray_600"
+        android:textStyle="italic"
+        android:layout_gravity="center" />
+</LinearLayout>

@@ -1,6 +1,7 @@
 [versions]
 agp = "8.7.2"
 cameraCore = "1.5.0"
+codeScanner = "2.1.0"
 compiler = "4.15.1"
 converterGson = "2.9.0"
 converterGsonVersion = "2.9.0"
@@ -42,6 +43,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+code-scanner = { module = "com.budiyev.android:code-scanner", version.ref = "codeScanner" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 glide = { module = "glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
