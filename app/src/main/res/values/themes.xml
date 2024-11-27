@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.NutriCheck" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-<!--        <item name="colorPrimaryContainer">@color/bottom_nav_background</item>-->
+<!--        <item name="colorPrimaryContainer">@color/white</item>-->
 <!--        <item name="colorSecondary">@color/bottom_nav_background</item>-->
         <item name="colorSecondaryContainer">@color/bottom_nav_background</item>
         <item name="android:colorAccent">@color/bottom_nav_background</item>
-<!--        <item name="android:colorBackground">@color/bottom_nav_background</item>-->
+        <item name="android:colorBackground">@color/white</item>
 
 <!--        &lt;!&ndash; Warna teks dan elemen lainnya &ndash;&gt;-->
 <!--        <item name="android:textColorPrimary">#333333</item>-->

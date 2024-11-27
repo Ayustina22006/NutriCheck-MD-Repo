@@ -9,6 +9,9 @@ import com.example.nutricheck.data.response.ArticleDataItem
 import com.example.nutricheck.databinding.ItemArticleBinding
 import com.squareup.picasso.Picasso
 
+import android.content.Intent
+import android.net.Uri
+
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private val articleList = mutableListOf<ArticleDataItem?>()
@@ -31,7 +34,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
         return ArticleViewHolder(binding)
     }
 
-    // Bind data to view holder
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         holder.bind(articleList[position])
     }
@@ -44,16 +46,29 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
             binding.tvArticleDescription.text = article?.description
             Picasso.get().load(article?.image).into(binding.ivArticleImage)
 
-            // Display categories if available
-            val categories = article?.category
-            if (categories != null && categories.isNotEmpty()) {
-                // Show the first category in tvArticleCategory1
-                binding.tvArticleCategory1.text = categories.getOrNull(0) ?: ""
-                binding.tvArticleCategory1.visibility = if (categories.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.tvArticleCategory1.visibility = View.GONE
+            binding.tvArticleCategory2.visibility = View.GONE
 
-                // Show the second category in tvArticleCategory2
-                binding.tvArticleCategory2.text = categories.getOrNull(1) ?: ""
-                binding.tvArticleCategory2.visibility = if (categories.size > 1) View.VISIBLE else View.GONE
+            val categories = article?.categories
+            when {
+                categories?.size == 1 -> {
+                    binding.tvArticleCategory1.text = categories[0]
+                    binding.tvArticleCategory1.visibility = View.VISIBLE
+                }
+                (categories?.size ?: 0) >= 2 -> {
+                    binding.tvArticleCategory1.text = categories!![0]
+                    binding.tvArticleCategory2.text = categories[1]
+                    binding.tvArticleCategory1.visibility = View.VISIBLE
+                    binding.tvArticleCategory2.visibility = View.VISIBLE
+                }
+            }
+
+            binding.root.setOnClickListener {
+                article?.url?.let { url ->
+                    val context = binding.root.context
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                }
             }
         }
     }

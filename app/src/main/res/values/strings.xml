@@ -31,4 +31,7 @@
     <string name="high_activity">Aktivitas tinggi</string>
     <string name="very_high_activity">Aktivitas sangat tinggi</string>
     <string name="logout">logout</string>
+    <string name="this_is_an_alert_message">This is an alert message.</string>
+    <string name="see_details">See Details</string>
+    <string name="text">Today</string>
 </resources>

@@ -29,6 +29,10 @@ class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
                         override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
                             if (response.isSuccessful) {
                                 val articles = response.body()?.data
+                                articles?.forEach { article ->
+                                    Log.d("ArticleCategory", "Article: ${article?.title}, Categories: ${article?.categories}")
+                                }
+
                                 if (!articles.isNullOrEmpty()) {
                                     val validArticles = articles.filterNotNull()
                                     _articles.postValue(validArticles)
