@@ -40,11 +40,11 @@ class AsessmentFragment4 : Fragment() {
 
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val selectedActivity = when (checkedId) {
-                R.id.rbInactive -> "Inactive"
-                R.id.rbLightActivity -> "Light Activity"
-                R.id.rbModerateActivity -> "Moderate Activity"
-                R.id.rbHighActivity -> "High Activity"
-                R.id.rbVeryHighActivity -> "Very High Activity"
+                R.id.rbInactive -> "inactive"
+                R.id.rbLightActivity -> "light activity"
+                R.id.rbModerateActivity -> "moderate activity"
+                R.id.rbHighActivity -> "high activity"
+                R.id.rbVeryHighActivity -> "very high activity"
                 else -> null
             }
             selectedActivity?.let { assessmentViewModel.setActivity(it) }

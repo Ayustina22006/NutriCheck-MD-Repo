@@ -46,7 +46,9 @@ class UserRepository private constructor(
         emit(Result.Loading)
         try {
             val response = apiService.getUserBMI(userId).await()
-            if (response.bmi != null) {
+            val bmiData = response.data?.bmi
+
+            if (bmiData != null) {
                 emit(Result.Success(response))
             } else {
                 emit(Result.Error("Data BMI tidak ditemukan"))
@@ -59,6 +61,7 @@ class UserRepository private constructor(
     }.catch { e ->
         emit(Result.Error("Flow caught an exception: ${e.localizedMessage}"))
     }
+
 
 
 

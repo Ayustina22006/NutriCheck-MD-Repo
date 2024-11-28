@@ -8,15 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.nutricheck.auth.pref.UserModel
 import com.example.nutricheck.data.UserRepository
 import com.example.nutricheck.data.Result
-import com.example.nutricheck.data.response.BmiData
+import com.example.nutricheck.data.response.BMIData
 import kotlinx.coroutines.launch
 
 class ProfilViewModel(private val repository: UserRepository) : ViewModel() {
     private val _logoutStatus = MutableLiveData<Boolean>()
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
 
-    private val _bmiData = MutableLiveData<BmiData>()
-    val bmiData: LiveData<BmiData> get() = _bmiData
+    private val _bmiData = MutableLiveData<BMIData?>()
+    val bmiData: MutableLiveData<BMIData?> get() = _bmiData
 
     private val _fetchStatus = MutableLiveData<String>()
     val fetchStatus: LiveData<String> get() = _fetchStatus
@@ -41,18 +41,14 @@ class ProfilViewModel(private val repository: UserRepository) : ViewModel() {
                 when (result) {
                     is Result.Loading -> _fetchStatus.postValue("Loading...")
                     is Result.Success -> {
-                        _bmiData.postValue(result.data.bmi)
-                        _fetchStatus.postValue("Berhasil mendapatkan data BMI!")
-
-                        val bmi = result.data.bmi
-                        val calories = calculateCalories(
-                            gender = bmi.gender,
-                            weight = bmi.weight,
-                            height = bmi.height,
-                            age = bmi.age,
-                            activityLevel = bmi.activity
-                        )
-                        calculateBMI(bmi)
+                        val bmiData = result.data.data?.bmi
+                        if (bmiData != null) {
+                            _bmiData.postValue(bmiData)
+                            _fetchStatus.postValue("Berhasil mendapatkan data BMI!")
+                            calculateBMI(bmiData)
+                        } else {
+                            _fetchStatus.postValue("BMI data is null!")
+                        }
                     }
                     is Result.Error -> _fetchStatus.postValue("Gagal mendapatkan data BMI: ${result.error}")
                     else -> {}
@@ -61,44 +57,10 @@ class ProfilViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-
-    // Fungsi untuk menghitung BMI
-    private fun calculateBMI(bmiData: BmiData) {
-        val heightInMeters = bmiData.height / 100.0f // Mengubah tinggi badan dari cm ke meter
-        val bmi = bmiData.weight / (heightInMeters * heightInMeters) // Rumus BMI
-        _bmiResult.postValue(bmi) // Memperbarui nilai BMI di LiveData
+    private fun calculateBMI(bmiData: BMIData) {
+        val heightInMeters = (bmiData.height ?: 0) / 100.0f
+        val bmi = (bmiData.weight ?: 0) / (heightInMeters * heightInMeters)
+        _bmiResult.postValue(bmi)
     }
-
-    companion object {
-        fun calculateCalories(
-            gender: String,
-            weight: Int,
-            height: Int,
-            age: Int,
-            activityLevel: String
-        ): Double {
-            // 1. Hitung BMR
-            val bmr = if (gender.lowercase() == "male") {
-                10 * weight + 6.25 * height - 5 * age + 5
-            } else {
-                10 * weight + 6.25 * height - 5 * age - 161
-            }
-
-            // 2. Tentukan faktor aktivitas
-            val activityMultiplier = when (activityLevel.lowercase()) {
-                "sedentary" -> 1.2f
-                "light" -> 1.375f
-                "moderate" -> 1.55f
-                "active" -> 1.725f
-                "extra" -> 1.9f
-                else -> 1.2f // Default ke sedentary jika tidak diketahui
-            }
-
-            // 3. Hitung total kalori
-            return bmr * activityMultiplier
-        }
-    }
-
-
 
 }
