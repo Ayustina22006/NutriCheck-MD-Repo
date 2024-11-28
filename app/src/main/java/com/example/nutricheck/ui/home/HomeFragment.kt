@@ -1,6 +1,7 @@
 package com.example.nutricheck.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +39,33 @@ class HomeFragment : Fragment() {
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.GONE
 
-        val caloriesConsumed = 773f
-        val totalCalories = 2578f
-        val progress = (caloriesConsumed / totalCalories) * 100
-        binding.semiCircularProgressBar.setProgress(progress)
+        // Ambil userId dari session
+        homeViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (user.isLogin) {
+                user.userId.let { userId ->
+                    homeViewModel.fetchDailyCalories(userId)
+                }
+            }
+        }
+
+        homeViewModel.calorieResult.observe(viewLifecycleOwner) { totalCalories ->
+            if (totalCalories != null) {
+                val caloriesConsumed = 773f // Ganti dengan nilai aktual
+                val progress = (caloriesConsumed / totalCalories) * 100
+
+                Log.d("HomeFragment", "Total Calories: $totalCalories")
+                Log.d("HomeFragment", "Calories Consumed: $caloriesConsumed")
+                Log.d("HomeFragment", "Progress: $progress")
+                Log.d("HomeFragment", "Calories observed: $totalCalories")
+
+
+                binding.semiCircularProgressBar.setTotalCalories(totalCalories)
+                binding.semiCircularProgressBar.setProgress(progress)
+                binding.tvCaloriesStatus.text = "$caloriesConsumed/${totalCalories.toInt()} kalori terpenuhi"
+            } else {
+                Log.e("HomeFragment", "Total calories result is null")
+            }
+        }
 
         articleAdapter = ArticleAdapter()
         binding.rvArticle.apply {
@@ -49,14 +73,13 @@ class HomeFragment : Fragment() {
             adapter = articleAdapter
         }
 
-        // Observe LiveData
+        // Observe LiveData untuk artikel
         homeViewModel.articles.observe(viewLifecycleOwner) { articles ->
             articles?.let {
                 articleAdapter.submitList(it)
             }
         }
 
-        // Fetch artikel
         homeViewModel.fetchArticles()
     }
 
@@ -68,6 +91,5 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
 }

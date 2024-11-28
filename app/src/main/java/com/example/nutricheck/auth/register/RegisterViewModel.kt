@@ -34,7 +34,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
                         _registerResult.value = responseBody.message
                         _userId.value = userData.userId
                         viewModelScope.launch {
-                            userRepository.saveSession(UserModel(email, userData.token, true))
+                            userRepository.saveSession(UserModel(email, userData.token, true, userData.userId))
                         }
                     }
                 } else {

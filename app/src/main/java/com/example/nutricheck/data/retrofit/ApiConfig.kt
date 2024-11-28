@@ -1,5 +1,6 @@
 package com.example.nutricheck.data.retrofit
 
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

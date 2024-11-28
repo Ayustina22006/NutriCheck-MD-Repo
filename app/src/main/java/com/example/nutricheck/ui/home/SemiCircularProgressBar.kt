@@ -8,7 +8,6 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.example.nutricheck.R
 
-
 class SemiCircularProgressBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -16,6 +15,7 @@ class SemiCircularProgressBar @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private var progress = 0f
+    private var totalCalories = 0f // Default value, updated dynamically
     private var max = 100f
 
     private val strokeWidth = 20f
@@ -34,7 +34,6 @@ class SemiCircularProgressBar @JvmOverloads constructor(
         strokeCap = Paint.Cap.ROUND
     }
 
-
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.WHITE
         textSize = 50f
@@ -48,7 +47,6 @@ class SemiCircularProgressBar @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        // Hitung ukuran lingkaran berdasarkan lebar dan tinggi view
         val width = width.toFloat()
         val height = height.toFloat()
         val radius = (width - 2 * padding) / 2
@@ -63,12 +61,12 @@ class SemiCircularProgressBar @JvmOverloads constructor(
         // Gambar latar belakang (semi-lingkaran)
         canvas.drawArc(rectF, 180f, 180f, false, backgroundPaint)
 
-        // Gambar progres
+        // Gambar progress berdasarkan nilai
         val sweepAngle = (progress / max) * 180f
         canvas.drawArc(rectF, 180f, sweepAngle, false, progressPaint)
 
         // Gambar teks tengah
-        val progressText = "${(progress / max * 2578).toInt()}/2578"
+        val progressText = "${(progress / max * totalCalories).toInt()}/${totalCalories.toInt()}"
         val fontMetrics = textPaint.fontMetrics
         val textY = height / 2f + radius / 2 - (fontMetrics.ascent + fontMetrics.descent) / 2
         canvas.drawText(progressText, width / 2f, textY, textPaint)
@@ -82,7 +80,13 @@ class SemiCircularProgressBar @JvmOverloads constructor(
         invalidate()
     }
 
+    fun setTotalCalories(calories: Float) {
+        totalCalories = calories
+        invalidate()
+    }
+
     fun setMax(value: Float) {
         max = value
+        invalidate()
     }
 }
