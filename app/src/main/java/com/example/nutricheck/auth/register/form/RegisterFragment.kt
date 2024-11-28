@@ -56,7 +56,7 @@ class RegisterFragment : Fragment() {
 
         // Mengamati hasil registrasi
         registerViewModel.registerResult.observe(viewLifecycleOwner) { result ->
-            if (result == "Register Successfully") {
+            if (result == "Register Succesfully") {
                 findNavController().navigate(R.id.action_Register_to_Asessment1)
             } else {
                 Toast.makeText(context, result, Toast.LENGTH_SHORT).show()

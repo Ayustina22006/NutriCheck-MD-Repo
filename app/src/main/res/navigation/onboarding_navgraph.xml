@@ -14,7 +14,7 @@
             app:destination="@id/welcomeFragment2" />
         <action
             android:id="@+id/action_welcomeFragment1_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/RegisterActivity" />
     </fragment>
 
     <fragment
@@ -27,7 +27,7 @@
             app:destination="@id/welcomeFragment3" />
         <action
             android:id="@+id/action_welcomeFragment2_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/RegisterActivity" />
         <action
             android:id="@+id/action_welcomeFragment2_to_welcomeFragment1"
             app:destination="@id/welcomeFragment1" />
@@ -43,7 +43,7 @@
             app:destination="@id/welcomeFragment4" />
         <action
             android:id="@+id/action_welcomeFragment3_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/RegisterActivity" />
         <action
             android:id="@+id/action_welcomeFragment3_to_welcomeFragment2"
             app:destination="@id/welcomeFragment2" />
@@ -57,7 +57,7 @@
         tools:layout="@layout/fragment_welcome4">
         <action
             android:id="@+id/action_welcomeFragment4_to_loginActivity"
-            app:destination="@id/loginActivity" />
+            app:destination="@id/RegisterActivity" />
         <action
             android:id="@+id/action_welcomeFragment4_to_welcomeFragment3"
             app:destination="@id/welcomeFragment3" />
@@ -65,8 +65,8 @@
 
     <!-- Login Activity -->
     <activity
-        android:id="@+id/loginActivity"
-        android:name="com.example.nutricheck.auth.login.LoginActivity"
-        tools:layout="@layout/activity_login"/>
+        android:id="@+id/RegisterActivity"
+        android:name="com.example.nutricheck.auth.register.RegisterActivity"
+        tools:layout="@layout/activity_register"/>
 
 </navigation>

@@ -63,7 +63,6 @@ class SemiCircularProgressBar @JvmOverloads constructor(
         // Gambar latar belakang (semi-lingkaran)
         canvas.drawArc(rectF, 180f, 180f, false, backgroundPaint)
 
-        // Gambar progres
         val sweepAngle = (progress / max) * 180f
         canvas.drawArc(rectF, 180f, sweepAngle, false, progressPaint)
 

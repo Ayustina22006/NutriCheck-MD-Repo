@@ -2,10 +2,13 @@ package com.example.nutricheck.data
 
 import com.example.nutricheck.auth.pref.UserModel
 import com.example.nutricheck.auth.pref.UserPreference
+import com.example.nutricheck.data.response.AssessmentRequest
 import com.example.nutricheck.data.response.LoginRequest
 import com.example.nutricheck.data.response.LoginResponse
+import com.example.nutricheck.data.response.UserResponse
 import com.example.nutricheck.data.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import retrofit2.await
@@ -27,7 +30,8 @@ class UserRepository private constructor(
                     UserModel(
                         email = it.user?.email.orEmpty(),
                         token = it.token.orEmpty(),
-                        isLogin = true
+                        isLogin = true,
+                        userId = it.user?.id.orEmpty()
                     )
                 )
             }
@@ -37,6 +41,26 @@ class UserRepository private constructor(
             emit(Result.Error("Unexpected error: ${e.message}"))
         }
     }
+
+    fun fetchUserBMI(userId: String): Flow<Result<UserResponse>> = flow {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getUserBMI(userId).await()
+            if (response.bmi != null) {
+                emit(Result.Success(response))
+            } else {
+                emit(Result.Error("Data BMI tidak ditemukan"))
+            }
+        } catch (e: IOException) {
+            emit(Result.Error("Network error: ${e.message}"))
+        } catch (e: Exception) {
+            emit(Result.Error("Unexpected error: ${e.message}"))
+        }
+    }.catch { e ->
+        emit(Result.Error("Flow caught an exception: ${e.localizedMessage}"))
+    }
+
+
 
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
@@ -57,8 +81,6 @@ class UserRepository private constructor(
         }
         return token
     }
-
-
 
     companion object {
         @Volatile

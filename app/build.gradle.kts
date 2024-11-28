@@ -77,6 +77,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 
     val camerax_version = "1.5.0-alpha03"

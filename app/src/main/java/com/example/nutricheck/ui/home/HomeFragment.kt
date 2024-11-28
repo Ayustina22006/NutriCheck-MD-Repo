@@ -38,10 +38,24 @@ class HomeFragment : Fragment() {
         val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
         toolbar?.visibility = View.GONE
 
-        val caloriesConsumed = 773f
-        val totalCalories = 2578f
-        val progress = (caloriesConsumed / totalCalories) * 100
-        binding.semiCircularProgressBar.setProgress(progress)
+        // Ambil userId dari session
+        homeViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (user.isLogin) {
+                user.userId.let { userId ->
+                    homeViewModel.fetchDailyCalories(userId) // Gunakan userId untuk fetch kalori
+                }
+            }
+        }
+
+        // Observe calorieResult LiveData untuk mendapatkan nilai totalCalories
+        homeViewModel.calorieResult.observe(viewLifecycleOwner) { totalCalories ->
+            if (totalCalories != null) {
+                val caloriesConsumed = 773f // Ganti dengan nilai yang dihitung
+                val progress = (caloriesConsumed / totalCalories) * 100
+                binding.semiCircularProgressBar.setProgress(progress)
+                binding.tvCaloriesStatus.text = "$caloriesConsumed/$totalCalories kalori terpenuhi"
+            }
+        }
 
         articleAdapter = ArticleAdapter()
         binding.rvArticle.apply {
@@ -49,14 +63,13 @@ class HomeFragment : Fragment() {
             adapter = articleAdapter
         }
 
-        // Observe LiveData
+        // Observe LiveData untuk artikel
         homeViewModel.articles.observe(viewLifecycleOwner) { articles ->
             articles?.let {
                 articleAdapter.submitList(it)
             }
         }
 
-        // Fetch artikel
         homeViewModel.fetchArticles()
     }
 
@@ -68,6 +81,5 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
 }

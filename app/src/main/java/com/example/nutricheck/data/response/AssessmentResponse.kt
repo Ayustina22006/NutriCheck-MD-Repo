@@ -16,3 +16,5 @@ data class AssessmentRequest(
 	val weight: Int,
 	val activity: String
 )
+
+
