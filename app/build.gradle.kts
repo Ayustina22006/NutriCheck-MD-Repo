@@ -78,9 +78,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
-
-
     val camerax_version = "1.5.0-alpha03"
     implementation("androidx.camera:camera-camera2:${camerax_version}")
     // If you want to additionally use the CameraX Lifecycle library
@@ -94,5 +91,7 @@ dependencies {
     // If you want to additionally use the CameraX Extensions library
     implementation("androidx.camera:camera-extensions:${camerax_version}")
     implementation("com.google.mlkit:object-detection:17.0.2")
+    implementation("com.google.mlkit:common:18.11.0")
+
 
 }

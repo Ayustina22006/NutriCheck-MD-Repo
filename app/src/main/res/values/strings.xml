@@ -34,4 +34,10 @@
     <string name="this_is_an_alert_message">This is an alert message.</string>
     <string name="see_details">See Details</string>
     <string name="text">Today</string>
+    <string name="camera_start_error">Gagal memulai kamera: %1$s</string>
+    <string name="prediction_text">Prediction: %1$s</string>
+    <string name="prediction_error">Error: Gagal memproses prediksi</string>
+    <string name="server_error">Server tidak merespon dengan benar.</string>
+    <string name="upload_error">Gagal terhubung ke server: %1$s</string>
+
 </resources>

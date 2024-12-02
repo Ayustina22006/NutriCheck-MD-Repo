@@ -1,90 +1,51 @@
 package com.example.nutricheck.ui.scan
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.widget.ImageButton
+import android.util.Log
+import android.util.Size
+import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import com.example.nutricheck.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.lifecycle.ViewModelProvider
+import com.example.nutricheck.ViewModelFactory
+import com.example.nutricheck.data.Injection
+import com.example.nutricheck.databinding.ActivityCameraBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class CameraActivity : AppCompatActivity() {
 
-    private lateinit var previewView: PreviewView
+    private lateinit var binding: ActivityCameraBinding
     private lateinit var cameraExecutor: ExecutorService
-    private val cameraViewModel: CameraViewModel by viewModels()
+    private var imageCapture: ImageCapture? = null
+    private lateinit var cameraViewModel: CameraViewModel
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+        binding = ActivityCameraBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        previewView = findViewById(R.id.previewView)
-        val btnCapture = findViewById<ImageButton>(R.id.Capture)
+        // Inisialisasi CameraViewModel
+        val userRepository = Injection.provideRepository(this)
+        val factory = ViewModelFactory(userRepository)
+        cameraViewModel = ViewModelProvider(this, factory)[CameraViewModel::class.java]
 
-        // Executor CameraX
         cameraExecutor = Executors.newSingleThreadExecutor()
+        startCamera()
 
-        // Observasi LiveData dari ViewModel
-        observeViewModel()
-
-        // Cek dan minta izin kamera
-        checkCameraPermission()
-
-        btnCapture.setOnClickListener {
-            Toast.makeText(this, "Scanning in progress", Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
-    private fun observeViewModel() {
-        // Observasi hasil OCR
-        cameraViewModel.ocrResult.observe(this, Observer { text ->
-            Toast.makeText(this, "Recognized Text: $text", Toast.LENGTH_LONG).show()
-        })
-
-        // Observasi pesan error
-        cameraViewModel.errorMessage.observe(this, Observer { message ->
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        })
-    }
-
-    private fun checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.CAMERA),
-                101
-            )
-        } else {
-            startCamera()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 101) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startCamera()
-            } else {
-                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
-            }
+        binding.Capture.setOnClickListener {
+            takePhoto()
         }
     }
 
@@ -92,31 +53,120 @@ class CameraActivity : AppCompatActivity() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             val preview = Preview.Builder().build().also {
-                it.surfaceProvider = previewView.surfaceProvider
+                it.surfaceProvider = binding.previewView.surfaceProvider
             }
 
-            val imageAnalyzer = ImageAnalysis.Builder()
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build().also { analysis ->
-                    analysis.setAnalyzer(cameraExecutor, { imageProxy ->
-                        cameraViewModel.processImage(imageProxy) // Panggil ViewModel
-                    })
-                }
-
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            @Suppress("DEPRECATION")
+            imageCapture = ImageCapture.Builder()
+                .setTargetResolution(Size(640, 480))
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .build()
 
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
+                    this,
+                    CameraSelector.DEFAULT_BACK_CAMERA,
+                    preview,
+                    imageCapture
                 )
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } catch (exc: Exception) {
+                Log.e("CameraActivity", "Use case binding failed", exc)
+                showToast("Gagal memulai kamera: ${exc.message}")
             }
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun takePhoto() {
+        val imageCapture = imageCapture ?: return
+
+        val photoFile = File(cacheDir, "capture-${System.currentTimeMillis()}.jpg")
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val savedUri = output.savedUri
+                    if (savedUri != null) {
+                        val bitmap = BitmapFactory.decodeFile(savedUri.path)
+                        val croppedBitmap = cropToScanBox(bitmap)
+                        uploadFrameToServer(croppedBitmap)
+                    } else {
+                        showToast("Gagal menyimpan gambar.")
+                    }
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    Log.e("CameraActivity", "Photo capture failed: ${exception.message}")
+                    showToast("Gagal mengambil gambar: ${exception.message}")
+                }
+            }
+        )
+    }
+
+    private fun cropToScanBox(bitmap: Bitmap): Bitmap {
+        val scanBoxSize = 300
+        val centerX = bitmap.width / 2
+        val centerY = bitmap.height / 2
+
+        val left = (centerX - scanBoxSize / 2).coerceAtLeast(0)
+        val top = (centerY - scanBoxSize / 2).coerceAtLeast(0)
+        val right = (centerX + scanBoxSize / 2).coerceAtMost(bitmap.width)
+        val bottom = (centerY + scanBoxSize / 2).coerceAtMost(bitmap.height)
+
+        return Bitmap.createBitmap(bitmap, left, top, right - left, bottom - top)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun uploadFrameToServer(bitmap: Bitmap) {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.predictionTextView.text = "Processing prediction..."
+
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val byteArray = stream.toByteArray()
+
+        val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), byteArray)
+        val imagePart = MultipartBody.Part.createFormData("image", "capture.jpg", requestBody)
+
+        cameraViewModel.predictFood(
+            imagePart,
+            onSuccess = { foodName ->
+                binding.predictionTextView.text = "Prediction: $foodName"
+                cameraViewModel.fetchNutritionData(
+                    foodName,
+                    onSuccess = { nutritionData ->
+                        val nutritions = nutritionData.nutritions
+                        val nutritionInfo = """
+                            Kalori: ${nutritionData.calories}
+                            Protein: ${nutritions?.protein} g
+                            Karbohidrat: ${nutritions?.totalCarbohydrate} g
+                            Zat Besi: ${nutritions?.iron} mg
+                        """.trimIndent()
+                        binding.nutritionTextView.text = nutritionInfo
+                        binding.progressBar.visibility = View.GONE
+                    },
+                    onError = { errorMessage ->
+                        showToast(errorMessage)
+                        binding.progressBar.visibility = View.GONE
+                    }
+                )
+            },
+            onError = { errorMessage ->
+                showToast(errorMessage)
+                binding.progressBar.visibility = View.GONE
+            }
+        )
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

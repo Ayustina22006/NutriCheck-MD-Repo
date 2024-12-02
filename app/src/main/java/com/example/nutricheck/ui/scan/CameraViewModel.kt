@@ -1,51 +1,57 @@
 package com.example.nutricheck.ui.scan
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.camera.core.ImageProxy
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.example.nutricheck.data.UserRepository
+import com.example.nutricheck.data.response.LabelResponse
+import com.example.nutricheck.data.response.NutritionResponse
+import com.example.nutricheck.data.retrofit.ApiConfig
+import okhttp3.MultipartBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class CameraViewModel : ViewModel() {
+class CameraViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    // LiveData untuk teks hasil OCR
-    private val _ocrResult = MutableLiveData<String>()
-    val ocrResult: LiveData<String> get() = _ocrResult
-
-    // LiveData untuk error atau status
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> get() = _errorMessage
-
-    fun processImage(imageProxy: ImageProxy) {
-        try {
-            val mediaImage = imageProxy.image
-            if (mediaImage != null) {
-                val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-
-                // OCR menggunakan ML Kit
-                val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-                recognizer.process(image)
-                    .addOnSuccessListener { visionText ->
-                        Log.d("CameraViewModel", "Recognized text: ${visionText.text}")
-                        _ocrResult.postValue(visionText.text) // Kirim teks ke UI
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("CameraViewModel", "Text recognition failed", e)
-                        _errorMessage.postValue("Failed to recognize text")
-                    }
-                    .addOnCompleteListener {
-                        imageProxy.close()
-                    }
-            } else {
-                imageProxy.close()
+    fun predictFood(
+        imagePart: MultipartBody.Part,
+        onSuccess: (String) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val apiService = ApiConfig.getMLModelApiService()
+        apiService.predictFood(imagePart).enqueue(object : Callback<LabelResponse> {
+            override fun onResponse(call: Call<LabelResponse>, response: Response<LabelResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val foodName = response.body()?.foodName ?: "Unknown"
+                    onSuccess(foodName)
+                } else {
+                    onError("Prediction failed: ${response.errorBody()?.string()}")
+                }
             }
-        } catch (e: Exception) {
-            Log.e("CameraViewModel", "Error processing image", e)
-            _errorMessage.postValue("An error occurred while processing the image")
-            imageProxy.close()
-        }
+
+            override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
+                onError("API call failed: ${t.message}")
+            }
+        })
+    }
+
+    fun fetchNutritionData(
+        foodName: String,
+        onSuccess: (NutritionResponse) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val apiService = ApiConfig.getMLModelApiService()
+        apiService.getNutritionData(foodName).enqueue(object : Callback<NutritionResponse> {
+            override fun onResponse(call: Call<NutritionResponse>, response: Response<NutritionResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    onSuccess(response.body()!!)
+                } else {
+                    onError("Gagal mendapatkan data nutrisi: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<NutritionResponse>, t: Throwable) {
+                onError("Gagal terhubung ke server nutrisi: ${t.message}")
+            }
+        })
     }
 }
