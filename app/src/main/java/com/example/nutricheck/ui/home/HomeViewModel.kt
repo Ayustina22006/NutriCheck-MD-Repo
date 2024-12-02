@@ -61,8 +61,6 @@ class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-
-
     fun fetchArticles() {
         viewModelScope.launch {
             try {
@@ -118,9 +116,9 @@ class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
 
             // Hitung BMR
             val bmr = if (gender.lowercase() == "male") {
-                10 * weight!! + 6.25 * height!! - 5 * age!! + 5
+                (10 * weight!!) + (6.25 * height!!) - (5 * age!!) + 5
             } else {
-                10 * weight!! + 6.25 * height!! - 5 * age!! - 161
+                (10 * weight!!) + (6.25 * height!!) - (5 * age!!) - 16
             }
             Log.d("HomeViewModel", "BMR: $bmr")
 

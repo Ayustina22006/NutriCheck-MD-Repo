@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.nutricheck.auth.login.LoginActivity
 import com.example.nutricheck.databinding.ActivityMainBinding
 import com.example.nutricheck.ui.onboarding.OnboardingActivity
@@ -20,32 +22,30 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Cek status login menggunakan ViewModel
+        // Inflate layout and set the content view
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Observe user session state
         mainViewModel.getSession().observe(this) { user ->
-            if (user.token.isEmpty()) { // Jika token kosong, pengguna belum login
+            if (user.token.isEmpty()) {
                 navigateToOnboarding()
-                return@observe
             } else {
-                // Lanjutkan ke setup jika pengguna memiliki token
-                setupUI()
+                setupUI() // Now calling setupUI after content view is set
             }
         }
     }
 
     private fun setupUI() {
-        // Inflate layout binding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Set Toolbar sebagai ActionBar
         setSupportActionBar(binding.toolbar)
 
-        // Set up BottomNavigationView dengan NavController
-        val navView: BottomNavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // Initialize NavController after layout is inflated
+        navController = findNavController(R.id.nav_host_fragment)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -55,29 +55,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_profile
             )
         )
+
+        // Setup ActionBar with NavController
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        navView.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.navigation_home -> {
-                    navController.navigate(R.id.navigation_home)
-                    true
-                }
-                R.id.navigation_pedia -> {
-                    navController.navigate(R.id.navigation_pedia)
-                    true
-                }
-                R.id.navigation_history -> {
-                    navController.navigate(R.id.navigation_history)
-                    true
-                }
-                R.id.navigation_profile -> {
-                    navController.navigate(R.id.navigation_profile)
-                    true
-                }
-                else -> false
-            }
-        }
+        // Setup BottomNavigationView with NavController
+        val navView: BottomNavigationView = binding.navView
+        navView.setupWithNavController(navController)
 
         binding.scanButton.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)
@@ -93,7 +77,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

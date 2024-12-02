@@ -7,13 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.nutricheck.R
 import com.example.nutricheck.ViewModelFactory
 import com.example.nutricheck.databinding.FragmentProfilBinding
-import com.example.nutricheck.databinding.FragmentWelcome1Binding
-import com.example.nutricheck.ui.onboarding.OnBoardingViewModel
 import com.example.nutricheck.ui.onboarding.OnboardingActivity
-
 
 class ProfilFragment : Fragment() {
 
@@ -36,7 +32,6 @@ class ProfilFragment : Fragment() {
 
         viewModel.logoutStatus.observe(viewLifecycleOwner) { isLoggedOut ->
             if (isLoggedOut == true) {
-                // Navigasi ke OnBoardingActivity
                 val intent = Intent(requireContext(), OnboardingActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
@@ -47,6 +42,4 @@ class ProfilFragment : Fragment() {
             viewModel.logout()
         }
     }
-
-
 }

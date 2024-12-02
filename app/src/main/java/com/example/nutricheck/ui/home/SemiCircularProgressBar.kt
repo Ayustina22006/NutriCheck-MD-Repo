@@ -15,7 +15,7 @@ class SemiCircularProgressBar @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private var progress = 0f
-    private var totalCalories = 0f // Default value, updated dynamically
+    private var totalCalories = 1900f
     private var max = 100f
 
     private val strokeWidth = 20f

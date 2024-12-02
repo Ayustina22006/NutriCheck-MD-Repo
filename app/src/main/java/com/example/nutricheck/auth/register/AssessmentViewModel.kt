@@ -84,5 +84,4 @@ class AssessmentViewModel(private val userRepository: UserRepository) : ViewMode
             _assessmentResult.postValue("Token tidak ditemukan, silakan login ulang.")
         }
     }
-
 }
