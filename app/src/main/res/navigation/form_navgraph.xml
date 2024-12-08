@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_Asessment1_to_Asessment2"
             app:destination="@id/Assesment2" />
+        <action
+            android:id="@+id/action_Asessment1_to_Register"
+            app:destination="@id/Register" />
     </fragment>
 
     <fragment
@@ -32,6 +35,9 @@
         <action
             android:id="@+id/action_Asessment2_to_Asessment3"
             app:destination="@id/Assesment3" />
+        <action
+            android:id="@+id/action_Asessment2_to_Asessment1"
+            app:destination="@id/Assesment1" />
     </fragment>
     <fragment
         android:id="@+id/Assesment3"
@@ -41,10 +47,16 @@
         <action
             android:id="@+id/action_Asessment3_to_Asessment4"
             app:destination="@id/Assesment4" />
+        <action
+            android:id="@+id/action_Asessment3_to_Asessment2"
+            app:destination="@id/Assesment2" />
     </fragment>
     <fragment
         android:id="@+id/Assesment4"
         android:name="com.example.nutricheck.auth.register.form.AsessmentFragment4"
         android:label="AsessmentFragment4"
         tools:layout="@layout/fragment_asessment4"/>
+    <action
+        android:id="@+id/action_Asessment4_to_Asessment3"
+        app:destination="@id/Assesment3" />
 </navigation>

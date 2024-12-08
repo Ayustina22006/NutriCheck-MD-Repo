@@ -55,6 +55,9 @@ class AsessmentFragment1 : Fragment() {
                     findNavController().navigate(R.id.action_Asessment1_to_Asessment2)
                 }
             }
+            binding.btnBack.setOnClickListener {
+                findNavController().navigate(R.id.action_Asessment1_to_Register)
+            }
         }
     }
 

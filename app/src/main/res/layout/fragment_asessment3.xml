@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="50dp"
@@ -56,7 +55,7 @@
         android:layout_width="350dp"
         android:layout_height="540dp"
         android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
@@ -82,56 +81,37 @@
             android:id="@+id/inputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="100dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingHorizontal="16dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" >
 
             <!-- Height Input -->
             <EditText
                 android:id="@+id/etHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Height"
-                android:inputType="number"
                 android:layout_marginBottom="16dp"
-                android:padding="12dp"
-                android:background="@drawable/bg_text" />
+                android:background="@drawable/bg_text"
+                android:hint="Height"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:padding="12dp" />
 
             <!-- Weight Input -->
             <EditText
                 android:id="@+id/etWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_text"
                 android:hint="Weight"
+                android:textSize="20sp"
                 android:inputType="number"
-                android:padding="12dp"
-                android:background="@drawable/bg_text" />
+                android:padding="12dp" />
         </LinearLayout>
-
-        <!-- Unit Buttons -->
-        <LinearLayout
-            android:id="@+id/unitButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/inputContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/btnFt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/prymary_color"
-                android:text="Submit"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

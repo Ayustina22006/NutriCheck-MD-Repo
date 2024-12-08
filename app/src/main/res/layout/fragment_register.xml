@@ -96,12 +96,13 @@
                 android:layout_marginEnd="6dp"
                 app:tint="@color/prymary_color" />
 
-            <EditText
+            <com.example.nutricheck.auth.MyEditText
                 android:id="@+id/etEmailAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Your Email"
+                android:inputType="textEmailAddress"
                 android:fontFamily="@font/plus_jakarta_sans"
                 android:textStyle="bold"
                 android:background="@android:color/transparent"
@@ -133,7 +134,7 @@
                 android:layout_marginEnd="6dp"
                 app:tint="@color/prymary_color" />
 
-            <EditText
+            <com.example.nutricheck.auth.MyEditText
                 android:id="@+id/etPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -178,7 +179,7 @@
                 android:layout_marginEnd="6dp"
                 app:tint="@color/prymary_color" />
 
-            <EditText
+            <com.example.nutricheck.auth.MyEditText
                 android:id="@+id/etConfirmPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

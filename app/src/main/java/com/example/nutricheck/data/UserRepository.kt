@@ -1,16 +1,13 @@
 package com.example.nutricheck.data
 
+import android.content.Context
 import com.example.nutricheck.auth.pref.UserModel
 import com.example.nutricheck.auth.pref.UserPreference
-import com.example.nutricheck.data.response.AssessmentRequest
-import com.example.nutricheck.data.response.LoginRequest
-import com.example.nutricheck.data.response.LoginResponse
-import com.example.nutricheck.data.response.UserResponse
+import com.example.nutricheck.data.response.*
 import com.example.nutricheck.data.retrofit.ApiService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 import retrofit2.await
 import java.io.IOException
 
@@ -42,6 +39,13 @@ class UserRepository private constructor(
         }
     }
 
+
+    suspend fun searchMeals(foodName: String): AddResponse {
+        return withContext(Dispatchers.IO) {
+            apiService.searchMeals(foodName).execute().body() ?: AddResponse()
+        }
+    }
+
     fun fetchUserBMI(userId: String): Flow<Result<UserResponse>> = flow {
         emit(Result.Loading)
         try {
@@ -62,6 +66,9 @@ class UserRepository private constructor(
         emit(Result.Error("Flow caught an exception: ${e.localizedMessage}"))
     }
 
+    fun searchMeals(foodName: String?): AddResponse {
+        return apiService.searchMeals(foodName).execute().body()!!
+    }
 
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
@@ -92,3 +99,10 @@ class UserRepository private constructor(
             }
     }
 }
+
+class ResourceProvider(private val context: Context) {
+    fun getString(resId: Int): String {
+        return context.getString(resId)
+    }
+}
+

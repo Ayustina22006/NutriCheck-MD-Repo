@@ -36,7 +36,7 @@ class AsessmentFragment3 : Fragment() {
             val weight = binding.etWeight.text.toString().toIntOrNull()
 
             if (height == null || height <= 0 || weight == null || weight <= 0) {
-                Toast.makeText(requireContext(), "Isi semua data dengan benar!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Fill in all the data correctly!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -44,6 +44,10 @@ class AsessmentFragment3 : Fragment() {
             viewModel.setHeight(height)
             viewModel.setWeight(weight)
             findNavController().navigate(R.id.action_Asessment3_to_Asessment4)
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_Asessment3_to_Asessment2)
         }
     }
 

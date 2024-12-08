@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:divider="?android:dividerHorizontal"
+    android:showDividers="middle">
+
+    <!-- Nama Makanan -->
+    <TextView
+        android:id="@+id/tvFoodName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Food Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:paddingBottom="4dp"
+        android:textColor="@color/black" />
+
+    <!-- Kalori -->
+    <TextView
+        android:id="@+id/tvCalories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="200 Calories"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:paddingBottom="2dp"
+        android:textColor="@color/gray_300" />
+
+    <!-- Ukuran Penyajian -->
+    <TextView
+        android:id="@+id/tvServingSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Serving Size: 100g"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/gray_300" />
+
+</LinearLayout>
