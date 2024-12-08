@@ -41,6 +41,10 @@ class AsessmentFragment2 : Fragment() {
             viewModel.setAge(selectedAge)
             findNavController().navigate(R.id.action_Asessment2_to_Asessment3)
         }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_Asessment2_to_Asessment1)
+        }
     }
 
     override fun onDestroyView() {

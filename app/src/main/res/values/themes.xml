@@ -1,24 +1,29 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.NutriCheck" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-<!--        <item name="colorPrimaryContainer">@color/white</item>-->
-<!--        <item name="colorSecondary">@color/bottom_nav_background</item>-->
+        <item name="colorPrimary">@color/prymary_color</item>
         <item name="colorSecondaryContainer">@color/bottom_nav_background</item>
-        <item name="android:colorAccent">@color/bottom_nav_background</item>
-        <item name="android:colorBackground">@color/white</item>
-
-<!--        &lt;!&ndash; Warna teks dan elemen lainnya &ndash;&gt;-->
-<!--        <item name="android:textColorPrimary">#333333</item>-->
-<!--        <item name="android:textColorSecondary">#666666</item>-->
         <item name="android:statusBarColor">@color/bottom_nav_background</item>
         <item name="android:navigationBarColor">@color/prymary_color</item>
     </style>
 
     <style name="Theme.NutriCheck" parent="Base.Theme.NutriCheck" />
-<!--    <style name="Widget.MyApp.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">-->
-<!--        <item name="fabSize">normal</item>-->
-<!--        <item name="android:layout_marginBottom">0dp</item>-->
-<!--    </style>-->
+
+    <style name="CustomDatePickerTheme" parent="Theme.Material3.DayNight.Dialog">
+        <!-- Header background color -->
+        <item name="colorPrimary">@color/prymary_color</item>
+        <!-- Header text color -->
+        <item name="colorOnPrimary">@color/prymary_color</item>
+        <!-- Dialog background color -->
+        <item name="android:windowBackground">@color/white</item>
+        color
+        <!-- Button text color -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/prymary_color</item>
+    </style>
 
 </resources>

@@ -9,10 +9,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.nutricheck.auth.login.LoginActivity
 import com.example.nutricheck.databinding.ActivityMainBinding
 import com.example.nutricheck.ui.onboarding.OnboardingActivity
-import com.example.nutricheck.ui.scan.CameraActivity
+import com.example.nutricheck.ui.scan.ScanActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         binding.scanButton.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
+            val intent = Intent(this, ScanActivity::class.java)
             startActivity(intent)
         }
     }

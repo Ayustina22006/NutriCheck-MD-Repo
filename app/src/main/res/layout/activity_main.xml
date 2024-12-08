@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/_2_fullscreen"
+        android:src="@drawable/scanner"
         app:backgroundTint="#376A3E"
         app:tint="@android:color/white"
         android:elevation="8dp" />

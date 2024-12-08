@@ -119,8 +119,8 @@
 
                     <ImageButton
                         android:id="@+id/btn_previous"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_back"
                         android:background="?attr/selectableItemBackgroundBorderless"
@@ -128,29 +128,27 @@
 
                     <TextView
                         android:id="@+id/tv_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginHorizontal="16dp"
-                        android:text="@string/text"
+                        android:text="Today"
                         android:textColor="@color/white"
-                        android:paddingVertical="6dp"
-                        android:paddingHorizontal="130dp"
+                        android:paddingVertical="8dp"
                         android:background="@drawable/rounded_background"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textAlignment="center" />
 
                     <ImageButton
                         android:id="@+id/btn_next"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_back"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        app:tint="@color/prymary_color" />
+                        app:tint="@color/prymary_color"/>
                 </LinearLayout>
-
-                <!-- RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_meal_history"
                     android:layout_width="match_parent"
