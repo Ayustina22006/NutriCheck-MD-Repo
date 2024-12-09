@@ -59,4 +59,10 @@ interface ApiService {
         @Query("date") date: String
     ): Response<HistoryResponse>
 
+    @GET("meals_histories/search")
+    suspend fun getDetailHistory(
+        @Query("meal_type") mealType: String,
+        @Query("date") date: String? = null
+    ): DetailHistoryResponse
+
 }

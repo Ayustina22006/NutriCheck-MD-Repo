@@ -89,10 +89,14 @@ class AddImageFragment : Fragment() {
                 if (mealIds.isNotEmpty()) {
                     cameraViewModel.submitMealHistory(
                         mealIds = mealIds,
-                        onSuccess = {
+                        onSuccess = { mealHistoryResponse ->
                             Toast.makeText(requireContext(), "Meal history submitted successfully!", Toast.LENGTH_SHORT).show()
                             cameraViewModel.clearAllCapturedFoodItems()
-                            val intent = Intent(requireContext(), NutritionActivity ::class.java)
+
+                            // Pass the entire MealHistoryResponse to NutritionActivity
+                            val intent = Intent(requireContext(), NutritionActivity::class.java).apply {
+                                putExtra("MEAL_HISTORY_RESPONSE", mealHistoryResponse)
+                            }
                             startActivity(intent)
                         },
                         onError = { errorMessage ->

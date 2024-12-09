@@ -48,7 +48,7 @@ class CameraViewModel(
 
     fun submitMealHistory(
         mealIds: List<String>,
-        onSuccess: () -> Unit,
+        onSuccess: (MealHistoryResponse) -> Unit,
         onError: (String) -> Unit
     ) {
         viewModelScope.launch {
@@ -57,7 +57,7 @@ class CameraViewModel(
                 val request = MealHistoryRequest(mealIds = mealIds)
                 val response = apiService.submitMealHistory(request)
                 if (response.status == 201) { // Sesuaikan dengan status sukses API Anda
-                    onSuccess()
+                    onSuccess(response)
                 } else {
                     onError(response.message ?: "Failed to submit meal history")
                 }
@@ -66,6 +66,7 @@ class CameraViewModel(
             }
         }
     }
+
 
     suspend fun fetchAllMealIds(): List<String> {
         return capturedFoodItemDao.getAllMealIds()
@@ -99,7 +100,6 @@ class CameraViewModel(
         onSuccess: (FoodResponse) -> Unit,
         onError: (String) -> Unit
     ) {
-        // Implementasi sama seperti sebelumnya
         viewModelScope.launch {
             try {
                 val token = userRepository.getToken()

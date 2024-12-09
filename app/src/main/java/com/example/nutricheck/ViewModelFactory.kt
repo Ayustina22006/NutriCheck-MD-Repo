@@ -12,8 +12,10 @@ import com.example.nutricheck.data.ResourceProvider
 import com.example.nutricheck.data.UserRepository
 import com.example.nutricheck.ui.add.AddSearchViewModel
 import com.example.nutricheck.ui.add.AddViewModel
+import com.example.nutricheck.ui.history.HistoryDetailViewModel
 import com.example.nutricheck.ui.history.HistoryViewModel
 import com.example.nutricheck.ui.home.HomeViewModel
+import com.example.nutricheck.ui.nutrition.NutritionViewModel
 import com.example.nutricheck.ui.onboarding.OnBoardingViewModel
 import com.example.nutricheck.ui.profil.ProfilViewModel
 import com.example.nutricheck.ui.scan.CameraViewModel
@@ -59,6 +61,15 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(AddSearchViewModel::class.java) -> {
                 AddSearchViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(NutritionViewModel::class.java) -> {
+                NutritionViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryDetailViewModel::class.java) -> {
+                HistoryDetailViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

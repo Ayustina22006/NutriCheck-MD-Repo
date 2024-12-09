@@ -178,6 +178,7 @@
 
             <!-- Protein -->
             <TextView
+                android:id="@+id/protein_macro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -191,6 +192,7 @@
 
             <!-- Karbohidrat -->
             <TextView
+                android:id="@+id/carbohydrate_macro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -239,6 +241,7 @@
 
             <!-- Kalsium -->
             <TextView
+                android:id="@+id/calcium_micro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -252,6 +255,7 @@
 
             <!-- Serat Pangan -->
             <TextView
+                android:id="@+id/dietary_fiber_micro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -277,6 +281,7 @@
 
             <!-- Zat Besi -->
             <TextView
+                android:id="@+id/iron_micro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -290,6 +295,7 @@
 
             <!-- Vitamin A -->
             <TextView
+                android:id="@+id/vitamin_a_micro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -315,6 +321,7 @@
 
             <!-- Vitamin B -->
             <TextView
+                android:id="@+id/vitamin_b_micro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -328,6 +335,7 @@
 
             <!-- Vitamin C -->
             <TextView
+                android:id="@+id/vitamin_c_micro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

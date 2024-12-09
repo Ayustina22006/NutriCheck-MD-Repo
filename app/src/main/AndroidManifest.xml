@@ -31,6 +31,9 @@
         android:theme="@style/Theme.NutriCheck"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".ui.history.HistoryDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.add.AddSearchActivity"
             android:exported="false" />
         <activity

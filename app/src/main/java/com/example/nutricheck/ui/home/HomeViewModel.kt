@@ -208,7 +208,7 @@ class HomeViewModel(
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val token = userRepository.getToken() // Mendapatkan token dari repository
+                val token = userRepository.getToken()
                 val response = ApiConfig.getApiService(token).getMealsHistories(date) // Menggunakan fungsi suspend
 
                 if (response.isSuccessful) {

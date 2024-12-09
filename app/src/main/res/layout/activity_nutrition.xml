@@ -21,6 +21,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_back"
+                android:contentDescription="Kembali"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+
             <!-- Title -->
             <TextView
                 android:id="@+id/tvTitle"
@@ -74,7 +84,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <TextView
-                                android:id="@+id/text_porsi"
+                                android:id="@+id/text_alert"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/food_ideal"
@@ -135,6 +145,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/nutritionProtein"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -147,6 +158,7 @@
                         android:textColor="#000" />
 
                     <TextView
+                        android:id="@+id/nutritionCalories"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -159,6 +171,7 @@
                         android:textColor="#000" />
 
                     <TextView
+                        android:id="@+id/nutritionDietaryFiber"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -178,6 +191,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/nutritionCalcium"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -190,6 +204,7 @@
                         android:textColor="#000" />
 
                     <TextView
+                        android:id="@+id/nutritionIron"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -202,6 +217,7 @@
                         android:textColor="#000" />
 
                     <TextView
+                        android:id="@+id/nutritionCarbohydrate"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -221,6 +237,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/nutritionVitaminA"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -233,6 +250,7 @@
                         android:textColor="#000" />
 
                     <TextView
+                        android:id="@+id/nutritionVitaminB"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -245,6 +263,7 @@
                         android:textColor="#000" />
 
                     <TextView
+                        android:id="@+id/nutritionVitaminC"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
