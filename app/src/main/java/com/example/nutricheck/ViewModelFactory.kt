@@ -11,6 +11,7 @@ import com.example.nutricheck.data.Injection
 import com.example.nutricheck.data.UserRepository
 import com.example.nutricheck.ui.home.HomeViewModel
 import com.example.nutricheck.ui.onboarding.OnBoardingViewModel
+import com.example.nutricheck.ui.pedia.ArticleViewModel
 import com.example.nutricheck.ui.profil.ProfilViewModel
 import com.example.nutricheck.ui.scan.CameraViewModel
 
@@ -25,6 +26,9 @@ class ViewModelFactory(private val repository: UserRepository) :
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ArticleViewModel::class.java) -> {
+                ArticleViewModel(repository) as T
             }
             modelClass.isAssignableFrom(AssessmentViewModel::class.java) -> {
                 Log.d("ViewModelFactory", "Creating AssessmentViewModel")

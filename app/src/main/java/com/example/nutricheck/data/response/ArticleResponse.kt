@@ -19,3 +19,14 @@ data class ArticleDataItem(
 		val url: String? = null,
 		val updatedAt: String? = null
 )
+
+
+data class ArticleSearch(
+	val status: Int? = null,
+	val message: String? = null,
+	val data: List<ArticleDataItem>? = null
+)
+
+
+
+
