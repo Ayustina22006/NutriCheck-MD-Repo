@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NutriCheck</string>
     <string name="tittle_pedia">NutriPedia</string>
     <string name="title_home">Home</string>
-    <string name="title_profile">Profile\n</string>
+    <string name="title_profile">Profile</string>
     <string name="title_camera">Scan</string>
-    <string name="title_history">History\n</string>
+    <string name="title_history">History</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_pedia">NutriPedia</string>
     <string name="title_scan">Scan</string>
@@ -18,24 +19,25 @@
     <string name="password_confirmation">Password Confirmation</string>
     <string name="username">Username</string>
     <string name="sign_up">Sign Up</string>
-    <string name="description">description</string>
+    <string name="description">Description</string>
     <string name="nutripedia">NutriPedia</string>
     <string name="skip">Skip</string>
-    <string name="category">category</string>
+    <string name="category">Category</string>
     <string name="tittle_article">HEADLINE</string>
     <string name="male">I am Male</string>
     <string name="female">I am Female</string>
-    <string name="inactive">Tidak aktif (sedentari)</string>
-    <string name="light_activity">Aktivitas ringan</string>
-    <string name="moderate_activity">Aktivitas sedang</string>
-    <string name="high_activity">Aktivitas tinggi</string>
-    <string name="very_high_activity">Aktivitas sangat tinggi</string>
-    <string name="logout">logout</string>
+    <string name="inactive">Inactive (sedentary)</string>
+    <string name="light_activity">Light Activity</string>
+    <string name="moderate_activity">Moderate Activity</string>
+    <string name="high_activity">High Activity</string>
+    <string name="very_high_activity">Very High Activity</string>
+    <string name="logout">Logout</string>
     <string name="this_is_an_alert_message">This is an alert message.</string>
     <string name="see_details">See Details</string>
     <string name="text">Today</string>
-    <string name="camera_start_error">Gagal memulai kamera: %1$s</string>
+    <string name="camera_start_error">Failed to start camera: %1$s</string>
     <string name="prediction_text">Prediction: %1$s</string>
+<<<<<<< HEAD
     <string name="prediction_error">Error: Gagal memproses prediksi</string>
     <string name="server_error">Server tidak merespon dengan benar.</string>
     <string name="upload_error">Gagal terhubung ke server: %1$s</string>
@@ -45,5 +47,76 @@
     <string name="Food">Food</string>
     <string name="Healthy">Healthy</string>
     <string name="no_articles_available">No articles available</string>
+=======
+    <string name="prediction_error">Error: Failed to process prediction</string>
+    <string name="server_error">Server did not respond correctly.</string>
+    <string name="upload_error">Failed to connect to server: %1$s</string>
+    <string name="weekly_recommendation">Your weekly recommendation</string>
+    <string name="meal_history">Your meal history</string>
+    <string name="advice_text">Your protein intake is low. Here\'s some advice…</string>
+    <string name="button_previous">Previous</string>
+    <string name="button_next">Next</string>
+    <string name="simpan_cek_nutrisi">Save &amp; check nutrition</string>
+    <string name="food_name">Food Name</string>
+    <string name="portiion">Portion (g)</string>
+    <string name="food_time">Meal Time</string>
+    <string name="food_category">Food Category</string>
+    <string name="calory">Calories (kcal)</string>
+    <string name="protein_g">Protein (g)</string>
+    <string name="carbo_g">Carbohydrate (g)</string>
+    <string name="va">Vitamin A (g)</string>
+    <string name="vb">Vitamin B (g)</string>
+    <string name="vc">Vitamin C (g)</string>
+    <string name="vd">Vitamin D (g)</string>
+    <string name="add_food">Add Food</string>
+    <string name="search_hint">Search Food</string>
+    <string name="no_food_detection">No food detected yet</string>
+    <string name="nutrition_cek">Check Nutrition</string>
+    <string name="add_image">Add Image</string>
+    <string name="calcium_g">Calcium (g)</string>
+    <string name="dietary_fiber_g">Dietary Fiber (g)</string>
+    <string name="iron_g">Iron (g)</string>
+    <string name="nutrition_analisys">Nutrition Analysis</string>
+    <string name="food_ideal">Ideal Food Portion</string>
+    <string name="_1000_kalori">1000 calories</string>
+    <string name="learn_more_about_piringku">Learn more about Piringku</string>
+    <string name="detail_asupan">Intake Details</string>
+    <string name="food_not_found">Food not found in the data, please input the food.</string>
+    <string name="food_didnt_found">Food not found.</string>
+    <string name="input_food">Input Food</string>
+    <string name="cancel">Cancel</string>
+    <string name="label_kurang">Less</string>
+    <string name="label_ideal">Ideal</string>
+    <string name="label_berlebih">Excess</string>
+    <string name="label_berlebihan">Overly Excessive</string>
+    <string name="alert_kurang">Your meal portion is too little</string>
+    <string name="alert_ideal">Your meal portion is ideal</string>
+    <string name="alert_berlebih">Your meal portion is excessive</string>
+    <string name="alert_berlebihan">Your meal portion is overly excessive</string>
+    <!-- Header Section -->
+    <string name="title_detail">Rendang</string>
+    <string name="tag_detail">Protein</string>
+
+    <!-- Serving Section -->
+    <string name="serving_size_title">Serving Size</string>
+    <string name="serving_size_value">100 g</string>
+    <string name="calorie_title">Total Calories</string>
+    <string name="calorie_value">195 kcal</string>
+
+    <!-- Macronutrients Section -->
+    <string name="micronutrients_label">Micronutrients</string>
+    <string name="macronutrients_label">Macronutrients</string>
+    <string name="protein_macro">Protein\n%s g</string>
+    <string name="carbohydrate_macro">Carbohydrate\n%s g</string>
+    <string name="calcium_micro">Calcium\n%s g</string>
+    <string name="dietary_fiber_micro">Dietary Fiber\n%s g</string>
+    <string name="iron_micro">Iron\n%s mg</string>
+    <string name="vitamin_a_micro">Vitamin A\n%s g</string>
+    <string name="vitamin_b_micro">Vitamin B\n%s g</string>
+    <string name="vitamin_c_micro">Vitamin C\n%s g</string>
+    <string name="tittle_rvDetail">Rendang</string>
+    <string name="tag_rvDetail">Protein</string>
+    <string name="use_scan_fitur">Use the scan feature to analyze your food nutrition</string>
+>>>>>>> e3c5c30739b362d365e0a4b50d0fb0ea4f2be5b5
 
 </resources>

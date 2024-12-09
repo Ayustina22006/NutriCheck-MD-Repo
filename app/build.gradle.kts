@@ -57,10 +57,12 @@ dependencies {
     implementation(libs.play.services.mlkit.text.recognition)
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.androidx.ui.desktop)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.material)
+    implementation("com.google.android.material:material:1.12.0")
     //noinspection UseTomlInstead
     implementation("com.github.bumptech.glide:glide:4.15.1")
     //noinspection UseTomlInstead

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/prymary_color" />
-    <corners android:radius="16dp" />
-</shape>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+android:color="@color/second_color"> <!-- Warna ripple bisa disesuaikan -->
+<item>
+    <shape>
+        <solid android:color="@color/prymary_color"/>
+        <corners android:radius="8dp"/>
+    </shape>
+</item>
+</ripple>
+

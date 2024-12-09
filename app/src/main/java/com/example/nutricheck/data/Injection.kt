@@ -14,4 +14,8 @@ object Injection {
         val apiService = ApiConfig.getApiService(user.token)
         return UserRepository.getInstance(apiService, userPreference)
     }
+
+    fun provideResourceProvider(context: Context): ResourceProvider {
+        return ResourceProvider(context)
+    }
 }

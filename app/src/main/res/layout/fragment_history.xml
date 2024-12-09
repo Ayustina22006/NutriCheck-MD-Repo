@@ -119,8 +119,8 @@
 
                     <ImageButton
                         android:id="@+id/btn_previous"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_back"
                         android:background="?attr/selectableItemBackgroundBorderless"
@@ -128,36 +128,64 @@
 
                     <TextView
                         android:id="@+id/tv_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginHorizontal="16dp"
-                        android:text="@string/text"
+                        android:text="Today"
                         android:textColor="@color/white"
-                        android:paddingVertical="6dp"
-                        android:paddingHorizontal="130dp"
+                        android:paddingVertical="8dp"
                         android:background="@drawable/rounded_background"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textAlignment="center" />
 
                     <ImageButton
                         android:id="@+id/btn_next"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_back"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        app:tint="@color/prymary_color" />
+                        app:tint="@color/prymary_color"/>
                 </LinearLayout>
 
-                <!-- RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_meal_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:clipToPadding="false" />
+                <LinearLayout
+                    android:id="@+id/empty_state_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="32dp">
+
+                    <TextView
+                        android:id="@+id/empty_state_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:text="No history available"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textAlignment="center" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

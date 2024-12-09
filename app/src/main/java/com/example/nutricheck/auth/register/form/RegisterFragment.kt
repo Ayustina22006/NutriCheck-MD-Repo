@@ -74,23 +74,38 @@ class RegisterFragment : Fragment() {
         binding.btnSignIn.setOnClickListener {
             val username = binding.etUsername.text.toString().trim()
             val email = binding.etEmailAddress.text.toString().trim()
-            val password = passwordField.text.toString()
-            val confirmPassword = confirmPasswordField.text.toString()
+            val password = binding.etPassword.text.toString()
+            val confirmPassword = binding.etConfirmPassword.text.toString()
 
-            if (username.isNotBlank() && email.isNotBlank() && password.isNotBlank() && confirmPassword.isNotBlank()) {
-                if (password == confirmPassword) {
-                    lifecycleScope.launch {
-                        registerViewModel.registerUser(username, email, password, confirmPassword)
-                    }
-                } else {
-                    Toast.makeText(context, "Passwords do not match.", Toast.LENGTH_SHORT).show()
-                }
-            } else {
+            // Validasi input
+            if (username.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
                 Toast.makeText(context, "All fields must be filled.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.etEmailAddress.error = "Invalid email format"
+                return@setOnClickListener
+            }
+
+            if (password.length < 8 || !password.any { it.isLetter() } || !password.any { it.isDigit() }) {
+                binding.etPassword.error = "Password must be at least 8 characters with letters and digits"
+                return@setOnClickListener
+            }
+
+            if (password != confirmPassword) {
+                binding.etConfirmPassword.error = "Passwords do not match"
+                return@setOnClickListener
+            }
+
+            lifecycleScope.launch {
+                registerViewModel.registerUser(username, email, password, confirmPassword)
             }
         }
 
-        // Proses pindah ke LoginActivity
+        setupPasswordToggle(binding.etPassword, binding.btnTogglePassword)
+        setupPasswordToggle(binding.etConfirmPassword, binding.btnToggleConfirmPassword)
+
         binding.btnSign.setOnClickListener {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -115,4 +130,3 @@ class RegisterFragment : Fragment() {
         }
     }
 }
-

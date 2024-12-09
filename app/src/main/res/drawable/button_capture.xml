@@ -2,41 +2,44 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <layer-list>
+            <!-- Lapisan luar yang lebih gelap ketika ditekan -->
             <item>
-                <shape android:shape="oval">
-                    <solid android:color="#1A4720" />
+                <shape android:shape="@color/second_color">
+                    <solid android:color="#1A4720" /> <!-- Hijau gelap -->
                 </shape>
             </item>
-            <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+            <!-- Lapisan putih tengah -->
+            <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
                 <shape android:shape="oval">
                     <solid android:color="#FFFFFF" /> <!-- Warna putih -->
                 </shape>
             </item>
-            <item android:top="13dp" android:bottom="13dp" android:left="13dp" android:right="13dp">
+            <!-- Lapisan hijau lebih gelap di tengah -->
+            <item android:top="11dp" android:bottom="11dp" android:left="11dp" android:right="11dp">
                 <shape android:shape="oval">
-                    <solid android:color="#1A4720" /> <!-- Warna hijau lebih gelap -->
+                    <solid android:color="@color/second_color" /> <!-- Hijau lebih gelap -->
                 </shape>
             </item>
         </layer-list>
     </item>
     <item>
         <layer-list>
+            <!-- Lapisan luar hijau terang untuk keadaan normal -->
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="#376A3E" /> <!-- Warna hijau -->
+                    <solid android:color="#80FFFFFF" /> <!-- Hijau terang -->
                 </shape>
             </item>
-
-            <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+            <!-- Lapisan putih tengah -->
+            <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
                 <shape android:shape="oval">
                     <solid android:color="#FFFFFF" /> <!-- Warna putih -->
                 </shape>
             </item>
-
-            <!-- Lapisan lingkaran hijau di tengah -->
-            <item android:top="13dp" android:bottom="13dp" android:left="13dp" android:right="13dp">
+            <!-- Lapisan hijau lebih terang di tengah -->
+            <item android:top="11dp" android:bottom="11dp" android:left="11dp" android:right="11dp">
                 <shape android:shape="oval">
-                    <solid android:color="#376A3E" /> <!-- Warna hijau -->
+                    <solid android:color="#80FFFFFF" /> <!-- Hijau terang -->
                 </shape>
             </item>
         </layer-list>

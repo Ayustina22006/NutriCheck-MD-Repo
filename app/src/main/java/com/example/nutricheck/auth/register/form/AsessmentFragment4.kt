@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.nutricheck.MainActivity
 import com.example.nutricheck.R
 import com.example.nutricheck.ViewModelFactory
@@ -54,6 +55,9 @@ class AsessmentFragment4 : Fragment() {
             lifecycleScope.launch {
                 sendAssessmentData()
             }
+        }
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_Asessment4_to_Asessment3)
         }
 
         // Observasi perubahan assessmentResult

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp">
+
+    <!-- MaterialCardView untuk stroke dan latar belakang -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/prymary_color"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <!-- Kontainer Horizontal -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="horizontal">
+
+            <!-- Gambar -->
+            <ImageView
+                android:id="@+id/image_food"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/placeholder"/>
+
+            <!-- Container Teks -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:orientation="vertical">
+
+                <!-- Nama Makanan -->
+                <TextView
+                    android:id="@+id/text_food_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tittle_rvDetail"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textStyle="bold" />
+
+                <!-- Detail Kalori -->
+                <TextView
+                    android:id="@+id/text_food_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:text="100 g | 100 kkal"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Label Protein -->
+            <TextView
+                android:id="@+id/text_food_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_label"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:layout_marginEnd="12dp"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:text="@string/tag_rvDetail"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
