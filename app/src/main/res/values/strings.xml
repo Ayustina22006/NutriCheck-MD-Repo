@@ -37,6 +37,17 @@
     <string name="text">Today</string>
     <string name="camera_start_error">Failed to start camera: %1$s</string>
     <string name="prediction_text">Prediction: %1$s</string>
+<<<<<<< HEAD
+    <string name="prediction_error">Error: Gagal memproses prediksi</string>
+    <string name="server_error">Server tidak merespon dengan benar.</string>
+    <string name="upload_error">Gagal terhubung ke server: %1$s</string>
+    <string name="search">Search</string>
+    <string name="all">All</string>
+    <string name="News">News</string>
+    <string name="Food">Food</string>
+    <string name="Healthy">Healthy</string>
+    <string name="no_articles_available">No articles available</string>
+=======
     <string name="prediction_error">Error: Failed to process prediction</string>
     <string name="server_error">Server did not respond correctly.</string>
     <string name="upload_error">Failed to connect to server: %1$s</string>
@@ -106,5 +117,6 @@
     <string name="tittle_rvDetail">Rendang</string>
     <string name="tag_rvDetail">Protein</string>
     <string name="use_scan_fitur">Use the scan feature to analyze your food nutrition</string>
+>>>>>>> e3c5c30739b362d365e0a4b50d0fb0ea4f2be5b5
 
 </resources>
