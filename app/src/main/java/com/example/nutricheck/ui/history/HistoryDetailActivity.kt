@@ -96,10 +96,9 @@ class HistoryDetailActivity : AppCompatActivity() {
                     binding.nutritionVitaminC.text = "Vitamin C\n${nutrition.vitaminC ?: 0} mg"
                 }
 
-                // Update RecyclerView with meal details
-//                history.data?.firstOrNull()?.mealsDetails?.let { mealDetails ->
-//                    nutritionDetailsAdapter.submitList(mealDetails)
-//                }
+                history.data?.firstOrNull()?.mealsDetails?.let { mealDetails ->
+                    nutritionDetailsAdapter.submitList(mealDetails)
+                }
             }
         }
 
