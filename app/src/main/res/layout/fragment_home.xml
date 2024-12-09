@@ -30,7 +30,6 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_search_background"
         app:queryHint="Search food..."
-        app:iconifiedByDefault="false"
         android:imeOptions="actionSearch"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

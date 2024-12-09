@@ -74,7 +74,14 @@
     <string name="food_didnt_found">Food not found.</string>
     <string name="input_food">Input Food</string>
     <string name="cancel">Cancel</string>
-
+    <string name="label_kurang">Less</string>
+    <string name="label_ideal">Ideal</string>
+    <string name="label_berlebih">Excess</string>
+    <string name="label_berlebihan">Overly Excessive</string>
+    <string name="alert_kurang">Your meal portion is too little</string>
+    <string name="alert_ideal">Your meal portion is ideal</string>
+    <string name="alert_berlebih">Your meal portion is excessive</string>
+    <string name="alert_berlebihan">Your meal portion is overly excessive</string>
     <!-- Header Section -->
     <string name="title_detail">Rendang</string>
     <string name="tag_detail">Protein</string>
@@ -86,24 +93,16 @@
     <string name="calorie_value">195 kcal</string>
 
     <!-- Macronutrients Section -->
-    <string name="macronutrients_label">Macronutrients</string>
-    <string name="protein_macro">Protein\n30 g</string>
-    <string name="carbohydrate_macro">Carbohydrate\n30 g</string>
-
-    <!-- Micronutrients Section -->
     <string name="micronutrients_label">Micronutrients</string>
-
-    <!-- Micronutrients Container 1 -->
-    <string name="calcium_micro">Calcium\n15 mg</string>
-    <string name="dietary_fiber_micro">Dietary Fiber\n0 g</string>
-
-    <!-- Micronutrients Container 2 -->
-    <string name="iron_micro">Iron\n1.26 mg</string>
-    <string name="vitamin_a_micro">Vitamin A\n47 IU</string>
-
-    <!-- Micronutrients Container 3 -->
-    <string name="vitamin_b_micro">Vitamin B\n0 (none)</string>
-    <string name="vitamin_c_micro">Vitamin C\n0 (none)</string>
+    <string name="macronutrients_label">Macronutrients</string>
+    <string name="protein_macro">Protein\n%s g</string>
+    <string name="carbohydrate_macro">Carbohydrate\n%s g</string>
+    <string name="calcium_micro">Calcium\n%s g</string>
+    <string name="dietary_fiber_micro">Dietary Fiber\n%s g</string>
+    <string name="iron_micro">Iron\n%s mg</string>
+    <string name="vitamin_a_micro">Vitamin A\n%s g</string>
+    <string name="vitamin_b_micro">Vitamin B\n%s g</string>
+    <string name="vitamin_c_micro">Vitamin C\n%s g</string>
     <string name="tittle_rvDetail">Rendang</string>
     <string name="tag_rvDetail">Protein</string>
     <string name="use_scan_fitur">Use the scan feature to analyze your food nutrition</string>

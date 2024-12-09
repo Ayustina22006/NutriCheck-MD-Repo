@@ -47,29 +47,6 @@ class AddSearchViewModel(private val userRepository: UserRepository) : ViewModel
         return nutritionMap.maxByOrNull { it.value }?.key ?: "Protein"
     }
 
-    fun saveMeal(
-        userId: String,
-        foodName: String,
-        portion: Int,
-        calories: Double,
-        nutritionId: String
-    ) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                val token = userRepository.getToken()
-                val apiService = ApiConfig.getApiService(token)
-
-
-                _isLoading.value = false
-            } catch (e: Exception) {
-                Log.e("AddSearchViewModel", "Error saving meal: ${e.message}", e)
-                _errorMessage.value = e.message ?: "Gagal menyimpan makanan"
-                _isLoading.value = false
-            }
-        }
-    }
-
     fun resetErrorMessage() {
         _errorMessage.value = null
     }

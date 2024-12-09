@@ -6,7 +6,6 @@ data class UserResponse(
     val data: DataUser?
 )
 
-
 data class DataUser(
     val id: String?,
     val email: String?,

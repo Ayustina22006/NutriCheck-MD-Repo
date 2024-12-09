@@ -25,8 +25,6 @@ import com.example.nutricheck.ui.NutritionAdapter
 import com.example.nutricheck.databinding.AlertBinding
 import com.example.nutricheck.ui.scan.ScanActivity
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 

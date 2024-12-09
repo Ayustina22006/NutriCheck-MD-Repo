@@ -44,9 +44,12 @@ class ImageAdapter(private var foodItems: List<CapturedFoodItem>) : RecyclerView
 
     inner class ImageViewHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CapturedFoodItem) {
-            val file = File(Uri.parse(item.imagePath).path ?: "")
-            Glide.with(binding.root.context)
-                .load(file)
+            val context = binding.root.context
+            val uri = Uri.parse(item.imagePath)
+
+            // Load gambar menggunakan Glide
+            Glide.with(context)
+                .load(uri)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -54,7 +57,7 @@ class ImageAdapter(private var foodItems: List<CapturedFoodItem>) : RecyclerView
                         target: Target<Drawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.e("ImageAdapter", "Glide load failed", e)
+                        Log.e("ImageAdapter", "Failed to load image: $uri", e)
                         return false
                     }
 
@@ -65,12 +68,13 @@ class ImageAdapter(private var foodItems: List<CapturedFoodItem>) : RecyclerView
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        Log.d("ImageAdapter", "Glide load success")
+                        Log.d("ImageAdapter", "Successfully loaded image: $uri")
                         return false
                     }
                 })
-                .error(R.drawable.placeholder)
+                .error(R.drawable.placeholder) // Placeholder jika gagal memuat gambar
                 .into(binding.foodImageView)
         }
+
     }
 }

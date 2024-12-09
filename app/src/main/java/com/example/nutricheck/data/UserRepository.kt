@@ -8,6 +8,7 @@ import com.example.nutricheck.data.retrofit.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import retrofit2.await
 import java.io.IOException
 
@@ -15,6 +16,7 @@ class UserRepository private constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
+
     fun login(email: String, password: String): Flow<Result<LoginResponse>> = flow {
         emit(Result.Loading)
         try {
