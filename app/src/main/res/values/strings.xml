@@ -37,6 +37,12 @@
     <string name="text">Today</string>
     <string name="camera_start_error">Failed to start camera: %1$s</string>
     <string name="prediction_text">Prediction: %1$s</string>
+    <string name="search">Search</string>
+    <string name="all">All</string>
+    <string name="News">News</string>
+    <string name="Food">Food</string>
+    <string name="Healthy">Healthy</string>
+    <string name="no_articles_available">No articles available</string>
     <string name="prediction_error">Error: Failed to process prediction</string>
     <string name="server_error">Server did not respond correctly.</string>
     <string name="upload_error">Failed to connect to server: %1$s</string>
@@ -106,5 +112,10 @@
     <string name="tittle_rvDetail">Rendang</string>
     <string name="tag_rvDetail">Protein</string>
     <string name="use_scan_fitur">Use the scan feature to analyze your food nutrition</string>
-
+    <string name="default_web_client_id">200676161700-okhooe159rjbsup8vre7mgultaf9a55c.apps.googleusercontent.com
+</string>
+    <string name="konsumsi_kalori">Calories Consumed</string>
+    <string name="calory_needed">Calories Needed</string>
+    <string name="food_history">Riwayat makananmu</string>
+    <string name="weekcly_recomendation">Rekomendasi mingguanmu</string>
 </resources>

@@ -48,7 +48,20 @@ data class NutritionDetailHistory(
 	@SerializedName("Vitamin B") val vitaminB: Double? = null,  
 	@SerializedName("Vitamin C") val vitaminC: Double? = null,  
 	@SerializedName("Carbohydrate") val carbohydrate: Double? = null  
-) : Parcelable
+) : Parcelable {
+	fun toMap(): Map<String, Double> {
+		return mapOf(
+			"Calcium" to (calcium ?: 0.0),
+			"Dietary Fiber" to (dietaryFiber ?: 0.0),
+			"Iron" to (iron ?: 0.0),
+			"Protein" to (protein ?: 0.0),
+			"Vitamin A" to (vitaminA ?: 0.0),
+			"Vitamin B" to (vitaminB ?: 0.0),
+			"Vitamin C" to (vitaminC ?: 0.0),
+			"Carbohydrate" to (carbohydrate ?: 0.0)
+		)
+	}
+}
 
 @Parcelize
 data class TotalNutritionDetail(

@@ -24,7 +24,7 @@
             android:id="@+id/action_addImageFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
         <action
-            android:id="@+id/action_welcomeFragment2_to_loginActivity"
+            android:id="@+id/action_welcomeFragment2_to_RegisterActivity"
             app:destination="@id/RegisterActivity" />
 
     </fragment>

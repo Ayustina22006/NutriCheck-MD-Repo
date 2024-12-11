@@ -12,13 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nutricheck.R
 import com.example.nutricheck.ViewModelFactory
 import com.example.nutricheck.data.Injection
 import com.example.nutricheck.databinding.FragmentAddImageBinding
 import com.example.nutricheck.ui.nutrition.NutritionActivity
-import com.example.nutricheck.ui.nutrition.NutritionDetailActivity
 import kotlinx.coroutines.launch
 
 class AddImageFragment : Fragment() {

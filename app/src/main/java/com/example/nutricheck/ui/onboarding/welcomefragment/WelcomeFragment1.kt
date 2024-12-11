@@ -36,7 +36,7 @@ class WelcomeFragment1 : Fragment() {
 
         // Sign In text click listener
         binding.btnSignIn.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment1_to_loginActivity)
+            findNavController().navigate(R.id.action_welcomeFragment1_to_LoginActivity)
         }
     }
 

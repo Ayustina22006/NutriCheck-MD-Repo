@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow background -->
+    <item>
+        <shape>
+            <solid android:color="#E0E0E0" /> <!-- Warna abu-abu terang untuk bayangan -->
+            <corners android:radius="16dp" /> <!-- Sudut membulat -->
+        </shape>
+    </item>
+
+    <!-- Main background -->
+    <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp">
+        <shape>
+            <solid android:color="#FFFFFF" /> <!-- Warna putih untuk latar utama -->
+            <corners android:radius="16dp" /> <!-- Sudut membulat sama -->
+        </shape>
+    </item>
+</layer-list>

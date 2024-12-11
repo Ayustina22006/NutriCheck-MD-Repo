@@ -4,13 +4,28 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:layout_margin="4dp"
+    android:elevation="2dp">
 
     <ImageView
         android:id="@+id/foodImageView"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/rounded_bottom_bar"/>
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_bottom_bar" />
+
+    <TextView
+        android:id="@+id/foodNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/food_name"
+        android:layout_gravity="center"
+        android:textSize="11sp"
+        android:textColor="@color/black"
+        android:paddingTop="8dp"
+        android:fontFamily="@font/plus_jakarta_sans_bold"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
 </LinearLayout>

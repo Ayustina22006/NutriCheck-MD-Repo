@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:paddingTop="50dp"
     android:paddingStart="30dp"
     android:paddingEnd="30dp"
@@ -17,12 +16,26 @@
         android:gravity="center_horizontal">
 
         <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/background_button"
-            android:layout_marginBottom="16dp" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/logoContainer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="3dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="@color/prymary_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/logo_2"
+                android:contentDescription="Logo" />
+        </androidx.cardview.widget.CardView>
 
         <!-- Title -->
         <TextView
@@ -139,6 +152,7 @@
 
         <!-- Social Media Buttons -->
         <LinearLayout
+            android:id="@+id/btnSignWithGoogle"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"

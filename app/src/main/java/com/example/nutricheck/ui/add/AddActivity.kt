@@ -7,10 +7,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nutricheck.ViewModelFactory
-import com.example.nutricheck.data.response.*
-import com.example.nutricheck.databinding.ActivityAddBinding
 import com.example.nutricheck.data.Result
-import com.example.nutricheck.ui.nutrition.NutritionActivity
+import com.example.nutricheck.databinding.ActivityAddBinding
+import com.example.nutricheck.ui.history.HistoryDetailActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddActivity : AppCompatActivity() {
 
@@ -19,6 +20,8 @@ class AddActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
+    private var mealType: String? = null // Untuk menyimpan mealType dari API
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
@@ -26,14 +29,8 @@ class AddActivity : AppCompatActivity() {
 
         observeAddMealResult()
 
-        binding.btnAddFood.setOnClickListener {
-            validateAndAddFood()
-        }
-
         binding.btnSaveAndCheckNutrition.setOnClickListener {
-            validateAndAddFood()
-            val intent = Intent(this, NutritionActivity::class.java)
-            startActivity(intent)
+            validateAndAddFood() // Kirim data langsung saat tombol ditekan
         }
 
         binding.backButton.setOnClickListener {
@@ -54,7 +51,7 @@ class AddActivity : AppCompatActivity() {
         val vitaminB = binding.etVitaminB.text.toString().trim().toIntOrNull()
         val vitaminC = binding.etVitaminC.text.toString().trim().toDoubleOrNull()
 
-        if (validateInput(foodName, servingSize, calories, protein, iron, dietaryFiber, calcium,carbohydrate, vitaminA, vitaminB, vitaminC)) {
+        if (validateInput(foodName, servingSize, calories, protein, iron, dietaryFiber, calcium, carbohydrate, vitaminA, vitaminB, vitaminC)) {
             addViewModel.addManualMeal(
                 foodName = foodName,
                 servingSize = servingSize!!,
@@ -90,37 +87,30 @@ class AddActivity : AppCompatActivity() {
             binding.etNamaMakanan.error = "Nama makanan harus diisi"
             isValid = false
         }
-
         if (servingSize == null) {
             binding.etPorsi.error = "Porsi harus diisi"
             isValid = false
         }
-
         if (calories == null) {
             binding.etKalori.error = "Kalori harus diisi"
             isValid = false
         }
-
         if (protein == null) {
             binding.etProtein.error = "Protein harus diisi"
             isValid = false
         }
-
         if (carbohydrate == null) {
             binding.etKarbohidrat.error = "Karbohidrat harus diisi"
             isValid = false
         }
-
         if (vitaminA == null) {
             binding.etVitaminA.error = "Vitamin A harus diisi"
             isValid = false
         }
-
         if (vitaminB == null) {
             binding.etVitaminB.error = "Vitamin B harus diisi"
             isValid = false
         }
-
         if (vitaminC == null) {
             binding.etVitaminC.error = "Vitamin C harus diisi"
             isValid = false
@@ -145,16 +135,34 @@ class AddActivity : AppCompatActivity() {
         addViewModel.addMealResult.observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-                     binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
-                    Toast.makeText(this, "Makanan berhasil ditambahkan", Toast.LENGTH_SHORT).show()
-                    finish()
+                    binding.progressBar.visibility = View.GONE
+                    mealType = result.data.data?.mealType // Ambil mealType dari respons
+
+                    // Navigasi ke HistoryDetailActivity jika berhasil
+                    navigateToHistoryDetail()
                 }
                 is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun navigateToHistoryDetail() {
+        if (mealType != null) {
+            val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val intent = Intent(this, HistoryDetailActivity::class.java).apply {
+                putExtra("MEAL_TYPE", mealType)
+                putExtra("DATE", currentDate)
+            }
+            startActivity(intent)
+            finish() // Tutup activity ini agar tidak kembali ke sini
+        } else {
+            Toast.makeText(this, "Meal type belum tersedia, coba lagi.", Toast.LENGTH_SHORT).show()
         }
     }
 }

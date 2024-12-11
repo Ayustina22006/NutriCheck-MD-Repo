@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/transparent"
+        app:titleTextColor="@color/tranparan"
         android:elevation="4dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 

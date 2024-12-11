@@ -1,8 +1,8 @@
-package com.example.nutricheck.data.retrofit
+package com.example.nutricheck.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.nutricheck.ui.scan.CapturedFoodItem
+import com.example.nutricheck.data.entity.CapturedFoodItem
 
 @Dao
 interface AppDao {

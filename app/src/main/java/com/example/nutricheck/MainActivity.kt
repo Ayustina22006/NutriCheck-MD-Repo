@@ -26,16 +26,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflate layout and set the content view
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Observe user session state
+        supportActionBar?.hide()
+
         mainViewModel.getSession().observe(this) { user ->
             if (user.token.isEmpty()) {
                 navigateToOnboarding()
             } else {
-                setupUI() // Now calling setupUI after content view is set
+                setupUI()
             }
         }
     }

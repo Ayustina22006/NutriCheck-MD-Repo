@@ -19,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.await
 import com.example.nutricheck.data.ResourceProvider
+import com.example.nutricheck.data.entity.ArticleEntity
 import com.example.nutricheck.data.response.HistoryDataItem
 import com.example.nutricheck.data.response.NutritionItem
 
@@ -27,8 +28,10 @@ class HomeViewModel(
     private val userRepository: UserRepository,
     private val resourceProvider: ResourceProvider
 ) : ViewModel() {
-    private val _articles = MutableLiveData<List<ArticleDataItem>?>()
-    val articles: LiveData<List<ArticleDataItem>?> = _articles
+
+
+    private val _articles = MutableLiveData<List<ArticleEntity>>()
+    val articles: LiveData<List<ArticleEntity>> = _articles
 
     private val _calorieResult = MutableLiveData<Float?>()
     val calorieResult: LiveData<Float?> get() = _calorieResult
@@ -48,6 +51,14 @@ class HomeViewModel(
 
     private val _caloriesConsumed = MutableLiveData<Float>()
     val caloriesConsumed: LiveData<Float> = _caloriesConsumed
+
+    private val _dailyCalories = MutableLiveData<Float?>()
+    val dailyCalories: LiveData<Float?> get() = _dailyCalories
+
+    private val _nutritionAlertMessage = MutableLiveData<String?>()
+    val nutritionAlertMessage: LiveData<String?> get() = _nutritionAlertMessage
+
+
 
     // List makanan yang valid
     private val foodList = listOf(
@@ -123,9 +134,26 @@ class HomeViewModel(
             NutritionItem(name, "$formattedAmount g")
         }
 
+        val lowestNutrition = nutritionTotals.minByOrNull { it.value }
+        _nutritionAlertMessage.postValue(
+            when (lowestNutrition?.key) {
+                "Calcium" -> "Your calcium intake is insufficient."
+                "Dietary Fiber" -> "Your dietary fiber intake is insufficient."
+                "Iron" -> "Your iron intake is insufficient."
+                "Protein" -> "Your protein intake is insufficient."
+                "Vitamin A" -> "Your vitamin A intake is insufficient."
+                "Vitamin B" -> "Your vitamin B intake is insufficient."
+                "Vitamin C" -> "Your vitamin C intake is insufficient."
+                "Carbohydrate" -> "Your carbohydrate intake is insufficient."
+                else -> null
+            }
+        )
+
         _nutritionData.postValue(nutritionItems)
         _caloriesConsumed.postValue(totalDailyCaloriesConsumed)
     }
+
+
 
 
     fun resetErrorMessage() {
@@ -158,7 +186,8 @@ class HomeViewModel(
                             age = bmiData.age,
                             activityLevel = bmiData.activity.orEmpty()
                         )
-                        _calorieResult.postValue(calculatedCalories.toFloat())
+                        _dailyCalories.postValue(calculatedCalories.toFloat())
+
                     } else {
                         Log.e("HomeViewModel", "Invalid BMI data: weight=${bmiData.weight}, height=${bmiData.height}")
                         _calorieResult.postValue(null)
@@ -180,24 +209,12 @@ class HomeViewModel(
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val token = userRepository.getToken()
-                val client = ApiConfig.getApiService(token).getNews()
-                client.enqueue(object : Callback<ArticleResponse> {
-                    override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
-                        if (response.isSuccessful) {
-                            _articles.postValue(response.body()?.data?.filterNotNull())
-                        } else {
-                            _articles.postValue(emptyList())
-                        }
-                    }
-
-                    override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
-                        _articles.postValue(null)
-                    }
-                })
+                userRepository.getArticles().collect { articles ->
+                    _articles.postValue(articles)
+                }
             } catch (e: Exception) {
-                Log.e("HomeViewModel", "Error fetching articles: ${e.message}", e)
-                _articles.postValue(null)
+                // Handle error (optional logging or error state)
+                _articles.postValue(emptyList())
             } finally {
                 _isLoading.value = false
             }

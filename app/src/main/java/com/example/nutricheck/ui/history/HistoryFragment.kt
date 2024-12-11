@@ -135,7 +135,10 @@ class HistoryFragment : Fragment() {
                 binding.btnNext.isEnabled = false
                 todayText
             }
-            todayDate.minusDays(1) -> yesterdayText
+            todayDate.minusDays(1) -> {
+                binding.btnNext.isEnabled = true
+                yesterdayText
+            }
             else -> {
                 binding.btnNext.isEnabled = true
                 currentDate.format(dateFormatter)
@@ -146,6 +149,7 @@ class HistoryFragment : Fragment() {
         adjustTextViewWidth()
         updateButtonStyles()
     }
+
 
     private fun adjustTextViewWidth() {
         val layoutParams = binding.tvDate.layoutParams as LinearLayout.LayoutParams

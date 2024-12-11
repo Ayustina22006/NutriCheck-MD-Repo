@@ -1,12 +1,34 @@
 package com.example.nutricheck.data.retrofit
 
-import com.example.nutricheck.data.response.*
+import com.example.nutricheck.data.response.AddManualResponse
+import com.example.nutricheck.data.response.AddMealRequest
+import com.example.nutricheck.data.response.AddResponse
+import com.example.nutricheck.data.response.ArticleResponse
+import com.example.nutricheck.data.response.AssessmentRequest
+import com.example.nutricheck.data.response.AssessmentResponse
+import com.example.nutricheck.data.response.DetailHistoryResponse
+import com.example.nutricheck.data.response.FoodResponse
+import com.example.nutricheck.data.response.GoogleLoginRequest
+import com.example.nutricheck.data.response.GoogleLoginResponse
+import com.example.nutricheck.data.response.HistoryResponse
+import com.example.nutricheck.data.response.LoginRequest
+import com.example.nutricheck.data.response.LoginResponse
+import com.example.nutricheck.data.response.MealHistoryRequest
+import com.example.nutricheck.data.response.MealHistoryResponse
+import com.example.nutricheck.data.response.RegisterRequest
+import com.example.nutricheck.data.response.RegisterResponse
+import com.example.nutricheck.data.response.UserResponse
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.*
-
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
+
     @POST("auth/register")
     fun registerUser(
         @Body userRequest: RegisterRequest
@@ -19,6 +41,9 @@ interface ApiService {
     fun loginUser(
         @Body loginRequest: LoginRequest
     ): Call<LoginResponse>
+
+    @POST("auth/google/callback")
+    fun googleLogin(@Body request: GoogleLoginRequest): Call<GoogleLoginResponse>
 
     @PUT("users/{userId}/bmi")
     fun submitAssessment(
@@ -65,4 +90,8 @@ interface ApiService {
         @Query("date") date: String? = null
     ): DetailHistoryResponse
 
+    @GET("news/title")
+    fun getSearch(
+        @Query("tittle") keyword: String
+    ): Call<ArticleResponse>
 }

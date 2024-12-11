@@ -27,7 +27,7 @@ class WelcomeFragment4 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment4_to_loginActivity)
+            findNavController().navigate(R.id.action_welcomeFragment4_to_RegisterActivity)
         }
 
         binding.btnBack.setOnClickListener {
@@ -35,7 +35,7 @@ class WelcomeFragment4 : Fragment() {
         }
 
         binding.btnSkip.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment4_to_loginActivity)
+            findNavController().navigate(R.id.action_welcomeFragment4_to_RegisterActivity)
         }
 
         playAnimation()

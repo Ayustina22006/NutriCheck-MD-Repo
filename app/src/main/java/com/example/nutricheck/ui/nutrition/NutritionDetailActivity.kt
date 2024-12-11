@@ -9,6 +9,7 @@ import com.example.nutricheck.R
 import com.example.nutricheck.data.response.MealDetail
 import com.example.nutricheck.databinding.ActivityNutritionDetailBinding
 
+@Suppress("DEPRECATION")
 class NutritionDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNutritionDetailBinding
@@ -21,8 +22,9 @@ class NutritionDetailActivity : AppCompatActivity() {
 
         val mealDetail = intent.getParcelableExtra<MealDetail>("MEAL_DETAIL")
 
+
         mealDetail?.let { detail ->
-            // Header Section
+            binding.headerSection.background = getDrawable(R.drawable.placeholder_2)
             binding.titleText.text = detail.foodName ?: "Unknown Food"
             binding.servingSizeValue.text = "${detail.servingSize ?: 0} g"
             binding.calorieValue.text = "${detail.calories ?: 0} kcal"

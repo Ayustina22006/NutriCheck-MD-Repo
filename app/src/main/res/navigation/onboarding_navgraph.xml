@@ -13,8 +13,11 @@
             android:id="@+id/action_welcomeFragment1_to_welcomeFragment2"
             app:destination="@id/welcomeFragment2" />
         <action
-            android:id="@+id/action_welcomeFragment1_to_loginActivity"
+            android:id="@+id/action_welcomeFragment1_to_RegisterActivity"
             app:destination="@id/RegisterActivity" />
+        <action
+            android:id="@+id/action_welcomeFragment1_to_LoginActivity"
+            app:destination="@id/LoginActivity" />
     </fragment>
 
     <fragment
@@ -26,7 +29,7 @@
             android:id="@+id/action_welcomeFragment2_to_welcomeFragment3"
             app:destination="@id/welcomeFragment3" />
         <action
-            android:id="@+id/action_welcomeFragment2_to_loginActivity"
+            android:id="@+id/action_welcomeFragment2_to_RegisterActivity"
             app:destination="@id/RegisterActivity" />
         <action
             android:id="@+id/action_welcomeFragment2_to_welcomeFragment1"
@@ -42,7 +45,7 @@
             android:id="@+id/action_welcomeFragment3_to_welcomeFragment4"
             app:destination="@id/welcomeFragment4" />
         <action
-            android:id="@+id/action_welcomeFragment3_to_loginActivity"
+            android:id="@+id/action_welcomeFragment3_to_RegisterActivity"
             app:destination="@id/RegisterActivity" />
         <action
             android:id="@+id/action_welcomeFragment3_to_welcomeFragment2"
@@ -56,7 +59,7 @@
         android:label="WelcomeFragment4"
         tools:layout="@layout/fragment_welcome4">
         <action
-            android:id="@+id/action_welcomeFragment4_to_loginActivity"
+            android:id="@+id/action_welcomeFragment4_to_RegisterActivity"
             app:destination="@id/RegisterActivity" />
         <action
             android:id="@+id/action_welcomeFragment4_to_welcomeFragment3"
@@ -64,6 +67,11 @@
     </fragment>
 
     <!-- Login Activity -->
+    <activity
+        android:id="@+id/LoginActivity"
+        android:name="com.example.nutricheck.auth.login.LoginActivity"
+        tools:layout="@layout/activity_login"/>
+
     <activity
         android:id="@+id/RegisterActivity"
         android:name="com.example.nutricheck.auth.register.RegisterActivity"

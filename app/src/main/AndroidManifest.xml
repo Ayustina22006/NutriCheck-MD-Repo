@@ -40,10 +40,13 @@
             android:name=".ui.scan.ScanActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.nutrition.NutritionDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.nutrition.NutritionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.nutrition.NutritionDetailActivity"
+            android:name=".ui.DetailHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.add.AddActivity"
@@ -70,6 +73,13 @@
         <meta-data
             android:name="androidx.camera.camera2.Camera2Config"
             android:value="androidx.camera.camera2.impl.Camera2Config" />
+
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.games.APP_ID"-->
+<!--            android:value="@string/app_id" />-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

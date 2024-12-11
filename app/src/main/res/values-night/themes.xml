@@ -1,8 +1,43 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.NutriCheck" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/prymary_color</item>
+        <item name="colorSecondaryContainer">@color/bottom_nav_background</item>
+        <item name="android:statusBarColor">@color/bottom_nav_background</item>
+        <item name="colorSecondary">@color/second_color</item>
+        <item name="android:navigationBarColor">@color/prymary_color</item>
+        <item name="android:textColor">@color/white</item>"
     </style>
-<!--   -->
+
+    <style name="Theme.NutriCheck" parent="Base.Theme.NutriCheck" />
+
+    <style name="CustomDatePickerTheme" parent="Theme.Material3.DayNight.Dialog">
+        <!-- Header background color -->
+        <item name="colorPrimary">@color/prymary_color</item>
+        <!-- Header text color -->
+        <item name="colorOnPrimary">@color/prymary_color</item>
+        <item name="colorSecondary">@color/second_color</item>
+        <!-- Dialog background color -->
+        <item name="android:windowBackground">@color/white</item>
+        color
+        <!-- Button text color -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/prymary_color</item>
+    </style>
+    <style name="CustomBackground" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+    <style name="ThemeOverlay.CardView.WhiteBackground" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>

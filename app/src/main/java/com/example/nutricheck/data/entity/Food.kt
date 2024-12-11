@@ -1,4 +1,4 @@
-package com.example.nutricheck.ui.scan
+package com.example.nutricheck.data.entity
 
 import androidx.room.*
 

@@ -1,12 +1,10 @@
 package com.example.nutricheck.ui.scan
 
 import android.app.Application
-import android.content.Context
-import android.graphics.Bitmap
-import android.os.Environment
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.nutricheck.data.UserRepository
+import com.example.nutricheck.data.database.AppDatabase
+import com.example.nutricheck.data.entity.CapturedFoodItem
 import com.example.nutricheck.data.response.*
 import com.example.nutricheck.data.retrofit.*
 import kotlinx.coroutines.Dispatchers

@@ -69,6 +69,7 @@ dependencies {
     ksp("com.github.bumptech.glide:ksp:4.15.1")
     implementation(libs.retrofit2.retrofit)
     implementation(libs.squareup.converter.gson)
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.nutricheck.R
+import com.example.nutricheck.data.entity.CapturedFoodItem
 import com.example.nutricheck.databinding.ItemImageBinding
 import java.io.File
 
@@ -45,9 +46,11 @@ class ImageAdapter(private var foodItems: List<CapturedFoodItem>) : RecyclerView
     inner class ImageViewHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CapturedFoodItem) {
             val context = binding.root.context
+            val imageName = item.foodName?.let { File(it).nameWithoutExtension }
             val uri = Uri.parse(item.imagePath)
 
-            // Load gambar menggunakan Glide
+            binding.foodNameTextView.text = imageName ?: "Unknown Food"
+
             Glide.with(context)
                 .load(uri)
                 .listener(object : RequestListener<Drawable> {

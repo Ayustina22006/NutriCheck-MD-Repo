@@ -20,7 +20,7 @@ import com.example.nutricheck.data.response.Food
 import com.example.nutricheck.ui.add.AddActivity
 import com.example.nutricheck.ui.add.AddSearchActivity
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SearchView
+import com.example.nutricheck.R
 import com.example.nutricheck.ui.NutritionAdapter
 import com.example.nutricheck.databinding.AlertBinding
 import com.example.nutricheck.ui.scan.ScanActivity
@@ -35,6 +35,8 @@ class HomeFragment : Fragment() {
     private var alertDialog: AlertDialog? = null
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private var isActionBarHidden = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +59,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (!isActionBarHidden) {
+            (activity as? AppCompatActivity)?.supportActionBar?.hide()
+            isActionBarHidden = true
+        }
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
+
         val factory = ViewModelFactory.getInstance(requireContext())
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
@@ -74,6 +82,14 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.piringku.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = android.net.Uri.parse("https://ayosehat.kemkes.go.id/isi-piringku-pedoman-makan-kekinian-orang-indonesia")
+            startActivity(intent)
+            true
+        }
+
+
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         homeViewModel.fetchNutritionData(currentDate)
         Log.d("HomeFragment", "date in day: $currentDate")
@@ -83,25 +99,18 @@ class HomeFragment : Fragment() {
 
 
     private fun setupSearchView() {
-        binding.searchView.setOnClickListener {
-            binding.searchView.isIconified = false
-        }
-
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    homeViewModel.searchFood(it.trim()) // Lakukan pencarian
+        binding.searchView.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
+                val query = v.text.toString().trim()
+                if (query.isNotEmpty()) {
+                    homeViewModel.searchFood(query)
                 }
-                return true
+                true
+            } else {
+                false
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
+        }
     }
-
-
 
     private fun setupObservers() {
         homeViewModel.foodNutritionResult.observe(viewLifecycleOwner) { food ->
@@ -130,23 +139,28 @@ class HomeFragment : Fragment() {
             }
         }
 
-        homeViewModel.caloriesConsumed.observe(viewLifecycleOwner) { caloriesConsumed ->
-            homeViewModel.calorieResult.observe(viewLifecycleOwner) { totalCalories ->
-                if (totalCalories != null) {
-                    val progress = (caloriesConsumed / totalCalories) * 100
+        val currentDate = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault()).format(Date())
 
-                    Log.d("HomeFragment", "Total Calories: $totalCalories")
+        homeViewModel.caloriesConsumed.observe(viewLifecycleOwner) { caloriesConsumed ->
+            homeViewModel.dailyCalories.observe(viewLifecycleOwner) { dailyCalories ->
+                if (dailyCalories != null) {
+                    val progress = (caloriesConsumed / dailyCalories) * 100
+
+                    Log.d("HomeFragment", "Daily Calories: $dailyCalories")
                     Log.d("HomeFragment", "Calories Consumed: $caloriesConsumed")
                     Log.d("HomeFragment", "Progress: $progress")
-                    Log.d("HomeFragment", "Calories observed: $totalCalories")
 
-                    binding.semiCircularProgressBar.setMax(totalCalories)
-                    binding.semiCircularProgressBar.setTotalCalories(totalCalories)
+                    binding.semiCircularProgressBar.setMax(dailyCalories)
+                    binding.semiCircularProgressBar.setTotalCalories(dailyCalories)
                     binding.semiCircularProgressBar.setProgress(caloriesConsumed)
 
-                    binding.tvCaloriesStatus.text = "${caloriesConsumed.toInt()}/${totalCalories.toInt()} calories fulfilled"
+                    binding.tvCurrentDate.text = currentDate
+                    binding.tvCaloriesNeeded.text = "${dailyCalories.toInt()} kkal"
+                    binding.tvCaloriesConsumed.text = "${caloriesConsumed.toInt()} kkal"
+
                 }
             }
+
         }
     }
 
@@ -160,6 +174,11 @@ class HomeFragment : Fragment() {
         homeViewModel.nutritionData.observe(viewLifecycleOwner) { nutritionItems ->
             nutritionAdapter.setNutritionList(nutritionItems)
         }
+
+        homeViewModel.nutritionAlertMessage.observe(viewLifecycleOwner) { alertMessage ->
+            binding.alertNutrition.text = alertMessage ?: "Semua nutrisi kamu tercukupi."
+        }
+
     }
 
     private fun setupArticleRecyclerView() {
@@ -179,15 +198,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun showFoodNotFoundAlert(message: String) {
-        // Cek apakah dialog sudah ada
         if (alertDialog == null || !alertDialog!!.isShowing) {
             val dialogBinding = AlertBinding.inflate(LayoutInflater.from(requireContext()))
+
             dialogBinding.tvAlertMessage.text = message
 
-            alertDialog = AlertDialog.Builder(requireContext())
-                .setView(dialogBinding.root)
-                .create()
-
+            // Atur aksi tombol
             dialogBinding.btnAddFood.setOnClickListener {
                 val intent = Intent(requireContext(), AddActivity::class.java)
                 startActivity(intent)
@@ -197,17 +213,15 @@ class HomeFragment : Fragment() {
 
             dialogBinding.btnCancel.setOnClickListener {
                 alertDialog?.dismiss()
-                homeViewModel.resetErrorMessage()
             }
 
-            alertDialog?.setOnDismissListener {
-                homeViewModel.resetErrorMessage()
-            }
+            alertDialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+                .setView(dialogBinding.root)
+                .create()
 
             alertDialog?.show()
         }
     }
-
 
     private fun navigateToAddSearchActivity(food: Food) {
         val intent = Intent(requireContext(), AddSearchActivity::class.java).apply {
@@ -220,7 +234,7 @@ class HomeFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        (activity as? AppCompatActivity)?.supportActionBar?.hide()
+        (activity as? AppCompatActivity)?.supportActionBar?.show()
         alertDialog?.dismiss()
         alertDialog = null
     }
@@ -236,6 +250,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
         _binding = null
     }
 }

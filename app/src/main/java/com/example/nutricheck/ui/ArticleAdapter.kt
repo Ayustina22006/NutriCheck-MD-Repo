@@ -11,20 +11,29 @@ import com.squareup.picasso.Picasso
 
 import android.content.Intent
 import android.net.Uri
+import com.example.nutricheck.data.entity.ArticleEntity
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private val articleList = mutableListOf<ArticleDataItem?>()
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(articles: List<ArticleDataItem?>?) {
-        articleList.clear()
-        if (articles != null) {
-            articleList.addAll(articles)
-        }
-        notifyDataSetChanged()
+    private fun convertToArticleDataItem(articleEntity: ArticleEntity): ArticleDataItem {
+        return ArticleDataItem(
+            id = articleEntity.id,
+            title = articleEntity.title,
+            description = articleEntity.description,
+            image = articleEntity.image,
+            url = articleEntity.url,
+            categories = articleEntity.categories.split(",")
+        )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(articles: List<ArticleEntity>) {
+        articleList.clear()
+        articleList.addAll(articles.map { convertToArticleDataItem(it) })
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val binding = ItemArticleBinding.inflate(
             LayoutInflater.from(parent.context),

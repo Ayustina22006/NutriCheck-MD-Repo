@@ -38,7 +38,7 @@ class WelcomeFragment2 : Fragment() {
         }
 
         binding.btnSkip.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment2_to_loginActivity)
+            findNavController().navigate(R.id.action_welcomeFragment2_to_RegisterActivity)
         }
         playAnimation()
     }

@@ -4,8 +4,8 @@
         <item name="colorPrimary">@color/prymary_color</item>
         <item name="colorSecondaryContainer">@color/bottom_nav_background</item>
         <item name="android:statusBarColor">@color/bottom_nav_background</item>
-        <item name="colorSecondary">@color/second_color</item>
         <item name="android:navigationBarColor">@color/prymary_color</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.NutriCheck" parent="Base.Theme.NutriCheck" />
@@ -25,7 +25,12 @@
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/prymary_color</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

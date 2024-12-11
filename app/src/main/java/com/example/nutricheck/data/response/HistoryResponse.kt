@@ -83,21 +83,21 @@ data class HistoryDataItem(
 @Parcelize
 data class NutritionsHistory(
 	@SerializedName("Calcium")
-	val calcium: Float? = null,
+	val calcium: Double? = null,
 	@SerializedName("Dietary Fiber")
-	val dietaryFiber: Float? = null,
+	val dietaryFiber: Double? = null,
 	@SerializedName("Iron")
-	val iron: Float? = null,
+	val iron: Double? = null,
 	@SerializedName("Protein")
-	val protein: Float? = null,
+	val protein: Double? = null,
 	@SerializedName("Vitamin A")
-	val vitaminA: Float? = null,
+	val vitaminA: Double? = null,
 	@SerializedName("Vitamin B")
-	val vitaminB: Float? = null,
+	val vitaminB: Double? = null,
 	@SerializedName("Vitamin C")
-	val vitaminC: Float? = null,
+	val vitaminC: Double? = null,
 	@SerializedName("Carbohydrate")
-	val carbohydrate: Float? = null
+	val carbohydrate: Double? = null
 ) : Parcelable
 
 data class NutritionItem(

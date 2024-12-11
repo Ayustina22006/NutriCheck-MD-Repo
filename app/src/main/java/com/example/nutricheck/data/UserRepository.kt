@@ -3,7 +3,10 @@ package com.example.nutricheck.data
 import android.content.Context
 import com.example.nutricheck.auth.pref.UserModel
 import com.example.nutricheck.auth.pref.UserPreference
+import com.example.nutricheck.data.database.ArticleDao
+import com.example.nutricheck.data.entity.ArticleEntity
 import com.example.nutricheck.data.response.*
+import com.example.nutricheck.data.retrofit.ApiConfig
 import com.example.nutricheck.data.retrofit.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -14,8 +17,54 @@ import java.io.IOException
 
 class UserRepository private constructor(
     private val apiService: ApiService,
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
+    private val articleDao: ArticleDao
 ) {
+    suspend fun getArticlesFromApi(): List<ArticleEntity> {
+        return try {
+            val token = getToken()
+            val apiService = ApiConfig.getApiService(token)
+            val response = apiService.getNews().execute().body()
+
+            response?.data?.mapNotNull { article ->
+                article?.let {
+                    ArticleEntity(
+                        id = it.id ?: "",
+                        title = it.title ?: "",
+                        description = it.description ?: "",
+                        image = it.image,
+                        url = it.url ?: "",
+                        categories = it.categories?.joinToString(",") ?: ""
+                    )
+                }
+            } ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getArticles(): Flow<List<ArticleEntity>> = flow {
+        // First, get local cached articles
+        val localArticles = withContext(Dispatchers.IO) {
+            articleDao.getAllArticles().first()
+        }
+        emit(localArticles)
+
+        try {
+            val apiArticles = getArticlesFromApi()
+
+            if (apiArticles.isNotEmpty()) {
+                withContext(Dispatchers.IO) {
+                    articleDao.clearArticles()
+                    articleDao.insertArticles(apiArticles)
+                }
+
+                emit(apiArticles)
+            }
+        } catch (e: Exception) {
+            emit(localArticles)
+        }
+    }.flowOn(Dispatchers.IO)
 
     fun login(email: String, password: String): Flow<Result<LoginResponse>> = flow {
         emit(Result.Loading)
@@ -95,9 +144,13 @@ class UserRepository private constructor(
     companion object {
         @Volatile
         private var instance: UserRepository? = null
-        fun getInstance(apiService: ApiService, userPreference: UserPreference): UserRepository =
+        fun getInstance(
+            apiService: ApiService,
+            userPreference: UserPreference,
+            articleDao: ArticleDao
+        ): UserRepository =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(apiService, userPreference).also { instance = it }
+                instance ?: UserRepository(apiService, userPreference, articleDao).also { instance = it }
             }
     }
 }

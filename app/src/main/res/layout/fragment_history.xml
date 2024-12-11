@@ -21,24 +21,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Placeholder Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="vertical"
-                android:layout_marginBottom="5dp"
-                android:background="@color/white"
-                android:padding="16dp">
-            </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_height="1dp"
-                android:layout_marginVertical="8dp"
-                android:background="@color/gray_300" />
-
-            <!-- Weekly Recommendation Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,7 +31,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rekomendasi mingguanmu"
+                    android:text="@string/weekcly_recomendation"
                     android:textColor="@color/black"
                     android:fontFamily="@font/plus_jakarta_sans"
                     android:textSize="15sp"
@@ -102,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Riwayat makananmu"
+                    android:text="@string/food_history"
                     android:fontFamily="@font/plus_jakarta_sans"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -145,7 +128,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:importantForAccessibility="no"
-                        android:src="@drawable/ic_back"
+                        android:src="@drawable/ic_next"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         app:tint="@color/prymary_color"/>
                 </LinearLayout>
@@ -154,8 +137,9 @@
                     android:id="@+id/rv_meal_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:clipToPadding="false" />
+                    android:clipToPadding="false"
+                    android:padding="8dp" />
+
                 <LinearLayout
                     android:id="@+id/empty_state_layout"
                     android:layout_width="match_parent"
