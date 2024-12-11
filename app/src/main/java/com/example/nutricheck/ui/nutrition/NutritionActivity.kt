@@ -47,6 +47,13 @@ class NutritionActivity : AppCompatActivity() {
             adapter = nutritionDetailsAdapter
         }
 
+        binding.piringku.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = android.net.Uri.parse("https://ayosehat.kemkes.go.id/isi-piringku-pedoman-makan-kekinian-orang-indonesia")
+            startActivity(intent)
+            true
+        }
+
         mealHistoryResponse?.mealHistory?.mealsDetails?.let {
             nutritionDetailsAdapter.submitList(it)
         }

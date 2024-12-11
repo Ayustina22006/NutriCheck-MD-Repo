@@ -1,97 +1,93 @@
-//package com.example.nutricheck.ui.pedia
-//
-//import android.util.Log
-//import androidx.lifecycle.LiveData
-//import androidx.lifecycle.MutableLiveData
-//import androidx.lifecycle.ViewModel
-//import androidx.lifecycle.asLiveData
-//import androidx.lifecycle.viewModelScope
-//import com.example.nutricheck.auth.pref.UserModel
-//import com.example.nutricheck.data.UserRepository
-//import com.example.nutricheck.data.response.ArticleDataItem
-//import com.example.nutricheck.data.response.ArticleResponse
-//import com.example.nutricheck.data.retrofit.ApiConfig
-//import kotlinx.coroutines.launch
-//import retrofit2.Call
-//import retrofit2.Callback
-//import retrofit2.Response
-//
-//class ArticleViewModel(private val userRepository: UserRepository) : ViewModel() {
-//
-//    private val _articles = MutableLiveData<List<ArticleDataItem>?>()
-//    val articles: LiveData<List<ArticleDataItem>?> = _articles
-//
-//    private var lastSearchResult: List<ArticleDataItem>? = null
-//
-//    // Untuk mendapatkan sesi pengguna saat ini
-//    fun getSession(): LiveData<UserModel> {
-//        return userRepository.getSession().asLiveData()
-//    }
-//
-//    // Fungsi untuk mengambil semua artikel
-//    fun fetchArticles() {
-//        viewModelScope.launch {
-//            try {
-//                val token = userRepository.getToken()
-//
-//                if (token.isNotEmpty()) {
-//                    val client = ApiConfig.getApiService(token).getNews()
-//                    client.enqueue(object : Callback<ArticleResponse> {
-//                        override fun onResponse(call: Call<ArticleResponse>, response: Response<ArticleResponse>) {
-//                            if (response.isSuccessful) {
-//                                val articles = response.body()?.data?.filterNotNull() ?: emptyList()
-//                                lastSearchResult = null // Reset hasil pencarian
-//                                _articles.postValue(articles)
-//                            } else {
-//                                Log.e("ArticleViewModel", "Response not successful: ${response.errorBody()?.string()}")
-//                                _articles.postValue(emptyList())
-//                            }
-//                        }
-//
-//                        override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
-//                            Log.e("ArticleViewModel", "Failed to fetch articles: ${t.message}")
-//                            _articles.postValue(emptyList())
-//                        }
-//                    })
-//                } else {
-//                    Log.e("ArticleViewModel", "Token is missing!")
-//                    _articles.postValue(emptyList())
-//                }
-//            } catch (e: Exception) {
-//                Log.e("ArticleViewModel", "Error in fetchArticles: ${e.message}")
-//                _articles.postValue(emptyList())
-//            }
-//        }
-//    }
-//
-//    fun searchArticles(keyword: String) {
-//        viewModelScope.launch {
-//            try {
-//                val token = userRepository.getToken()
-//                if (token.isNotEmpty()) {
-//                    val response = ApiConfig.getApiService(token).getSearch(keyword)
-//                    if (response.isSuccessful) {
-//                        val articles = response.body()?.data?.filterNotNull() ?: emptyList()
-//                        lastSearchResult = articles
-//                        _articles.postValue(articles)
-//                    } else {
-//                        Log.e("ArticleViewModel", "Search response not successful: ${response.errorBody()?.string()}")
-//                        _articles.postValue(emptyList())
-//                    }
-//                } else {
-//                    Log.e("ArticleViewModel", "Token is missing!")
-//                }
-//            } catch (e: Exception) {
-//                Log.e("ArticleViewModel", "Error in searchArticles: ${e.message}")
-//                _articles.postValue(emptyList())
-//            }
-//        }
-//    }
-//
-//    // Fungsi untuk memfilter artikel berdasarkan kategori
-//    fun filterArticlesByCategory(category: String) {
-//        val source = lastSearchResult ?: _articles.value ?: emptyList()
-//        val filteredArticles = source.filter { it.categories?.contains(category) == true }
-//        _articles.postValue(filteredArticles)
-//    }
-//}
+package com.example.nutricheck.ui.pedia
+
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.nutricheck.auth.pref.UserModel
+import com.example.nutricheck.data.UserRepository
+import com.example.nutricheck.data.entity.ArticleEntity
+import com.example.nutricheck.data.response.SearchDataItem
+import com.example.nutricheck.data.retrofit.ApiConfig
+import kotlinx.coroutines.launch
+class ArticleViewModel(private val userRepository: UserRepository) : ViewModel() {
+
+    private val _articles = MutableLiveData<List<ArticleEntity>>()
+    val articles: LiveData<List<ArticleEntity>> = _articles
+
+    private val _searcharticles = MutableLiveData<List<SearchDataItem>?>()
+    val searcharticles: LiveData<List<SearchDataItem>?> = _searcharticles
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private var lastSearchResult: List<ArticleEntity>? = null
+
+    // Untuk mendapatkan sesi pengguna saat ini
+    fun getSession(): LiveData<UserModel> {
+        return userRepository.getSession().asLiveData()
+    }
+
+    // Mengambil semua artikel
+    fun fetchArticles() {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                userRepository.getArticles().collect { articles ->
+                    _articles.postValue(articles)
+                    lastSearchResult = articles // Simpan hasil pencarian terakhir
+                }
+            } catch (e: Exception) {
+                _articles.postValue(emptyList())
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    // Mencari artikel berdasarkan keyword
+    fun searchArticles(keyword: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val token = userRepository.getToken()
+                val response = ApiConfig.getApiService(token).getSearch(keyword).execute()
+                if (response.isSuccessful) {
+                    val searchResults = response.body()?.data?.filterNotNull() ?: emptyList()
+                    // Mapping dari ArticleDataItem ke ArticleEntity
+                    val mappedResults = searchResults.map { item ->
+                        ArticleEntity(
+                            id = item.id ?: "",
+                            title = item.title ?: "",
+                            description = item.description ?: "",
+                            image = item.image,
+                            url = item.url ?: "",
+                            categories = item.categories?.joinToString(",") ?: ""
+                        )
+                    }
+                    lastSearchResult = mappedResults // Simpan hasil pencarian terakhir
+                    _articles.postValue(mappedResults) // Perbarui LiveData
+                } else {
+                    _articles.postValue(emptyList())
+                }
+            } catch (e: Exception) {
+                Log.e("ArticleViewModel", "Error fetching search articles: ${e.message}")
+                _articles.postValue(emptyList())
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
+    fun filterArticlesByCategory(category: String) {
+        val source = lastSearchResult ?: _articles.value ?: emptyList()
+        val filteredArticles = source.filter { article ->
+            article.categories.split(",").contains(category)
+        }
+        _articles.postValue(filteredArticles)
+    }
+
+}

@@ -47,6 +47,7 @@ data class MealDetail(
     @SerializedName("createdAt") val createdAt: String? = null,
     @SerializedName("userId") val userId: String? = null,
     @SerializedName("nutritions") val nutritionDetails: NutritionDetail? = null,
+    @SerializedName("image") val image: String? = null,
     @SerializedName("updatedAt") val updatedAt: String? = null
 ) : Parcelable {
 

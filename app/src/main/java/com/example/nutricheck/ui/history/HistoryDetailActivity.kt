@@ -43,14 +43,21 @@ class HistoryDetailActivity : AppCompatActivity() {
             adapter = historyDetailAdapter
         }
 
+
         viewModel.fetchDetailHistory(mealType, date)
 
-        // Observasi data dari ViewModel
         observeViewModel()
 
         binding.backButton.setOnClickListener {
             finish()
         }
+        binding.piringku.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = android.net.Uri.parse("https://ayosehat.kemkes.go.id/isi-piringku-pedoman-makan-kekinian-orang-indonesia")
+            startActivity(intent)
+            true
+        }
+
     }
 
     @SuppressLint("SetTextI18n")

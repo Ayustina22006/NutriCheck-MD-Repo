@@ -19,6 +19,7 @@ data class Food(
     @SerializedName("Serving Size (grams)") val servingSize: Int,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("userId") val userId: String,
+    @SerializedName("image") val image: String,
     @SerializedName("nutritions") val nutritions: Nutrition,
     @SerializedName("updatedAt") val updatedAt: String
 ) : Parcelable

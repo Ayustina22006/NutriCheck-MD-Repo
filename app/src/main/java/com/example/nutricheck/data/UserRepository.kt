@@ -97,6 +97,8 @@ class UserRepository private constructor(
         }
     }
 
+
+
     fun fetchUserBMI(userId: String): Flow<Result<UserResponse>> = flow {
         emit(Result.Loading)
         try {

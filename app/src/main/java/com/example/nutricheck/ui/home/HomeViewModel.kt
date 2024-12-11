@@ -58,9 +58,6 @@ class HomeViewModel(
     private val _nutritionAlertMessage = MutableLiveData<String?>()
     val nutritionAlertMessage: LiveData<String?> get() = _nutritionAlertMessage
 
-
-
-    // List makanan yang valid
     private val foodList = listOf(
         "Tempeh", "bibimbap", "cheesecake", "chicken Soto", "chicken noodle",
         "chicken porridge", "chicken wings", "chocolate cake", "churros",

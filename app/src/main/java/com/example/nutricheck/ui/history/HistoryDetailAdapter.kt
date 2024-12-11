@@ -44,7 +44,7 @@ class HistoryDetailAdapter(
                 textFoodCategory.text = highestNutrition?.key?: "No Nutrition"
 
                 Glide.with(imageFood.context)
-                    .load(R.drawable.placeholder_2)
+                    .load(mealDetail.image)
                     .placeholder(R.drawable.placeholder_2)
                     .into(imageFood)
                 root.setOnClickListener {

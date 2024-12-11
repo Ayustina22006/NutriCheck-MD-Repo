@@ -47,7 +47,7 @@ class NutritionDetailsAdapter(
 
                 // Load image with Glide
                 Glide.with(imageFood.context)
-                    .load(mealDetail)
+                    .load(mealDetail.image)
                     .placeholder(R.drawable.placeholder_2)
                     .into(imageFood)
 

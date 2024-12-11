@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,20 +16,31 @@
             android:id="@+id/headerSection"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:background="@drawable/placeholder_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- Back Button -->
+            <ImageView
+                android:id="@+id/headerSectionImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@color/transparant_black"
+                android:backgroundTint="@color/transparant_black"
+                android:scaleType="centerCrop"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
             <ImageButton
                 android:id="@+id/backButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_back"
+                android:background="@drawable/ic_back"
+                android:backgroundTint="@color/white"
+                android:contentDescription="Kembali"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,7 +52,7 @@
                 android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:text="@string/title_detail"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -348,5 +360,10 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,10 +1,14 @@
 package com.example.nutricheck.ui.nutrition
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.example.nutricheck.R
 import com.example.nutricheck.data.response.MealDetail
 import com.example.nutricheck.databinding.ActivityNutritionDetailBinding
@@ -24,7 +28,15 @@ class NutritionDetailActivity : AppCompatActivity() {
 
 
         mealDetail?.let { detail ->
-            binding.headerSection.background = getDrawable(R.drawable.placeholder_2)
+            detail.image?.let { imageUrl ->
+                Glide.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.placeholder_2)
+                    .into(binding.headerSection.findViewById<ImageView>(R.id.headerSectionImage).apply {
+                        setColorFilter(Color.parseColor("#4D000000"), PorterDuff.Mode.DARKEN)
+                    })
+            }
+
             binding.titleText.text = detail.foodName ?: "Unknown Food"
             binding.servingSizeValue.text = "${detail.servingSize ?: 0} g"
             binding.calorieValue.text = "${detail.calories ?: 0} kcal"

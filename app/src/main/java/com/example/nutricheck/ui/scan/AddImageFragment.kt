@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nutricheck.R
 import com.example.nutricheck.ViewModelFactory
 import com.example.nutricheck.data.Injection
+import com.example.nutricheck.data.database.AppDatabase
 import com.example.nutricheck.databinding.FragmentAddImageBinding
 import com.example.nutricheck.ui.nutrition.NutritionActivity
 import kotlinx.coroutines.launch
@@ -50,8 +51,9 @@ class AddImageFragment : Fragment() {
         val factory = ViewModelFactory(userRepository, resourceProvider, requireActivity().application)
         cameraViewModel = ViewModelProvider(requireActivity(), factory)[CameraViewModel::class.java]
 
-        // Setup RecyclerView
-        imageAdapter = ImageAdapter(emptyList())
+        val appDao = AppDatabase.getDatabase(requireContext()).capturedFoodItemDao()
+
+        imageAdapter = ImageAdapter(foodItems = emptyList(), appDao)
         binding.rvCapturedFood.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = imageAdapter

@@ -6,6 +6,7 @@ import com.example.nutricheck.data.response.AddResponse
 import com.example.nutricheck.data.response.ArticleResponse
 import com.example.nutricheck.data.response.AssessmentRequest
 import com.example.nutricheck.data.response.AssessmentResponse
+import com.example.nutricheck.data.response.CategoryResponse
 import com.example.nutricheck.data.response.DetailHistoryResponse
 import com.example.nutricheck.data.response.FoodResponse
 import com.example.nutricheck.data.response.GoogleLoginRequest
@@ -17,6 +18,7 @@ import com.example.nutricheck.data.response.MealHistoryRequest
 import com.example.nutricheck.data.response.MealHistoryResponse
 import com.example.nutricheck.data.response.RegisterRequest
 import com.example.nutricheck.data.response.RegisterResponse
+import com.example.nutricheck.data.response.SearchResponse
 import com.example.nutricheck.data.response.UserResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -36,6 +38,8 @@ interface ApiService {
 
     @GET("news")
     fun getNews(): Call<ArticleResponse>
+
+    @GET("")
 
     @POST("auth/login")
     fun loginUser(
@@ -92,6 +96,11 @@ interface ApiService {
 
     @GET("news/title")
     fun getSearch(
-        @Query("tittle") keyword: String
-    ): Call<ArticleResponse>
+        @Query("title") keyword: String
+    ): Call<SearchResponse>
+
+    @GET ("news/category/:category")
+    fun getCategory(
+        @Query("category") category: String
+    ): Call<CategoryResponse>
 }
