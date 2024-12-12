@@ -49,6 +49,12 @@ class ArticleFragment : Fragment() {
 //            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
 //        }
 
+        articleViewModel.noArticlesAvailable.observe(viewLifecycleOwner) { noArticles ->
+            // Toggle visibility of RecyclerView and Empty State TextView
+            binding.recyclerViewArticles.visibility = if (noArticles) View.GONE else View.VISIBLE
+            binding.emptyStateText.visibility = if (noArticles) View.VISIBLE else View.GONE
+        }
+
         // Search functionality
         binding.searchView.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -71,7 +77,10 @@ class ArticleFragment : Fragment() {
 
         // Initial fetch
         articleViewModel.fetchArticles()
-
+        // Get all articles
+        articleViewModel.filterArticlesByCategory("News")
+        articleViewModel.filterArticlesByCategory("Food")
+        articleViewModel.filterArticlesByCategory("Health")
         return binding.root
     }
 }

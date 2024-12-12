@@ -38,8 +38,8 @@ class ProfilFragment : Fragment() {
             }
         }
 
-        binding.buttonLogout.setOnClickListener {
-            viewModel.logout()
-        }
+//        binding.buttonLogout.setOnClickListener {
+//            viewModel.logout()
+//        }
     }
 }

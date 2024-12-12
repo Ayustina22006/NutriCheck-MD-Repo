@@ -12,6 +12,7 @@ import com.example.nutricheck.data.entity.ArticleEntity
 import com.example.nutricheck.data.response.SearchDataItem
 import com.example.nutricheck.data.retrofit.ApiConfig
 import kotlinx.coroutines.launch
+
 class ArticleViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<List<ArticleEntity>>()
@@ -23,7 +24,10 @@ class ArticleViewModel(private val userRepository: UserRepository) : ViewModel()
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private var lastSearchResult: List<ArticleEntity>? = null
+    private val _noArticlesAvailable = MutableLiveData<Boolean>()
+    val noArticlesAvailable: LiveData<Boolean> = _noArticlesAvailable
+
+    private var allArticles: List<ArticleEntity> = emptyList()
 
     // Untuk mendapatkan sesi pengguna saat ini
     fun getSession(): LiveData<UserModel> {
@@ -36,58 +40,72 @@ class ArticleViewModel(private val userRepository: UserRepository) : ViewModel()
         viewModelScope.launch {
             try {
                 userRepository.getArticles().collect { articles ->
+                    allArticles = articles
                     _articles.postValue(articles)
-                    lastSearchResult = articles // Simpan hasil pencarian terakhir
+                    _noArticlesAvailable.postValue(articles.isEmpty())
                 }
             } catch (e: Exception) {
                 _articles.postValue(emptyList())
+                _noArticlesAvailable.postValue(true)
+                Log.e("ArticleViewModel", "Error fetching articles: ${e.message}")
             } finally {
                 _isLoading.value = false
             }
         }
     }
 
-    // Mencari artikel berdasarkan keyword
+    // Mencari artikel berdasarkan keyword dengan pencarian yang lebih akurat
     fun searchArticles(keyword: String) {
         _isLoading.value = true
-        viewModelScope.launch {
-            try {
-                val token = userRepository.getToken()
-                val response = ApiConfig.getApiService(token).getSearch(keyword).execute()
-                if (response.isSuccessful) {
-                    val searchResults = response.body()?.data?.filterNotNull() ?: emptyList()
-                    // Mapping dari ArticleDataItem ke ArticleEntity
-                    val mappedResults = searchResults.map { item ->
-                        ArticleEntity(
-                            id = item.id ?: "",
-                            title = item.title ?: "",
-                            description = item.description ?: "",
-                            image = item.image,
-                            url = item.url ?: "",
-                            categories = item.categories?.joinToString(",") ?: ""
-                        )
-                    }
-                    lastSearchResult = mappedResults // Simpan hasil pencarian terakhir
-                    _articles.postValue(mappedResults) // Perbarui LiveData
-                } else {
-                    _articles.postValue(emptyList())
-                }
-            } catch (e: Exception) {
-                Log.e("ArticleViewModel", "Error fetching search articles: ${e.message}")
-                _articles.postValue(emptyList())
-            } finally {
-                _isLoading.value = false
+        try {
+            // Lakukan pencarian lokal dengan lebih fleksibel
+            val searchResults = allArticles.filter { article ->
+                // Pencarian berdasarkan judul atau deskripsi (case-insensitive)
+                article.title.lowercase().contains(keyword.lowercase()) ||
+                        article.description.lowercase().contains(keyword.lowercase()) ||
+                        article.categories.lowercase().contains(keyword.lowercase())
             }
+
+            // Update artikel dengan hasil pencarian
+            _articles.value = searchResults
+
+            // Perbarui status artikel tidak tersedia
+            _noArticlesAvailable.value = searchResults.isEmpty()
+
+            // Tambahkan log untuk debugging
+            Log.d("ArticleViewModel", "Search results for '$keyword': ${searchResults.size} articles found")
+        } catch (e: Exception) {
+            Log.e("ArticleViewModel", "Error searching articles: ${e.message}")
+            _articles.value = emptyList()
+            _noArticlesAvailable.value = true
+        } finally {
+            _isLoading.value = false
         }
     }
 
-
+    // Filter artikel berdasarkan kategori
     fun filterArticlesByCategory(category: String) {
-        val source = lastSearchResult ?: _articles.value ?: emptyList()
-        val filteredArticles = source.filter { article ->
-            article.categories.split(",").contains(category)
-        }
-        _articles.postValue(filteredArticles)
-    }
+        _isLoading.value = true
+        try {
+            val filteredArticles = if (category.isEmpty()) {
+                // Jika kategori kosong, kembalikan semua artikel
+                allArticles
+            } else {
+                // Filter artikel berdasarkan kategori (case-insensitive)
+                allArticles.filter { article ->
+                    article.categories.lowercase().contains(category.lowercase())
+                }
+            }
 
+            _articles.value = filteredArticles
+            // Update noArticlesAvailable based on filtered results
+            _noArticlesAvailable.value = filteredArticles.isEmpty()
+        } catch (e: Exception) {
+            Log.e("ArticleViewModel", "Error filtering articles: ${e.message}")
+            _articles.value = emptyList()
+            _noArticlesAvailable.value = true
+        } finally {
+            _isLoading.value = false
+        }
+    }
 }

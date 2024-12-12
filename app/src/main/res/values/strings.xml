@@ -118,4 +118,24 @@
     <string name="calory_needed">Calories Needed</string>
     <string name="food_history">Riwayat makananmu</string>
     <string name="weekcly_recomendation">Rekomendasi mingguanmu</string>
+    <string name="edit_user_profile">Edit User Profile</string>
+    <string name="health_assesment">Health Assesment</string>
+    <string name="back_button">back</string>
+    <string name="profile_picture">/n</string>
+    <string name="change">Change Profile Picture</string>
+    <string name="edit_username" />
+    <string name="more_options" />
+    <string name="edit_email">\n</string>
+    <string name="edit_password" />
+    <string name="change_password">Change Password</string>
+    <string name="edit_gender" />
+    <string name="gender">Gender</string>
+    <string name="edit_age" />
+    <string name="age">Age</string>
+    <string name="save">Save</string>
+    <string name="bmi">Body Mass Index</string>
+    <string name="daily_calorie_needs">Daily Calorie Needs</string>
+    <string name="edit_height">Height</string>
+    <string name="edit_weight">Weight</string>
+    <string name="edit_activity">Activity Status</string>
 </resources>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <!-- Bagian Header -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="1dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/back_button" />
+
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edit_user_profile"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/plus_jakarta_sans_bold"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Gambar Profil -->
+    <ImageView
+        android:id="@+id/imageViewProfilePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_gravity="center"
+        android:src="@drawable/bg_circle"
+        android:contentDescription="@string/profile_picture" />
+
+    <!-- Tombol Change Profile Picture -->
+    <Button
+        android:id="@+id/btnChangeProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:text="@string/change"
+        android:backgroundTint="@color/pastel_green_dark1"
+        android:textColor="@color/prymary_color"
+        android:padding="12dp" />
+
+    <!-- CardView for Edit Username Section -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/prymary_color"
+        app:strokeWidth="2dp">
+
+        <!-- LinearLayout to hold ImageView and TextView -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+
+            <!-- ImageView -->
+            <ImageView
+                android:id="@+id/ivEditUsername"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/user"
+                android:contentDescription="@string/edit_username" />
+
+            <!-- LinearLayout for Texts -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- TextView with Title -->
+                <TextView
+                    android:id="@+id/tvEditProfileTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/username"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- TextView for Username -->
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ayustina"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+            <!-- Icon > -->
+            <ImageView
+                android:id="@+id/ivpanah1"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah"
+                android:contentDescription="@string/more_options" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- CardView for Edit Email Section -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/prymary_color"
+        app:strokeWidth="2dp">
+
+        <!-- LinearLayout to hold ImageView and TextView -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <!-- ImageView -->
+            <ImageView
+                android:id="@+id/ivEditEmail"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/email2"
+                android:contentDescription="@string/edit_email" />
+
+            <!-- LinearLayout for Texts -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- TextView with Title -->
+                <TextView
+                    android:id="@+id/tvEmailAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- TextView for Email -->
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ayustinasamudin22006@gmail.com"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Icon > -->
+            <ImageView
+                android:id="@+id/ivzpanah2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah"
+                android:contentDescription="@string/more_options" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <!-- CardView for Edit Change Password Section -->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/prymary_color"
+        app:strokeWidth="2dp">
+
+        <!-- LinearLayout to hold ImageView and TextView -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <!-- ImageView -->
+            <ImageView
+                android:id="@+id/ivEditIcon"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/password"
+                android:contentDescription="@string/edit_password" />
+
+            <!-- LinearLayout for Texts -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- TextView with Title -->
+                <TextView
+                    android:id="@+id/tvEditPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_password"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- TextView for password -->
+                <TextView
+                    android:id="@+id/tvPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*******"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Icon > -->
+            <ImageView
+                android:id="@+id/ivpanah3"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah"
+                android:contentDescription="@string/more_options" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- CardView for Edit gender Section -->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/prymary_color"
+        app:strokeWidth="2dp">
+
+        <!-- LinearLayout to hold ImageView and TextView -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <!-- ImageView -->
+            <ImageView
+                android:id="@+id/ivEditGender"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/gender"
+                android:contentDescription="@string/edit_gender" />
+
+            <!-- LinearLayout for Texts -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- TextView with Title -->
+                <TextView
+                    android:id="@+id/tvEditGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- TextView for password -->
+                <TextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Icon > -->
+            <ImageView
+                android:id="@+id/ivpanah4"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah"
+                android:contentDescription="@string/more_options" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- CardView for Edit Age Section -->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/prymary_color"
+        app:strokeWidth="2dp">
+
+        <!-- LinearLayout to hold ImageView and TextView -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <!-- ImageView -->
+            <ImageView
+                android:id="@+id/ivEditAge"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/age"
+                android:contentDescription="@string/edit_age" />
+
+            <!-- LinearLayout for Texts -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- TextView with Title -->
+                <TextView
+                    android:id="@+id/tvEditAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/age"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- TextView for password -->
+                <TextView
+                    android:id="@+id/tvAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25 y.o"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/plus_jakarta_sans"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Icon > -->
+            <ImageView
+                android:id="@+id/ivpanah5"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/panah"
+                android:contentDescription="@string/more_options" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:text="@string/save"
+        android:backgroundTint="@color/prymary_color"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:padding="12dp" />
+
+    </LinearLayout>
+
+</ScrollView>

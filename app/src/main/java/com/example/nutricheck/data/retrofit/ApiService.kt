@@ -94,13 +94,14 @@ interface ApiService {
         @Query("date") date: String? = null
     ): DetailHistoryResponse
 
-    @GET("news/title")
+    @GET("news/title{title}")
     fun getSearch(
         @Query("title") keyword: String
     ): Call<SearchResponse>
 
-    @GET ("news/category/:category")
+    @GET("news/category/{category}")
     fun getCategory(
-        @Query("category") category: String
+        @Path("category") category: String
     ): Call<CategoryResponse>
+
 }

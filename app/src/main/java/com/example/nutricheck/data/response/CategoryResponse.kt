@@ -1,7 +1,7 @@
 package com.example.nutricheck.data.response
 
 data class CategoryResponse(
-	val data: List<DataItem?>? = null,
+	val data: List<CategoryDataItem?>? = null,
 	val message: String? = null,
 	val status: Int? = null
 )
