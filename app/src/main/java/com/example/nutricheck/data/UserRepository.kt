@@ -20,6 +20,58 @@ class UserRepository private constructor(
     private val userPreference: UserPreference,
     private val articleDao: ArticleDao
 ) {
+
+    fun updateBMI(userId: String, age: Int? = null, gender: String? = null, height: Int? = null, weight: Int? = null, activity: String? = null) = flow {
+        emit(Result.Loading)
+        try {
+            // Ambil data BMI terkini dari server
+            val userResponse = apiService.getUserBMI(userId).await()
+            val currentBMI = userResponse.data?.bmi
+
+            if (currentBMI != null) {
+                // Update hanya atribut yang ingin diubah, gunakan nilai lama jika tidak diubah
+                val updatedBMI = UpdateBMIRequest(
+                    age = age ?: currentBMI.age,
+                    gender = gender ?: currentBMI.gender,
+                    height = height ?: currentBMI.height,
+                    weight = weight ?: currentBMI.weight,
+                    activity = activity ?: currentBMI.activity
+                )
+
+                // Kirim data BMI yang diperbarui ke API
+                val updateResponse = apiService.updateBmiUser(userId, updatedBMI).await()
+
+                if (updateResponse.status == 200) {
+                    emit(Result.Success(updateResponse))
+                } else {
+                    emit(Result.Error(updateResponse.message ?: "Update failed"))
+                }
+            } else {
+                emit(Result.Error("BMI data not found"))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "Update failed"))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun updateUser(userId: String, request: UpdateUserRequest) = flow {
+        emit(Result.Loading)
+        try {
+            val updateResponse = apiService.updateUser(userId, request).await()
+
+            // Check if update was successful
+            if (updateResponse.status == 200) {
+                // Fetch fresh user data after successful update
+                val userResponse = apiService.getUserBMI(userId).await()
+                emit(Result.Success(userResponse))
+            } else {
+                emit(Result.Error(updateResponse.message ?: "Update failed"))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "Update failed"))
+        }
+    }.flowOn(Dispatchers.IO)
+
     suspend fun getArticlesFromApi(): List<ArticleEntity> {
         return try {
             val token = getToken()
@@ -118,6 +170,55 @@ class UserRepository private constructor(
     }.catch { e ->
         emit(Result.Error("Flow caught an exception: ${e.localizedMessage}"))
     }
+
+    suspend fun fetchDailyCalories(userId: String): Int? {
+        return try {
+            val token = getToken()
+            val apiService = ApiConfig.getApiService(token)
+            val result = apiService.getUserBMI(userId).await()
+
+            val bmiData = result.data?.bmi
+            if (bmiData != null && bmiData.weight in 30..300 && bmiData.height in 100..250) {
+                calculateCalories(
+                    gender = bmiData.gender.orEmpty(),
+                    weight = bmiData.weight,
+                    height = bmiData.height,
+                    age = bmiData.age,
+                    activityLevel = bmiData.activity.orEmpty()
+                ).toInt()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun calculateCalories(
+        gender: String,
+        weight: Int?,
+        height: Int?,
+        age: Int?,
+        activityLevel: String
+    ): Double {
+        val bmr = if (gender.lowercase() == "male") {
+            (10 * weight!!) + (6.25 * height!!) - (5 * age!!) + 5
+        } else {
+            (10 * weight!!) + (6.25 * height!!) - (5 * age!!) - 16
+        }
+
+        val activityMultiplier = when (activityLevel.lowercase()) {
+            "inactive" -> 1.2f
+            "light activity" -> 1.375f
+            "moderate activity" -> 1.55f
+            "high activity" -> 1.725f
+            "very high activity" -> 1.9f
+            else -> 1.2f
+        }
+
+        return bmr * activityMultiplier
+    }
+
 
     fun searchMeals(foodName: String?): AddResponse {
         return apiService.searchMeals(foodName).execute().body()!!

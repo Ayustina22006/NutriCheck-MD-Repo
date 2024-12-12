@@ -138,4 +138,6 @@
     <string name="edit_height">Height</string>
     <string name="edit_weight">Weight</string>
     <string name="edit_activity">Activity Status</string>
+    <string name="calorie_target">Calorie Target</string>
+    <string name="calorie_target_label">0 kcal</string>
 </resources>

@@ -5,12 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nutricheck.MainActivity
 import com.example.nutricheck.R
 import com.example.nutricheck.ViewModelFactory
 import com.example.nutricheck.data.response.MealHistoryResponse
 import com.example.nutricheck.databinding.ActivityNutritionBinding
 import com.example.nutricheck.ui.NutritionDetailsAdapter
+import com.example.nutricheck.ui.home.HomeFragment
 
 class NutritionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNutritionBinding
@@ -81,18 +85,18 @@ class NutritionActivity : AppCompatActivity() {
                 binding.nutritionVitaminC.text =
                     "${viewModel.formatNutritionValue(nutrition.vitaminC)} (g)"
 
-                // Kelompokkan nutrisi
-                val laukPauk = listOf(
+                // Group nutrients
+                val proteinSources = listOf(
                     nutrition.protein,
                     nutrition.calcium,
                     nutrition.iron
                 )
 
-                val makananPokok = listOf(
+                val stapleFoods = listOf(
                     nutrition.carbohydrate
                 )
 
-                val sayur = listOf(
+                val vegetables = listOf(
                     nutrition.vitaminA,
                     nutrition.vitaminB,
                     nutrition.vitaminC,
@@ -100,73 +104,68 @@ class NutritionActivity : AppCompatActivity() {
                 )
 
                 fun determineGroupStatus(group: List<Double?>, thresholds: List<Double>): String {
-                    // Ganti nilai null dengan 0.0 agar dapat dijumlahkan
+                    // Replace null values with 0.0 to allow summation
                     val totalGroup = group.map { it ?: 0.0 }.sum()
                     return when {
-                        totalGroup < thresholds[0] -> "KURANG"
-                        totalGroup > thresholds[1] -> "BERLEBIH"
+                        totalGroup < thresholds[0] -> "LOW"
+                        totalGroup > thresholds[1] -> "EXCESSIVE"
                         else -> "IDEAL"
                     }
                 }
 
+                val proteinSourcesStatus = determineGroupStatus(proteinSources, listOf(30.0, 60.0))
+                val stapleFoodsStatus = determineGroupStatus(stapleFoods, listOf(50.0, 100.0))
+                val vegetablesStatus = determineGroupStatus(vegetables, listOf(40.0, 80.0))
 
-                // Tentukan status masing-masing kelompok
-                // Sesuaikan threshold dengan kebutuhan Anda
-                val laukPaukStatus = determineGroupStatus(laukPauk, listOf(30.0, 60.0))
-                val makananPokokStatus = determineGroupStatus(makananPokok, listOf(50.0, 100.0))
-                val sayurStatus = determineGroupStatus(sayur, listOf(40.0, 80.0))
-
-                // Tentukan kalori
                 val calories = mealHistory.totalCalories
 
-                // Tentukan pesan berdasarkan kondisi
                 val alertMessage = when {
                     calories!! < 500 -> when {
-                        sayurStatus == "KURANG" && laukPaukStatus == "KURANG" && makananPokokStatus == "KURANG" ->
-                            "Yuk, tingkatkan asupan kalori Anda agar tubuh mendapat energi yang cukup! Cobalah menambahkan lebih banyak sayuran segar. Tambahkan lauk pauk seperti telur, ikan, atau tahu tempe. Jangan lupa tambahkan nasi atau makanan pokok lainnya untuk energi."
+                        vegetablesStatus == "LOW" && proteinSourcesStatus == "LOW" && stapleFoodsStatus == "LOW" ->
+                            "Let's increase your calorie intake to provide enough energy for your body! Try adding more fresh vegetables. Add protein sources such as eggs, fish, or tofu. Don't forget to include rice or other staple foods for energy."
 
-                        sayurStatus == "IDEAL" && laukPaukStatus == "KURANG" && makananPokokStatus == "KURANG" ->
-                            "Yuk, tingkatkan asupan kalori Anda agar tubuh mendapat energi yang cukup! Porsi sayur Anda sudah bagus, pertahankan ya! Tambahkan lauk pauk seperti telur, ikan, atau tahu tempe. Jangan lupa tambahkan nasi atau makanan pokok lainnya untuk energi."
+                        vegetablesStatus == "IDEAL" && proteinSourcesStatus == "LOW" && stapleFoodsStatus == "LOW" ->
+                            "Let's increase your calorie intake to provide enough energy for your body! Your vegetable intake is great, keep it up! Add protein sources such as eggs, fish, or tofu. Don't forget to include rice or other staple foods for energy."
 
-                        sayurStatus == "BERLEBIH" && laukPaukStatus == "KURANG" && makananPokokStatus == "KURANG" ->
-                            "Yuk, tingkatkan asupan kalori Anda agar tubuh mendapat energi yang cukup! Meskipun sayuran sudah banyak, coba imbangi juga dengan lauk pauk dan makanan pokok. Tambahkan lauk pauk seperti telur, ikan, atau tahu tempe. Jangan lupa tambahkan nasi atau makanan pokok lainnya."
+                        vegetablesStatus == "EXCESSIVE" && proteinSourcesStatus == "LOW" && stapleFoodsStatus == "LOW" ->
+                            "Let's increase your calorie intake to provide enough energy for your body! Although your vegetable intake is high, try balancing it with protein sources and staple foods. Add protein sources such as eggs, fish, or tofu. Don't forget to include rice or other staple foods."
 
-                        sayurStatus == "KURANG" && laukPaukStatus == "IDEAL" && makananPokokStatus == "KURANG" ->
-                            "Yuk, tingkatkan asupan kalori Anda agar tubuh mendapat energi yang cukup! Cobalah menambahkan lebih banyak sayuran segar. Porsi lauk pauk Anda sudah pas! Jangan lupa tambahkan nasi atau makanan pokok lainnya untuk energi."
+                        vegetablesStatus == "LOW" && proteinSourcesStatus == "IDEAL" && stapleFoodsStatus == "LOW" ->
+                            "Let's increase your calorie intake to provide enough energy for your body! Try adding more fresh vegetables. Your protein intake is perfect! Don't forget to include rice or other staple foods for energy."
 
-                        else -> "Yuk, tingkatkan asupan kalori Anda agar tubuh mendapat energi yang cukup!"
+                        else -> "Let's increase your calorie intake to provide enough energy for your body!"
                     }
 
                     calories.toDouble() in 500.0..700.0 ->
-                        "Selamat! Asupan kalori Anda sudah ideal. Porsi sayur, lauk pauk, dan makanan pokok sudah seimbang!"
+                        "Congratulations! Your calorie intake is ideal. Your portions of vegetables, protein sources, and staple foods are well-balanced!"
 
                     calories.toDouble() in 701.0..800.0 -> when {
-                        sayurStatus == "BERLEBIH" && laukPaukStatus == "BERLEBIH" && makananPokokStatus == "BERLEBIH" ->
-                            "Asupan kalori Anda sedikit melebihi kebutuhan. Kurangi penggunaan saus pada sayuran. Kurangi porsi lauk pauk dan pilih yang tidak berlemak. Kurangi porsi nasi atau makanan pokok."
+                        vegetablesStatus == "EXCESSIVE" && proteinSourcesStatus == "EXCESSIVE" && stapleFoodsStatus == "EXCESSIVE" ->
+                            "Your calorie intake slightly exceeds your needs. Reduce the use of sauces on vegetables. Cut down on protein portions and choose lean options. Reduce the portion of rice or other staple foods."
 
-                        sayurStatus == "KURANG" && laukPaukStatus == "BERLEBIH" && makananPokokStatus == "BERLEBIH" ->
-                            "Asupan kalori Anda sedikit melebihi kebutuhan. Tambahkan sayuran segar dan kurangi porsi lainnya. Kurangi porsi lauk pauk dan pilih yang tidak berlemak. Kurangi porsi nasi atau makanan pokok."
+                        vegetablesStatus == "LOW" && proteinSourcesStatus == "EXCESSIVE" && stapleFoodsStatus == "EXCESSIVE" ->
+                            "Your calorie intake slightly exceeds your needs. Add more fresh vegetables and reduce other portions. Cut down on protein portions and choose lean options. Reduce the portion of rice or other staple foods."
 
-                        sayurStatus == "IDEAL" && laukPaukStatus == "BERLEBIH" && makananPokokStatus == "BERLEBIH" ->
-                            "Asupan kalori Anda sedikit melebihi kebutuhan. Porsi sayur sudah bagus. Kurangi porsi lauk pauk dan pilih yang tidak berlemak. Kurangi porsi nasi atau makanan pokok."
+                        vegetablesStatus == "IDEAL" && proteinSourcesStatus == "EXCESSIVE" && stapleFoodsStatus == "EXCESSIVE" ->
+                            "Your calorie intake slightly exceeds your needs. Your vegetable intake is good. Cut down on protein portions and choose lean options. Reduce the portion of rice or other staple foods."
 
-                        else -> "Asupan kalori Anda sedikit melebihi kebutuhan."
+                        else -> "Your calorie intake slightly exceeds your needs."
                     }
 
                     calories > 800 -> when {
-                        sayurStatus == "BERLEBIH" && laukPaukStatus == "BERLEBIH" && makananPokokStatus == "BERLEBIH" ->
-                            "Asupan kalori Anda terlalu tinggi! Kurangi saus pada sayuran. Kurangi drastis porsi lauk pauk, pilih yang rendah lemak. Kurangi porsi nasi atau makanan pokok secara signifikan."
+                        vegetablesStatus == "EXCESSIVE" && proteinSourcesStatus == "EXCESSIVE" && stapleFoodsStatus == "EXCESSIVE" ->
+                            "Your calorie intake is too high! Reduce the use of sauces on vegetables. Drastically cut down protein portions, choose low-fat options. Significantly reduce the portion of rice or other staple foods."
 
-                        sayurStatus == "KURANG" && laukPaukStatus == "BERLEBIH" && makananPokokStatus == "BERLEBIH" ->
-                            "Asupan kalori Anda terlalu tinggi! Tambahkan sayuran segar. Kurangi drastis porsi lauk pauk, pilih yang rendah lemak. Kurangi porsi nasi atau makanan pokok secara signifikan."
+                        vegetablesStatus == "LOW" && proteinSourcesStatus == "EXCESSIVE" && stapleFoodsStatus == "EXCESSIVE" ->
+                            "Your calorie intake is too high! Add more fresh vegetables. Drastically cut down protein portions, choose low-fat options. Significantly reduce the portion of rice or other staple foods."
 
-                        sayurStatus == "IDEAL" && laukPaukStatus == "BERLEBIH" && makananPokokStatus == "BERLEBIH" ->
-                            "Asupan kalori Anda terlalu tinggi! Pertahankan porsi sayur. Kurangi drastis porsi lauk pauk, pilih yang rendah lemak. Kurangi porsi nasi atau makanan pokok secara signifikan."
+                        vegetablesStatus == "IDEAL" && proteinSourcesStatus == "EXCESSIVE" && stapleFoodsStatus == "EXCESSIVE" ->
+                            "Your calorie intake is too high! Maintain your vegetable intake. Drastically cut down protein portions, choose low-fat options. Significantly reduce the portion of rice or other staple foods."
 
-                        else -> "Asupan kalori Anda terlalu tinggi!"
+                        else -> "Your calorie intake is too high!"
                     }
 
-                    else -> "Tidak dapat menentukan status asupan kalori"
+                    else -> "Unable to determine calorie intake status"
                 }
 
                 // Update teks binding
@@ -193,6 +192,11 @@ class NutritionActivity : AppCompatActivity() {
         }
 
         // Back button
-        binding.backButton.setOnClickListener { finish() }
+        binding.backButton.setOnClickListener {
+            val Intent = Intent(this@NutritionActivity, MainActivity::class.java)
+            startActivity(Intent)
+            finish()
+        }
+
     }
 }

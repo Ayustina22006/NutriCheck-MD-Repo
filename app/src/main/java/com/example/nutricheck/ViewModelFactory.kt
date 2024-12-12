@@ -18,6 +18,8 @@ import com.example.nutricheck.ui.home.HomeViewModel
 import com.example.nutricheck.ui.nutrition.NutritionViewModel
 import com.example.nutricheck.ui.onboarding.OnBoardingViewModel
 import com.example.nutricheck.ui.pedia.ArticleViewModel
+import com.example.nutricheck.ui.profil.EditUserProfileViewModel
+import com.example.nutricheck.ui.profil.HealthAssesmentViewModel
 import com.example.nutricheck.ui.profil.ProfilViewModel
 import com.example.nutricheck.ui.scan.CameraViewModel
 
@@ -40,7 +42,12 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(ArticleViewModel::class.java) -> {
                 ArticleViewModel(repository) as T
             }
-
+            modelClass.isAssignableFrom(EditUserProfileViewModel::class.java) -> {
+                EditUserProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HealthAssesmentViewModel::class.java) -> {
+                HealthAssesmentViewModel(repository) as T
+            }
             modelClass.isAssignableFrom(AssessmentViewModel::class.java) -> {
                 AssessmentViewModel(repository) as T
             }

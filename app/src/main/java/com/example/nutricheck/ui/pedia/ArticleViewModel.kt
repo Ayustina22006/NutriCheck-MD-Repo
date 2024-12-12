@@ -54,11 +54,9 @@ class ArticleViewModel(private val userRepository: UserRepository) : ViewModel()
         }
     }
 
-    // Mencari artikel berdasarkan keyword dengan pencarian yang lebih akurat
     fun searchArticles(keyword: String) {
         _isLoading.value = true
         try {
-            // Lakukan pencarian lokal dengan lebih fleksibel
             val searchResults = allArticles.filter { article ->
                 // Pencarian berdasarkan judul atau deskripsi (case-insensitive)
                 article.title.lowercase().contains(keyword.lowercase()) ||

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_profile">
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.nutricheck.ui.profil.ProfilFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profil" />
+    <action
+        android:id="@+id/action_user_to_edit"
+        app:destination="@id/editUserProfileFragment" />
+    <action
+        android:id="@+id/action_user_to_asessment"
+        app:destination="@id/healthAssessmentFragment" />
+
+    <fragment
+        android:id="@+id/editUserProfileFragment"
+        android:name="com.example.nutricheck.ui.profil.EditUserProfileFragment"
+        android:label="Edit User Profile"
+        tools:layout="@layout/fragment_edit_user_profile" />
+    <action
+        android:id="@+id/action_edit_to_user"
+        app:destination="@id/navigation_profile" />
+
+    <fragment
+        android:id="@+id/healthAssessmentFragment"
+        android:name="com.example.nutricheck.ui.profil.HealthAssesmentFragment"
+        android:label="Edit User Profile"
+        tools:layout="@layout/fragment_health_assesment" />
+    <action
+        android:id="@+id/action_asessment_to_user"
+        app:destination="@id/navigation_profile" />
+
+
+
+</navigation>

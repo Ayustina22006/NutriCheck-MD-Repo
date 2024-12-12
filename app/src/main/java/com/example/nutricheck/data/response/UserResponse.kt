@@ -25,4 +25,21 @@ data class BMIData(
     val weight: Int?
 )
 
+data class updateUserResponse(
+    val status: Int?,
+    val message: String?
+)
+
+data class UpdateUserRequest(
+    val username: String?,
+    val email: String?,
+    val password: String?
+)
+data class UpdateBMIRequest(
+    val age: Int?,
+    val gender: String?,
+    val height: Int?,
+    val weight: Int?,
+    val activity: String?
+)
 

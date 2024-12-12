@@ -140,25 +140,34 @@ class HomeFragment : Fragment() {
         }
 
         val currentDate = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault()).format(Date())
+        Log.d("HomeFragment", "CUrrent Date :  $currentDate")
+        binding.tvCurrentDate.text = currentDate
+
+
+        homeViewModel.dailyCalories.observe(viewLifecycleOwner) { dailyCalories ->
+            dailyCalories?.let {
+                binding.tvCaloriesNeeded.text = "${it.toInt()} kkal"
+
+                binding.semiCircularProgressBar.setMax(it)
+                binding.semiCircularProgressBar.setTotalCalories(it)
+
+            }
+        }
 
         homeViewModel.caloriesConsumed.observe(viewLifecycleOwner) { caloriesConsumed ->
-            homeViewModel.dailyCalories.observe(viewLifecycleOwner) { dailyCalories ->
-                if (dailyCalories != null) {
-                    val progress = (caloriesConsumed / dailyCalories) * 100
+            homeViewModel.dailyCalories.value?.let { dailyCalories ->
+                val progress = (caloriesConsumed / dailyCalories) * 100
 
-                    Log.d("HomeFragment", "Daily Calories: $dailyCalories")
-                    Log.d("HomeFragment", "Calories Consumed: $caloriesConsumed")
-                    Log.d("HomeFragment", "Progress: $progress")
+                Log.d("HomeFragment", "Daily Calories: $dailyCalories")
+                Log.d("HomeFragment", "Calories Consumed: $caloriesConsumed")
+                Log.d("HomeFragment", "Progress: $progress")
 
-                    binding.semiCircularProgressBar.setMax(dailyCalories)
-                    binding.semiCircularProgressBar.setTotalCalories(dailyCalories)
-                    binding.semiCircularProgressBar.setProgress(caloriesConsumed)
+                binding.semiCircularProgressBar.setMax(dailyCalories)
+                binding.semiCircularProgressBar.setTotalCalories(dailyCalories)
+                binding.semiCircularProgressBar.setProgress(caloriesConsumed)
 
-                    binding.tvCurrentDate.text = currentDate
-                    binding.tvCaloriesNeeded.text = "${dailyCalories.toInt()} kkal"
-                    binding.tvCaloriesConsumed.text = "${caloriesConsumed.toInt()} kkal"
-
-                }
+                binding.tvCaloriesNeeded.text = "${dailyCalories.toInt()} kkal"
+                binding.tvCaloriesConsumed.text = "${caloriesConsumed.toInt()} kkal"
             }
 
         }

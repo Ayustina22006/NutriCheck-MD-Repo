@@ -77,10 +77,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.35">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#EEEEEE" />
+        <ImageView
+            android:id="@+id/ivWelcome_1"
+            android:layout_width="221dp"
+            android:layout_height="239dp"
+            android:layout_gravity="center"
+            android:src="@drawable/welcome1" />
     </androidx.cardview.widget.CardView>
 
     <!-- Get Started Button -->

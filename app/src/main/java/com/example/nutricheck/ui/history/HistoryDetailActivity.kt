@@ -180,12 +180,12 @@ class HistoryDetailActivity : AppCompatActivity() {
                     totalNutrition.let { nutrition ->
                         binding.nutritionProtein.text = "${nutrition.protein ?: 0} g"
                         binding.nutritionDietaryFiber.text = "${nutrition.dietaryFiber ?: 0} g"
-                        binding.nutritionCalcium.text = "${nutrition.calcium ?: 0} mg"
-                        binding.nutritionIron.text = "${nutrition.iron ?: 0} mg"
+                        binding.nutritionCalcium.text = "${nutrition.calcium ?: 0} g"
+                        binding.nutritionIron.text = "${nutrition.iron ?: 0} g"
                         binding.nutritionCarbohydrate.text = "${nutrition.carbohydrate ?: 0} g"
-                        binding.nutritionVitaminA.text = "${nutrition.vitaminA ?: 0} IU"
-                        binding.nutritionVitaminB.text = "${nutrition.vitaminB ?: 0} mg"
-                        binding.nutritionVitaminC.text = "${nutrition.vitaminC ?: 0} mg"
+                        binding.nutritionVitaminA.text = "${nutrition.vitaminA ?: 0} g"
+                        binding.nutritionVitaminB.text = "${nutrition.vitaminB ?: 0} g"
+                        binding.nutritionVitaminC.text = "${nutrition.vitaminC ?: 0} g"
                     }
                 }
             }        }

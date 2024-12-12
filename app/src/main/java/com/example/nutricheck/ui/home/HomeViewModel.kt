@@ -14,9 +14,6 @@ import com.example.nutricheck.data.response.ArticleResponse
 import com.example.nutricheck.data.response.Food
 import com.example.nutricheck.data.retrofit.ApiConfig
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.await
 import com.example.nutricheck.data.ResourceProvider
 import com.example.nutricheck.data.entity.ArticleEntity
@@ -39,7 +36,6 @@ class HomeViewModel(
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    // New LiveData for food search
     private val _foodNutritionResult = MutableLiveData<Food?>()
     val foodNutritionResult: LiveData<Food?> = _foodNutritionResult
 
@@ -149,8 +145,6 @@ class HomeViewModel(
         _nutritionData.postValue(nutritionItems)
         _caloriesConsumed.postValue(totalDailyCaloriesConsumed)
     }
-
-
 
 
     fun resetErrorMessage() {

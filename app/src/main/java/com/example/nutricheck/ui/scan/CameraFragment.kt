@@ -104,6 +104,10 @@ class CameraFragment : Fragment() {
             }
         }
 
+        binding.backButton.setOnClickListener{
+            findNavController().navigate(R.id.navigation_home)
+        }
+
         // Event Listener untuk tombol
         binding.Capture.setOnClickListener { takePhoto() }
         binding.btnGallery.setOnClickListener { openGallery() }

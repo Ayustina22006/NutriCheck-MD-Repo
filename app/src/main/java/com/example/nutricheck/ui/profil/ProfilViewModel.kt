@@ -1,10 +1,7 @@
 package com.example.nutricheck.ui.profil
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.nutricheck.auth.pref.UserModel
 import com.example.nutricheck.data.UserRepository
 import com.example.nutricheck.data.Result
@@ -16,13 +13,22 @@ class ProfilViewModel(private val repository: UserRepository) : ViewModel() {
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
 
     private val _bmiData = MutableLiveData<BMIData?>()
-    val bmiData: MutableLiveData<BMIData?> get() = _bmiData
+    val bmiData: LiveData<BMIData?> get() = _bmiData
 
     private val _fetchStatus = MutableLiveData<String>()
     val fetchStatus: LiveData<String> get() = _fetchStatus
 
     private val _bmiResult = MutableLiveData<Float>()
     val bmiResult: LiveData<Float> get() = _bmiResult
+
+    private val _username = MutableLiveData<String>()
+    val username: LiveData<String> get() = _username
+
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _dailyCalories = MutableLiveData<Int?>()
+    val dailyCalories: LiveData<Int?> get() = _dailyCalories
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
@@ -35,32 +41,67 @@ class ProfilViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    fun fetchUserBMI(userId: String) {
+    fun fetchUserProfile(userId: String) {
         viewModelScope.launch {
-            repository.fetchUserBMI(userId).collect { result ->
-                when (result) {
-                    is Result.Loading -> _fetchStatus.postValue("Loading...")
-                    is Result.Success -> {
-                        val bmiData = result.data.data?.bmi
-                        if (bmiData != null) {
-                            _bmiData.postValue(bmiData)
-                            _fetchStatus.postValue("Berhasil mendapatkan data BMI!")
-                            calculateBMI(bmiData)
-                        } else {
-                            _fetchStatus.postValue("BMI data is null!")
+            _isLoading.value = true
+            try {
+                val token = repository.getToken()
+                Log.d("ProfilViewModel", "Fetching profile with token: $token")
+                repository.fetchUserBMI(userId).collect { result ->
+                    when (result) {
+                        is Result.Loading -> _isLoading.value = true
+                        is Result.Success -> {
+                            val userData = result.data.data
+                            if (userData != null) {
+                                _username.postValue(userData.username ?: "Unknown User")
+
+                                val bmiData = userData.bmi
+                                if (bmiData != null) {
+                                    _bmiData.postValue(bmiData)
+                                    calculateBMI(bmiData)
+                                }
+                            }
                         }
+                        is Result.Error -> _fetchStatus.postValue("Failed to fetch user profile: ${result.error}")
                     }
-                    is Result.Error -> _fetchStatus.postValue("Gagal mendapatkan data BMI: ${result.error}")
-                    else -> {}
                 }
+            } catch (e: Exception) {
+                Log.e("ProfilViewModel", "Error fetching token: ${e.message}")
+                _fetchStatus.postValue("Token error: ${e.message}")
             }
+        }
+    }
+
+    fun fetchDailyCalories(userId: String) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val calculatedCalories = repository.fetchDailyCalories(userId)
+                _dailyCalories.postValue(calculatedCalories)
+            } catch (e: Exception) {
+                _dailyCalories.postValue(null)
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun getInitials(username: String): String {
+        val parts = username.trim().split(" ")
+        return when {
+            parts.size >= 2 -> parts[0].first().uppercase() + parts[1].first().uppercase()
+            parts.isNotEmpty() -> parts[0].first().uppercase()
+            else -> ""
         }
     }
 
     private fun calculateBMI(bmiData: BMIData) {
         val heightInMeters = (bmiData.height ?: 0) / 100.0f
-        val bmi = (bmiData.weight ?: 0) / (heightInMeters * heightInMeters)
-        _bmiResult.postValue(bmi)
+        if (heightInMeters > 0) {
+            val bmi = (bmiData.weight ?: 0) / (heightInMeters * heightInMeters)
+            _bmiResult.postValue(bmi)
+        } else {
+            Log.e("ProfilViewModel", "Invalid height for BMI calculation")
+        }
     }
-
 }

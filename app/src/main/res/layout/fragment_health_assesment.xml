@@ -11,6 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <!-- Bagian Header -->
         <LinearLayout
             android:orientation="horizontal"
@@ -180,6 +190,7 @@
 
                 <!-- LinearLayout for Texts -->
                 <LinearLayout
+                    android:id="@+id/etHeight"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -187,7 +198,7 @@
 
                     <!-- TextView with Title -->
                     <TextView
-                        android:id="@+id/tvEditProfileTitle"
+                        android:id="@+id/tvHeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/edit_height"
@@ -198,12 +209,12 @@
 
                     <!-- TextView for Username -->
                     <TextView
-                        android:id="@+id/tvUsername"
+                        android:id="@+id/tvHeightValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/plus_jakarta_sans"
                         android:text="180 cm"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/plus_jakarta_sans"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -231,6 +242,7 @@
 
             <!-- LinearLayout to hold ImageView and TextView -->
             <LinearLayout
+                android:id="@+id/etWeight"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -266,7 +278,7 @@
 
                     <!-- TextView for Email -->
                     <TextView
-                        android:id="@+id/tvEmail"
+                        android:id="@+id/tvWeightValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="40 kg"
@@ -302,6 +314,7 @@
 
             <!-- LinearLayout to hold ImageView and TextView -->
             <LinearLayout
+                android:id="@+id/etActivity"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -337,7 +350,7 @@
 
                     <!-- TextView for password -->
                     <TextView
-                        android:id="@+id/tvPassword"
+                        android:id="@+id/tvActivityValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mageran"

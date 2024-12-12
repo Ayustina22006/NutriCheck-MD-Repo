@@ -94,7 +94,7 @@
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E0E0E0"
+                app:strokeColor="@color/white"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -103,22 +103,14 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:text="@string/male"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/ivMale"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:text="♂"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:layout_gravity="center"
+                        android:src="@drawable/male1" />
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -130,7 +122,7 @@
                 android:layout_marginStart="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E0E0E0"
+                app:strokeColor="@color/white"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -139,21 +131,14 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/female"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:textStyle="bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/ivFemale"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="♀"
-                        android:textSize="24sp"
-                        android:fontFamily="@font/plus_jakarta_sans_medium"
-                        android:textStyle="bold"/>
+                        android:layout_gravity="center"
+                        android:src="@drawable/female1" />
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,26 +42,16 @@
     </LinearLayout>
 
     <!-- Gambar Profil -->
-    <ImageView
-        android:id="@+id/imageViewProfilePic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
 
-        android:layout_gravity="center"
-        android:src="@drawable/bg_circle"
-        android:contentDescription="@string/profile_picture" />
+        <ImageView
+            android:id="@+id/profileUser"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/bg_circle"
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription"/>
 
-    <!-- Tombol Change Profile Picture -->
-    <Button
-        android:id="@+id/btnChangeProfilePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center"
-        android:text="@string/change"
-        android:backgroundTint="@color/pastel_green_dark1"
-        android:textColor="@color/prymary_color"
-        android:padding="12dp" />
 
     <!-- CardView for Edit Username Section -->
     <com.google.android.material.card.MaterialCardView
@@ -410,18 +401,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center"
-        android:text="@string/save"
-        android:backgroundTint="@color/prymary_color"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:padding="12dp" />
 
     </LinearLayout>
 
