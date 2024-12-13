@@ -1,11 +1,14 @@
 package com.example.nutricheck.ui.add
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
- import com.example.nutricheck.ViewModelFactory
+import com.bumptech.glide.Glide
+import com.example.nutricheck.MainActivity
+import com.example.nutricheck.ViewModelFactory
 import com.example.nutricheck.data.response.Food
 import com.example.nutricheck.databinding.ActivityAddSearchBinding
 
@@ -34,6 +37,10 @@ class AddSearchActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setupUI(food: Food) {
         binding.apply {
+            Glide.with(this@AddSearchActivity)
+                .load(food.image)
+                .into(imageFood)
+
             textFoodName.text = food.foodName
             textFoodDetail.text = "${food.servingSize} g | ${food.calories} kkal"
 
@@ -57,7 +64,10 @@ class AddSearchActivity : AppCompatActivity() {
     private fun setupListeners() {
         binding.apply {
             backButton.setOnClickListener {
-                finish()            }
+                val intent = Intent(this@AddSearchActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

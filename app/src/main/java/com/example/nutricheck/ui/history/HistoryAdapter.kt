@@ -64,7 +64,7 @@ class HistoryAdapter(
                         "breakfast" -> R.drawable.breakfast
                         "lunch" -> R.drawable.lunch
                         "dinner" -> R.drawable.dinner
-                        else -> R.drawable.placeholder
+                        else -> R.drawable.snack
                     }
                 )
                 itemView.setOnClickListener {
