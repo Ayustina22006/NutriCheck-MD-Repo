@@ -66,7 +66,6 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:fontFamily="@font/plus_jakarta_sans_extra_bold"
             android:text="What is Your Height and Weight"
             android:textColor="@color/black"
@@ -82,37 +81,99 @@
             android:id="@+id/inputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" >
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-            <!-- Height Input -->
-            <EditText
-                android:id="@+id/etHeight"
+            <!-- Label dan Input untuk Tinggi -->
+            <TextView
+                android:id="@+id/tvHeightLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Height (cm)"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:fontFamily="@font/plus_jakarta_sans_bold"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
                 android:background="@drawable/bg_text"
-                android:hint="Height"
-                android:textSize="20sp"
-                android:inputType="number"
-                android:padding="12dp" />
+                android:padding="12dp">
 
-            <!-- Weight Input -->
-            <EditText
-                android:id="@+id/etWeight"
+                <EditText
+                    android:id="@+id/etHeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Enter height"
+                    android:background="@null"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:inputType="number"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvHeightUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:text="cm"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:id="@+id/tvWeightLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Weight (kg)"
+                android:textColor="@color/black"
+                android:fontFamily="@font/plus_jakarta_sans_bold"
+                android:textSize="16sp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:background="@drawable/bg_text"
-                android:hint="Weight"
-                android:textSize="20sp"
-                android:inputType="number"
-                android:padding="12dp" />
+                android:padding="12dp">
+
+                <EditText
+                    android:id="@+id/etWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Enter weight"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:background="@null"
+
+                    android:inputType="number"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvWeightUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="kg"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"/>
+            </LinearLayout>
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

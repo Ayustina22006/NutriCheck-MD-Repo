@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class HealthAssesmentViewModel ( private val  userRepository: UserRepository) : ViewModel() {
+class HealthAssesmentViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _bmiResult = MutableLiveData<Float>()
     val bmiResult: LiveData<Float> get() = _bmiResult
 
@@ -25,14 +25,68 @@ class HealthAssesmentViewModel ( private val  userRepository: UserRepository) : 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    private val _height = MutableLiveData<Int>()
-    val height: LiveData<Int> get() = _height
+    private val _height = MutableLiveData<Int?>()
+    val height: MutableLiveData<Int?> get() = _height
 
-    private val _weight = MutableLiveData<Int>()
-    val weight: LiveData<Int> get() = _weight
+    private val _weight = MutableLiveData<Int?>()
+    val weight: MutableLiveData<Int?> get() = _weight
+
+    private val _activity = MutableLiveData<String?>()
+    val activity: MutableLiveData<String?> get() = _activity
+
+    private val _updateResultBmi = MutableLiveData<Result<UserResponse>>()
+    val updateResultBmi: LiveData<Result<UserResponse>> = _updateResultBmi
 
     fun getSession(): LiveData<UserModel> {
         return userRepository.getSession().asLiveData()
+    }
+
+    fun updateHeight(height: Int? = null) {
+        viewModelScope.launch {
+            val userId = userRepository.getSession().first().userId
+            userRepository.updateBMI(userId, height = height, weight = null, activity = null).collect { result ->
+                when (result) {
+                    is Result.Loading -> _updateResultBmi.value = Result.Loading
+                    is Result.Success -> {
+                        _height.value = height
+                        _updateResultBmi.value = result
+                    }
+                    is Result.Error -> _updateResultBmi.value = Result.Error(result.error)
+                }
+            }
+        }
+    }
+
+    fun updateWeight(weight: Int? = null) {
+        viewModelScope.launch {
+            val userId = userRepository.getSession().first().userId
+            userRepository.updateBMI(userId, height = null, weight = weight, activity = null).collect { result ->
+                when (result) {
+                    is Result.Loading -> _updateResultBmi.value = Result.Loading
+                    is Result.Success -> {
+                        _weight.value = weight
+                        _updateResultBmi.value = result
+                    }
+                    is Result.Error -> _updateResultBmi.value = Result.Error(result.error)
+                }
+            }
+        }
+    }
+
+    fun updateActivityStatus(activityStatus: String? = null) {
+        viewModelScope.launch {
+            val userId = userRepository.getSession().first().userId
+            userRepository.updateBMI(userId, height = null, weight = null, activity = activityStatus).collect { result ->
+                when (result) {
+                    is Result.Loading -> _updateResultBmi.value = Result.Loading
+                    is Result.Success -> {
+                        _activity.value = activityStatus
+                        _updateResultBmi.value = result
+                    }
+                    is Result.Error -> _updateResultBmi.value = Result.Error(result.error)
+                }
+            }
+        }
     }
 
     suspend fun fetchUserBMI(): Flow<Result<UserResponse>> {
