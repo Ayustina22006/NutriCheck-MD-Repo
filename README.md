@@ -1,4 +1,4 @@
-<h1 align="center"> NutriCheck: Instant Insights for Healthier Choices </h1> <br>
+<h1 align="center"> NutriCheck MD Repo </h1> <br>
 <p align="center">
   <a>
     <img alt="Nutricheck" title="Nutricheck" src="https://github.com/NutriCheck-apk/documentasi/blob/main/NutriCheck.png">
