@@ -25,12 +25,16 @@ NutriCheck is an AI-powered Android application designed to help users understan
 - ✅ Search
 
 - ✅ Camera
+  
+- ✅ Article
 
-- ✅ Bookmark
+- ✅ History
 
 - ✅ Profile
 
-- ✅ Detail Recipe
+- ✅ Detail History
+
+- ✅ Detail Food
 
 - ✅ Detail Article
 
@@ -65,8 +69,6 @@ NutriCheck is an AI-powered Android application designed to help users understan
 - ✅ CameraX
 
 - ✅ Glide
- 
-- ✅ CircleImageView 
 
 ### feature
 
@@ -80,7 +82,7 @@ NutriCheck is an AI-powered Android application designed to help users understan
 
 - ✅ Changing Ussername, Password, Email, and BMI
 
-- ✅ Theme Mode
+- ✅ Dashbord Nutrition User
 
 ### Getting Started
 
