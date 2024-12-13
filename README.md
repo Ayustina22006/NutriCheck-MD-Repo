@@ -93,7 +93,7 @@ NutriCheck is an AI-powered Android application designed to help users understan
 
 | Path | Link |
 | ----------- | :---------: |
-| Android Application Repository | [https://github.com/Afdalgan/NutriCheck-MD-Repo]([https://github.com/Cookinian-App/mobile-development](https://github.com/Afdalgan/NutriCheck-MD-Repo)) |
+| Android Application Repository | [https://github.com/Afdalgan/NutriCheck-MD-Repo](https://github.com/Afdalgan/NutriCheck-MD-Repo) |
 | Machine Learning Repository | [https://github.com/dwipratiwiaprilya/ML_NutriCheck](https://github.com/dwipratiwiaprilya/ML_NutriCheck) |
 | Cloud Computing Backend API Repository | [https://github.com/manzadhit/product-capstone-api](https://github.com/manzadhit/product-capstone-api) |
 
