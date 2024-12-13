@@ -112,15 +112,3 @@ To make use of this repository, the software and hardware should meet these prer
 | JDK & JRE | 15 | - |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-# Repository
-
-| Path | Link |
-| ----------- | :---------: |
-| Android Application Repository | [https://github.com/Afdalgan/NutriCheck-MD-Repo](https://github.com/Afdalgan/NutriCheck-MD-Repo) |
-| Machine Learning Repository | [https://github.com/dwipratiwiaprilya/ML_NutriCheck](https://github.com/dwipratiwiaprilya/ML_NutriCheck) |
-| Cloud Computing Backend API Repository | [https://github.com/manzadhit/product-capstone-api](https://github.com/manzadhit/product-capstone-api) |
-
-
-# Demo Application
