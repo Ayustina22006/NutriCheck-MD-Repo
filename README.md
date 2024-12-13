@@ -1,7 +1,6 @@
 ## NutriCeheck-MD-Repo
 
-
-Cookinian is an AI and Android-based cooking app designed to make meal planning easy for users. With its ingredient scanning feature, the app instantly provides personalized recipe recommendations, complete with detailed cooking steps. Cookinian helps users save time and reduce menu confusion, while encouraging creativity in cooking with ingredients that are readily available at home. In this repository is the design for the android application for the Cookinian application.
+NutriCheck is an AI-powered Android application designed to help users understand the nutritional value of their meals by analyzing them based on the "Isi Piringku" concept, a guideline for balanced nutrition. This app provides a user-friendly **Nutrition Dashboard** that displays a comprehensive daily overview of calorie and nutrient intake, enabling users to track and achieve their dietary goals. It also features **NutriPedia**, a dedicated section filled with informative articles about food, nutrition, and health, empowering users to make better dietary choices. Additionally, NutriCheck offers a **Scan History** feature, allowing users to access records of previously analyzed meals for easy review. With its focus on personalized nutrition tracking and education, NutriCheck is the ultimate companion for users striving for a healthier lifestyle. This repository contains the design and development files for the NutriCheck Android application.
 
 # Team Member
 
