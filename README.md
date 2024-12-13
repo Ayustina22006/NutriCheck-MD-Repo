@@ -78,6 +78,30 @@ NutriCheck is an AI-powered Android application designed to help users understan
 
 - ✅ Dashbord Nutrition User
 
+ ## How can you clone and install the application from this repository??:
+1. You can clone this repository with using one of two methods:
+	- HTTPS: Use Git or SVN checkout by making use of this URL: https://github.com/TheSalmonSushi/EduSign.git
+	   ```sh
+	   git clone https://github.com/Afdalgan/NutriCheck-MD-Repo.git
+	   ```
+	- GitHub CLI: Write this on the command line: 
+	   ```sh
+	   gh repo clone Afdalgan/NutriCheck-MD-Repo.get
+	   ```
+
+2. Or by using Android Studio or any other Android software development IDE(s)
+	- Enable a version control integration in a project, for example in the Android Studio:
+		- By selecting VCS -> Enable Version Control Integration in your Android Studio menubar.
+		- Check if the version control system (VCS) associated to the project is Git. 
+		If you are already set to another VCS, set it in the Settings -> Version Control.
+		
+	- Set a new remote in Git -> Manage Remotes and pressing the 'plus' icon. Set it to the HTTPS link.
+	- Pull the project files to retrieve all files from this repository (if needed)
+	- Rebuild or clean the project files.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 # Repository
 
 | Path | Link |
