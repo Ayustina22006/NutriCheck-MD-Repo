@@ -78,7 +78,7 @@ NutriCheck is an AI-powered Android application designed to help users understan
 
 - ✅ Dashbord Nutrition User
 
- ## How can you clone and install the application from this repository??:
+ # How can you clone and install the application from this repository?
 1. You can clone this repository with using one of two methods:
 	- HTTPS: Use Git or SVN checkout by making use of this URL: https://github.com/Afdalgan/NutriCheck-MD-Repo.git
 	   ```sh
@@ -98,6 +98,18 @@ NutriCheck is an AI-powered Android application designed to help users understan
 	- Set a new remote in Git -> Manage Remotes and pressing the 'plus' icon. Set it to the HTTPS link.
 	- Pull the project files to retrieve all files from this repository (if needed)
 	- Rebuild or clean the project files.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Prerequisites
+
+To make use of this repository, the software and hardware should meet these prerequisities:
+
+| Components | Minimum requirements | Recommended
+| :---: | :---: | :---: |
+| Android devices | Running Android 7.0 (API 24) | Running Android 14.0 (API 34) and above |
+| Android Studio | Newer version (2024.x.x) | The latest version (2024.2.1 - Ladybug) |
+| JDK & JRE | 15 | - |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
