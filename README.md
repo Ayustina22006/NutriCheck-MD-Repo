@@ -56,8 +56,6 @@ NutriCheck is an AI-powered Android application designed to help users understan
       
 - ✅ Data Store
 
-- ✅ Paging3
-
 - ✅ Coroutine Flow
 
 - ✅ ViewBinding
