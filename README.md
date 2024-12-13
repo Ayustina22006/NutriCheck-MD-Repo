@@ -11,14 +11,15 @@
 
 # Introduction
 
-**NutriCheck** is an AI-powered Android application designed to help users understand the nutritional value of their meals using the **"Isi Piringku"** concept, a guideline for balanced nutrition. 
 
-### Key Features:
-- **Nutrition Dashboard**: Provides a comprehensive overview of daily calorie and nutrient intake, helping users track and achieve their dietary goals.
-- **NutriPedia**: A section filled with educational articles about food, nutrition, and health to empower better dietary choices.
-- **Scan History**: Allows users to review previously analyzed meals.
+This repository contains the source code and development files for the **NutriCheck** Android application. It is part of the NutriCheck project, which leverages AI and machine learning to analyze the nutritional value of meals and provide personalized dietary insights.  
 
-NutriCheck is the ultimate companion for personalized nutrition tracking and education, promoting a healthier lifestyle. This repository contains the design and development files for the NutriCheck Android application.
+The repository includes the implementation of features like:
+- Meal analysis Nutrition tracking using model ml from api.
+- User-friendly UI with Material Components.
+- Profile and history management.  
+
+This repository is dedicated to the mobile development aspect of the project, ensuring seamless interaction and user experience on Android devices.
 
 ---
 
